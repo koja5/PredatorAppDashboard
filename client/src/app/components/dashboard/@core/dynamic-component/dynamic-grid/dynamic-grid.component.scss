@@ -1,0 +1,231 @@
+@import "@core/scss/angular/libs/datatables.component.scss";
+@import "@core/scss/base/pages/app-user.scss";
+@import "@core/scss/angular/libs/select.component.scss";
+
+.title-left {
+  padding-left: 5px;
+}
+
+@media (min-width: 992px) {
+  .search {
+    width: 90%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .filter-container .free-search {
+    padding-left: 5px;
+  }
+
+  .export-custom-option {
+    margin-right: -16px;
+    padding-left: 16px;
+    // padding-top: 25px;
+  }
+
+  .region-filter .filter-search {
+    padding-left: 5px;
+  }
+
+  .region-filter .select-region,
+  .region-filter ng-select {
+    min-width: 330px;
+  }
+
+  .advanced-filter {
+    padding: 15px;
+  }
+
+  .advanced-filter-option {
+    display: flex;
+    justify-content: start;
+    margin-top: 10px;
+  }
+
+  .advanced-filter ng-select,
+  .training-valid-date-container {
+    margin-right: 5px;
+  }
+
+  // .advanced-filter-option div {
+  //   margin-right: 5px;
+  // }
+}
+
+@media (max-width: 991px) {
+  .region-filter {
+    display: block !important;
+    width: 100%;
+  }
+
+  .filter-container {
+    display: block;
+  }
+
+  .filter-container .free-search {
+    padding-top: 5px;
+  }
+
+  .region-filter ng-select {
+    min-width: 50% !important;
+  }
+
+  .export-option {
+    text-align: end;
+    padding-top: 15px;
+  }
+
+  .export-option a {
+    padding: 0px;
+  }
+
+  .export-option .dropdown-item {
+    white-space: break-spaces;
+    padding: 10px;
+  }
+
+  .advanced-filter {
+    margin: 0px 15px 10px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 991px) {
+  .search {
+    width: 86%;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .search {
+    width: 69%;
+  }
+}
+
+.google-contacts {
+  width: 32px;
+  height: 32px;
+}
+
+.options {
+  font-size: 20px;
+}
+
+.pdf-icon {
+  color: red;
+}
+
+.excel-icon {
+  color: green;
+}
+
+.content-body {
+  position: relative;
+  z-index: 11;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+.inline-editing span {
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.inline-editing button {
+  display: flex;
+  align-items: center;
+}
+
+.inline-editing button span {
+  padding-right: 5px;
+}
+
+/*EXPORT GRID*/
+#export-grid {
+  border: 1px dotted black;
+  padding: 5px;
+  width: 100%;
+}
+
+#export-grid table {
+  width: 100%;
+}
+
+.d-contents {
+  display: contents;
+}
+
+/* EXPORT GRID */
+
+// datatable-footer {
+//   position: absolute;
+//   bottom: 0px;
+// }
+
+// .ngx-datatable {
+//   &.scroll-vertical {
+//     height: 75vh;
+//   }
+// }
+
+.ngx-datatable.fixed-row
+  .datatable-scroll
+  .datatable-body-row
+  .datatable-body-cell,
+.ngx-datatable.fixed-row
+  .datatable-scroll
+  .datatable-body-row
+  .datatable-body-group-cell {
+  display: flex;
+  align-items: center;
+}
+
+// .ngx-datatable.fixed-row
+//   .datatable-scroll
+//   .datatable-body-row
+//   .datatable-body-cell,
+// .ngx-datatable.fixed-row
+//   .datatable-scroll
+//   .datatable-body-row
+//   .datatable-body-group-cell {
+//   margin: auto;
+//   text-align: center;
+//   display: block;
+// }
+
+.region-filter {
+  display: flex;
+}
+
+.advanced-filter a {
+  color: #427764 !important;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.advanced-filter ng-select {
+  min-width: 240px;
+  min-height: 39px;
+}
+
+.training-valid-date span {
+  margin: 0px !important;
+}
+
+.training-valid-date .e-outline.e-input-group input.e-input {
+  padding: 9px 12px 7px !important;
+  min-height: 36px !important;
+}
+
+.training-valid-date .e-time-icon {
+  display: none !important;
+}

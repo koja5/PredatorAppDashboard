@@ -1,0 +1,192 @@
+{
+    "pageSize": 10,
+    "request": {
+        "type": "GET",
+        "api": "/api/superadmin/getAllDistricts",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
+    "paging": {
+        "enable": true,
+        "settings": {
+            "pageSizes": true,
+            "pageSize": 20
+        }
+    },
+    "sorting": {
+        "enable": true
+    },
+    "grouping": {
+        "enable": true,
+        "group": []
+    },
+    "filtering": {
+        "enable": true,
+        "settings": {
+            "type": "Menu"
+        }
+    },
+    "formDialog": {
+        "type": "sidebar",
+        "size": "lg"
+    },
+    "customGrouping": false,
+    "allowResizing": true,
+    "reorderable": true,
+    "selectable": true,
+    "scrollable": false,
+    "hideable": true,
+    "refresh": false,
+    "reset": true,
+    "editSettingsRequest": {
+        "add": {
+            "type": "POST",
+            "api": "/api/superadmin/setDistrict",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        }
+    },
+    "columns": [
+        {
+            "title": "general.action",
+            "template": {
+                "type": "action",
+                "actionMode": {
+                    "type": "menu",
+                    "icon": "more-vertical",
+                    "menu": [
+                        {
+                            "type": "edit",
+                            "actionName": "general.edit",
+                            "icon": "edit",
+                            "formDialog": {
+                                "type": "sidebar",
+                                "closeAfterExecute": true
+                            }
+                        },
+                        {
+                            "type": "delete",
+                            "actionName": "general.delete",
+                            "icon": "trash",
+                            "executeAction": {
+                                "request": {
+                                    "type": "POST",
+                                    "api": "/api/superadmin/deleteDistrict",
+                                    "parameters": [],
+                                    "fields": "",
+                                    "root": ""
+                                },
+                                "response": "toastr",
+                                "showQuestionBeforeExecute": true,
+                                "modalConfig": {
+                                    "modalTitle": "",
+                                    "modalText": "",
+                                    "windowClass": "modal modal-danger"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "title": "commonFields.name",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "name",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.province",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "province_name",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.districtNumber",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "number",
+            "validation": {
+                "required": true
+            }
+        }
+    ],
+    "config": [
+        {
+            "type": "textbox",
+            "width": "col-md-12 hide",
+            "class": "e-outline",
+            "name": "id",
+            "title": "ID",
+            "field": "id",
+            "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "name",
+            "title": "commonFields.name",
+            "field": "name",
+            "required": true
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "id_province",
+            "title": "commonFields.province",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/superadmin/getAllProvinces",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "number",
+            "title": "commonFields.districtNumber",
+            "field": "number",
+            "required": true
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "btn btn-primary",
+            "name": "submit",
+            "title": "general.save",
+            "field": "submit",
+            "positionClass": "text-right mt-3 col-md-12"
+        }
+    ]
+}

@@ -1,0 +1,4 @@
+<div class="w-25 m-auto">
+    <app-dynamic-forms *ngIf="data" [data]="data" [path]="path" [file]="file"
+        (submit)="saveChanges($event)"></app-dynamic-forms>
+</div>
