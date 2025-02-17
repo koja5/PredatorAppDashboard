@@ -114,18 +114,6 @@
             "validation": {
                 "required": true
             }
-        },
-        {
-            "title": "commonFields.districtNumber",
-            "filterable": true,
-            "hideable": true,
-            "filter": "date",
-            "type": "string",
-            "class": "text-align-right",
-            "field": "number",
-            "validation": {
-                "required": true
-            }
         }
     ],
     "config": [
@@ -168,15 +156,6 @@
                 "ignoreAccent": false,
                 "filter": true
             },
-            "required": true
-        },
-        {
-            "type": "textbox",
-            "width": "col-md-12",
-            "class": "e-outline",
-            "name": "number",
-            "title": "commonFields.districtNumber",
-            "field": "number",
             "required": true
         },
         {

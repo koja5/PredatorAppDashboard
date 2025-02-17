@@ -69,6 +69,8 @@
       "firstname": "Vorname",
       "lastname": "Nachname",
       "gender": "Geschlecht",
+      "man": "Männlich",
+      "woman": "Weiblich",
       "birthday": "Geburtstag",
       "username": "Nutzername",
       "email": "Email",
@@ -114,13 +116,19 @@
       "searchExplanation": "Suchen.explanation",
       "advancedFilter": "Erweiterter Filter",
       "chooseTrainingValidDate": "Gültiges Datum",
-      "chooseTrainingValidDateExplanation": ""
+      "chooseTrainingValidDateExplanation": "",
+      "type": "Berechtigung",
+      "proviceNumber": "Anz. Bezirke",
+      "province": "Bundesland",
+      "district": "Bezirke",
+      "districtNumber": "Anz. Städte",
+      "cityNumber": "Anz. verwendet",
+      "plz": "PLZ"
    },
-   "userTypes": {
-      "superadmin": "Superadmin",
-      "admin": "Admin",
-      "partner": "Partner",
-      "employee": "Employee"
+   "userType": {
+      "superadmin": "Administrator",
+      "user": "Prädator User",
+      "natureProtectionUser": "Naturschutz User"
    },
    "status": {
       "empty": "Leer",
@@ -155,7 +163,11 @@
       "allFishDistricts": "Reviere",
       "administration": "Administration",
       "appConfig": "Einstellungen",
-      "allCountries": "Länder"
+      "allCountries": "Länder",
+      "allProvinces": "Bundesländer",
+      "allUsers": "Benutzer",
+      "allDistricts": "Bezirke",
+      "allCities": "Orte"
    },
    "navBar": {
       "profile": "Profil",

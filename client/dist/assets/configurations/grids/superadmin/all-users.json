@@ -40,7 +40,6 @@
     "hideable": true,
     "refresh": false,
     "reset": true,
-    "disableCreateNewRow": true,
     "editSettings": {
         "allowEditing": true,
         "allowAdding": true,
@@ -180,10 +179,50 @@
             "type": "textbox",
             "width": "col-md-6",
             "class": "e-outline",
+            "name": "email",
+            "title": "commonFields.email",
+            "field": "email",
+            "required": true
+        },
+        {
+            "type": "password",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "password",
+            "title": "commonFields.password",
+            "field": "password",
+            "dependentField": "id"
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "type",
+            "title": "commonFields.type",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/superadmin/getAllUserType",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
             "name": "firstname",
             "title": "commonFields.firstname",
-            "field": "firstname",
-            "required": true
+            "field": "firstname"
         },
         {
             "type": "textbox",
@@ -191,52 +230,26 @@
             "class": "e-outline",
             "name": "lastname",
             "title": "commonFields.lastname",
-            "field": "lastname",
-            "required": true
+            "field": "lastname"
         },
         {
-            "type": "textbox",
-            "width": "col-md-6",
-            "class": "e-outline",
-            "name": "street",
-            "title": "commonFields.street",
-            "field": "street"
-        },
-        {
-            "type": "textbox",
-            "width": "col-md-6",
-            "class": "e-outline",
-            "name": "location",
-            "title": "commonFields.location",
-            "field": "location"
-        },
-        {
-            "type": "textbox",
+            "type": "radio",
             "width": "col-md-12",
-            "class": "e-outline",
-            "name": "email",
-            "title": "commonFields.email",
-            "field": "email",
-            "required": true
-        },
-        {
-            "type": "textbox",
-            "width": "col-md-6",
-            "class": "e-outline",
-            "name": "username",
-            "title": "commonFields.username",
-            "field": "username",
-            "required": true
-        },
-        {
-            "type": "password",
-            "subType": "generatePassword",
-            "width": "col-md-6",
-            "class": "e-outline",
-            "name": "password",
-            "title": "commonFields.password",
-            "field": "password",
-            "dependentField": "id"
+            "name": "gender",
+            "title": "commonFields.gender",
+            "dataArray": [
+                {
+                    "title": "commonFields.man",
+                    "id": 0,
+                    "class": "mb-1"
+                },
+                {
+                    "title": "commonFields.woman",
+                    "id": 1,
+                    "class": "mb-1"
+                }
+            ],
+            "field": "gender"
         },
         {
             "type": "switch",

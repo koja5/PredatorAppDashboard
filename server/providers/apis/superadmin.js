@@ -757,7 +757,7 @@ router.get("/getAllCities", auth, async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
-        conn.query("select ac.*, ad.name as 'district_name', ap.name as 'province_name' from all_cities ac join all_districts ad on ac.id_district = ad.id join all_provinces ap on ac.id_province = ap.id", function (err, rows, fields) {
+        conn.query("select ac.*, ad.name as 'district_name', ap.name as 'province_name' from all_cities ac join all_districts ad on ac.id_district = ad.id join all_provinces ap on ad.id_province = ap.id", function (err, rows, fields) {
           conn.release();
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);

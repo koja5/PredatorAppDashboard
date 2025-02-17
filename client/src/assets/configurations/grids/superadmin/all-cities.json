@@ -104,13 +104,13 @@
             }
         },
         {
-            "title": "commonFields.plz",
+            "title": "commonFields.zip",
             "filterable": true,
             "hideable": true,
             "filter": "date",
             "type": "string",
             "class": "text-align-right",
-            "field": "plz",
+            "field": "zip",
             "validation": {
                 "required": true
             }
@@ -135,18 +135,6 @@
             "type": "string",
             "class": "text-align-right",
             "field": "province_name",
-            "validation": {
-                "required": true
-            }
-        },
-        {
-            "title": "commonFields.cityNumber",
-            "filterable": true,
-            "hideable": true,
-            "filter": "date",
-            "type": "string",
-            "class": "text-align-right",
-            "field": "number",
             "validation": {
                 "required": true
             }
@@ -175,9 +163,9 @@
             "type": "textbox",
             "width": "col-md-12",
             "class": "e-outline",
-            "name": "plz",
-            "title": "commonFields.plz",
-            "field": "plz",
+            "name": "zip",
+            "title": "commonFields.zip",
+            "field": "zip",
             "required": true
         },
         {
@@ -201,38 +189,6 @@
                 "ignoreAccent": false,
                 "filter": true
             },
-            "required": true
-        },
-        {
-            "type": "combobox",
-            "width": "col-md-12",
-            "class": "e-outline",
-            "name": "id_province",
-            "title": "commonFields.province",
-            "field": {
-                "text": "name",
-                "value": "id"
-            },
-            "request": {
-                "type": "GET",
-                "api": "/api/superadmin/getAllProvinces",
-                "parameters": [],
-                "fields": "",
-                "root": ""
-            },
-            "fieldConfig": {
-                "ignoreAccent": false,
-                "filter": true
-            },
-            "required": true
-        },
-        {
-            "type": "numeric",
-            "width": "col-md-12",
-            "class": "e-outline",
-            "name": "number",
-            "title": "commonFields.cityNumber",
-            "field": "number",
             "required": true
         },
         {
