@@ -2,7 +2,7 @@
     "pageSize": 10,
     "request": {
         "type": "GET",
-        "api": "/api/superadmin/getAllUsers",
+        "api": "/api/superadmin/getAllAdmins",
         "parameters": [],
         "fields": "",
         "root": ""
@@ -50,7 +50,7 @@
     "editSettingsRequest": {
         "add": {
             "type": "POST",
-            "api": "/api/superadmin/setUser",
+            "api": "/api/superadmin/setAdmin",
             "parameters": [],
             "fields": "",
             "root": ""
@@ -81,7 +81,7 @@
                             "executeAction": {
                                 "request": {
                                     "type": "POST",
-                                    "api": "/api/superadmin/deleteUser",
+                                    "api": "/api/superadmin/deleteAdmin",
                                     "parameters": [],
                                     "fields": "",
                                     "root": ""
@@ -135,50 +135,6 @@
             "validation": {
                 "required": true
             }
-        },
-        {
-            "title": "commonFields.type",
-            "template": {
-                "choices": [
-                    {
-                        "field": "type",
-                        "value": 0,
-                        "operator": "==",
-                        "apart": {
-                            "title": "userType.user",
-                            "badge": "badge badge-pill badge-light-primary"
-                        }
-                    },
-                    {
-                        "field": "type",
-                        "value": 1,
-                        "operator": "==",
-                        "apart": {
-                            "title": "userType.admin",
-                            "badge": "badge badge-pill badge-light-info"
-                        }
-                    },
-                    {
-                        "field": "type",
-                        "value": 2,
-                        "operator": "==",
-                        "apart": {
-                            "title": "userType.natureProtectionUser",
-                            "badge": "badge badge-pill badge-light-warning"
-                        }
-                    },
-                    {
-                        "field": "type",
-                        "value": 3,
-                        "operator": "==",
-                        "apart": {
-                            "title": "userType.superadmin",
-                            "badge": "badge badge-pill badge-light-danger"
-                        }
-                    }
-                ]
-            },
-            "field": "type"
         },
         {
             "title": "commonFields.active",
@@ -236,29 +192,6 @@
             "title": "commonFields.password",
             "field": "password",
             "dependentField": "id"
-        },
-        {
-            "type": "combobox",
-            "width": "col-md-12",
-            "class": "e-outline",
-            "name": "type",
-            "title": "commonFields.type",
-            "field": {
-                "text": "name",
-                "value": "id"
-            },
-            "request": {
-                "type": "GET",
-                "api": "/api/superadmin/getAllUserType",
-                "parameters": [],
-                "fields": "",
-                "root": ""
-            },
-            "fieldConfig": {
-                "ignoreAccent": false,
-                "filter": true
-            },
-            "required": true
         },
         {
             "type": "textbox",

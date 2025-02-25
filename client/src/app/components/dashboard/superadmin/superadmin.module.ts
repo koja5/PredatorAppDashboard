@@ -17,11 +17,17 @@ import { AllCountriesComponent } from "./all-countries/all-countries.component";
 import { AllProvincesComponent } from "./all-provinces/all-provinces.component";
 import { AllDistrictsComponent } from "./all-districts/all-districts.component";
 import { AllCitiesComponent } from "./all-cities/all-cities.component";
+import { AllAdminsComponent } from "./all-admins/all-admins.component";
+import { AllAreasComponent } from './all-areas/all-areas.component';
 
 const routes: Routes = [
   {
     path: "all-users",
     component: AllUsersComponent,
+  },
+  {
+    path: "all-admins",
+    component: AllAdminsComponent,
   },
   {
     path: "all-predators",
@@ -59,6 +65,10 @@ const routes: Routes = [
     path: "all-cities",
     component: AllCitiesComponent,
   },
+  {
+    path: "all-areas",
+    component: AllAreasComponent,
+  },
 ];
 
 @NgModule({
@@ -73,6 +83,8 @@ const routes: Routes = [
     AllProvincesComponent,
     AllDistrictsComponent,
     AllCitiesComponent,
+    AllAdminsComponent,
+    AllAreasComponent,
   ],
   imports: [
     CommonModule,

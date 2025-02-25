@@ -11,6 +11,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../config/authentification/auth-superadmin");
 const sql = require("../config/sql-database");
 const makeRequest = require("./help-function/makeRequest");
+const userType = require("./enums/user-type");
 
 module.exports = router;
 
@@ -156,6 +157,97 @@ router.post("/generateNewPassword", auth, function (req, res) {
       }
     );
   });
+});
+
+//#endregion
+
+//#region ADMINS
+
+//#region USERS
+
+router.get("/getAllAdmins", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select id, firstname, lastname, gender, phone, email, type, verify, active from users where type = ?",
+          [userType.admin],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/setAdmin", auth, function (req, res, next) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    if (isValidSHA1(req.body.password) && !req.body.id) {
+      req.body.password = sha1(req.body.password);
+    }
+
+    req.body["type"] = userType.admin;
+
+    conn.query(
+      "INSERT INTO users set ? ON DUPLICATE KEY UPDATE ?",
+      [req.body, req.body],
+      function (err, rows) {
+        conn.release();
+        if (!err) {
+          res.json(true);
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
+  });
+});
+
+router.post("/deleteAdmin", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "delete from users where id = ?",
+          [req.body.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(true);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
 });
 
 //#endregion
@@ -677,15 +769,18 @@ router.get("/getAllDistricts", auth, async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
-        conn.query("select ad.*, ap.name as 'province_name' from all_districts ad join all_provinces ap on ad.id_province = ap.id", function (err, rows, fields) {
-          conn.release();
-          if (err) {
-            logger.log("error", err.sql + ". " + err.sqlMessage);
-            res.json(err);
-          } else {
-            res.json(rows);
+        conn.query(
+          "select ad.*, ap.name as 'province_name' from all_districts ad join all_provinces ap on ad.id_province = ap.id",
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
           }
-        });
+        );
       }
     });
   } catch (ex) {
@@ -747,7 +842,6 @@ router.post("/deleteDistrict", auth, async (req, res, next) => {
 
 //#endregion
 
-
 //#region CITIES
 
 router.get("/getAllCities", auth, async (req, res, next) => {
@@ -757,15 +851,18 @@ router.get("/getAllCities", auth, async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
-        conn.query("select ac.*, ad.name as 'district_name', ap.name as 'province_name' from all_cities ac join all_districts ad on ac.id_district = ad.id join all_provinces ap on ad.id_province = ap.id", function (err, rows, fields) {
-          conn.release();
-          if (err) {
-            logger.log("error", err.sql + ". " + err.sqlMessage);
-            res.json(err);
-          } else {
-            res.json(rows);
+        conn.query(
+          "select ac.*, ad.name as 'district_name', ap.name as 'province_name' from all_cities ac join all_districts ad on ac.id_district = ad.id join all_provinces ap on ad.id_province = ap.id",
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
           }
-        });
+        );
       }
     });
   } catch (ex) {
@@ -806,6 +903,88 @@ router.post("/deleteCity", auth, async (req, res, next) => {
       } else {
         conn.query(
           "delete from all_cities where id = ?",
+          [req.body.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(true);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+//#endregion
+
+//#region AREAS
+
+router.get("/getAllAreas", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select a.*, u.firstname, u.lastname from all_areas a join users u on a.id_admin = u.id ",
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/setArea", auth, function (req, res, next) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    conn.query(
+      "INSERT INTO all_areas set ? ON DUPLICATE KEY UPDATE ?",
+      [req.body, req.body],
+      function (err, rows) {
+        conn.release();
+        if (!err) {
+          res.json(true);
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
+  });
+});
+
+router.post("/deleteArea", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "delete from all_areas where id = ?",
           [req.body.id],
           function (err, rows, fields) {
             conn.release();

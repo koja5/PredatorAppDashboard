@@ -123,10 +123,14 @@
       "district": "Bezirke",
       "districtNumber": "Anz. Städte",
       "cityNumber": "Anz. verwendet",
-      "plz": "PLZ"
+      "plz": "PLZ",
+      "admin": "Administrator",
+      "adminFirstname": "Vorname des Administrators",
+      "adminLastname": "Nachname des Administrators"
    },
    "userType": {
-      "superadmin": "Administrator",
+      "admin": "Administrator",
+      "superadmin": "Super Administrator",
       "user": "Prädator User",
       "natureProtectionUser": "Naturschutz User"
    },
@@ -167,7 +171,8 @@
       "allProvinces": "Bundesländer",
       "allUsers": "Benutzer",
       "allDistricts": "Bezirke",
-      "allCities": "Orte"
+      "allCities": "Orte",
+      "allAdmins": "Administratorinnen"
    },
    "navBar": {
       "profile": "Profil",

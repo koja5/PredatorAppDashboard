@@ -2,7 +2,11 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule, Routes } from "@angular/router";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from "@angular/common/http";
 
 import "hammerjs";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -19,6 +23,7 @@ import { AppComponent } from "app/app.component";
 import { LayoutModule } from "app/layout/layout.module";
 import { CookieModule } from "ngx-cookie";
 import { HttpLoaderFactory } from "./services/httpLoaderFactory";
+import { AuthInterceptor } from "./services/auth-interceptor";
 
 const appRoutes: Routes = [
   {
@@ -78,7 +83,9 @@ const appRoutes: Routes = [
       isolate: false,
     }),
   ],
-
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
