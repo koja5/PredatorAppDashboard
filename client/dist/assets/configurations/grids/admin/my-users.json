@@ -2,7 +2,7 @@
     "pageSize": 10,
     "request": {
         "type": "GET",
-        "api": "/api/superadmin/getAllUsers",
+        "api": "/api/admin/getMyUsers",
         "parameters": [],
         "fields": "",
         "root": ""
@@ -50,7 +50,7 @@
     "editSettingsRequest": {
         "add": {
             "type": "POST",
-            "api": "/api/superadmin/setUser",
+            "api": "/api/admin/setUser",
             "parameters": [],
             "fields": "",
             "root": ""
@@ -81,7 +81,7 @@
                             "executeAction": {
                                 "request": {
                                     "type": "POST",
-                                    "api": "/api/superadmin/deleteUser",
+                                    "api": "/api/admin/deleteUser",
                                     "parameters": [],
                                     "fields": "",
                                     "root": ""
@@ -249,7 +249,7 @@
             },
             "request": {
                 "type": "GET",
-                "api": "/api/superadmin/getAllUserType",
+                "api": "/api/admin/getUserType",
                 "parameters": [],
                 "fields": "",
                 "root": ""

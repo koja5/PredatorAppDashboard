@@ -101,10 +101,10 @@ export class LoginComponent {
           if (previousLink) {
             window.open(previousLink, "_self");
             this._storageService.removeLocalStorage("previousLink");
-          } else if (type === UserTypes.user) {
-            window.open("/dashboard/admin/all-fsd-organs", "_self");
-          } else {
+          } else if (type === UserTypes.superadmin) {
             window.open("/dashboard/superadmin/all-fish-districts", "_self");
+          } else if (type === UserTypes.admin) {
+            window.open("/dashboard/admin/my-users", "_self");
           }
           // const user = this._storageService.getDecodeToken();
           // if (!user.firstname || !user.lastname) {

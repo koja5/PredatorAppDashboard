@@ -2,7 +2,7 @@
     "pageSize": 10,
     "request": {
         "type": "GET",
-        "api": "/api/superadmin/getAllUsers",
+        "api": "/api/superadmin/getAllAreas",
         "parameters": [],
         "fields": "",
         "root": ""
@@ -50,7 +50,7 @@
     "editSettingsRequest": {
         "add": {
             "type": "POST",
-            "api": "/api/superadmin/setUser",
+            "api": "/api/superadmin/setArea",
             "parameters": [],
             "fields": "",
             "root": ""
@@ -81,7 +81,7 @@
                             "executeAction": {
                                 "request": {
                                     "type": "POST",
-                                    "api": "/api/superadmin/deleteUser",
+                                    "api": "/api/superadmin/deleteArea",
                                     "parameters": [],
                                     "fields": "",
                                     "root": ""
@@ -101,7 +101,19 @@
             "field": "allow_online"
         },
         {
-            "title": "commonFields.firstname",
+            "title": "commonFields.name",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "name",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.adminFirstname",
             "filterable": true,
             "hideable": true,
             "filter": "date",
@@ -113,7 +125,7 @@
             }
         },
         {
-            "title": "commonFields.lastname",
+            "title": "commonFields.adminLastname",
             "filterable": true,
             "hideable": true,
             "filter": "date",
@@ -123,62 +135,6 @@
             "validation": {
                 "required": true
             }
-        },
-        {
-            "title": "commonFields.email",
-            "filterable": true,
-            "hideable": true,
-            "filter": "date",
-            "type": "string",
-            "class": "text-align-right",
-            "field": "email",
-            "validation": {
-                "required": true
-            }
-        },
-        {
-            "title": "commonFields.type",
-            "template": {
-                "choices": [
-                    {
-                        "field": "type",
-                        "value": 0,
-                        "operator": "==",
-                        "apart": {
-                            "title": "userType.user",
-                            "badge": "badge badge-pill badge-light-primary"
-                        }
-                    },
-                    {
-                        "field": "type",
-                        "value": 1,
-                        "operator": "==",
-                        "apart": {
-                            "title": "userType.admin",
-                            "badge": "badge badge-pill badge-light-info"
-                        }
-                    },
-                    {
-                        "field": "type",
-                        "value": 2,
-                        "operator": "==",
-                        "apart": {
-                            "title": "userType.natureProtectionUser",
-                            "badge": "badge badge-pill badge-light-warning"
-                        }
-                    },
-                    {
-                        "field": "type",
-                        "value": 3,
-                        "operator": "==",
-                        "apart": {
-                            "title": "userType.superadmin",
-                            "badge": "badge badge-pill badge-light-danger"
-                        }
-                    }
-                ]
-            },
-            "field": "type"
         },
         {
             "title": "commonFields.active",
@@ -221,79 +177,43 @@
         },
         {
             "type": "textbox",
-            "width": "col-md-6",
+            "width": "col-12",
             "class": "e-outline",
-            "name": "email",
-            "title": "commonFields.email",
-            "field": "email",
+            "name": "name",
+            "title": "commonFields.name",
+            "field": "name",
             "required": true
         },
         {
-            "type": "password",
-            "width": "col-md-6",
-            "class": "e-outline",
-            "name": "password",
-            "title": "commonFields.password",
-            "field": "password",
-            "dependentField": "id"
-        },
-        {
             "type": "combobox",
-            "width": "col-md-12",
+            "width": "col-12",
             "class": "e-outline",
-            "name": "type",
-            "title": "commonFields.type",
+            "name": "id_admin",
+            "title": "commonFields.admin",
             "field": {
                 "text": "name",
                 "value": "id"
             },
+            "fieldTemplate": {
+                "fields": [
+                    {
+                        "type": "text",
+                        "values": [
+                            "firstname",
+                            "",
+                            "lastname"
+                        ]
+                    }
+                ]
+            },
             "request": {
                 "type": "GET",
-                "api": "/api/superadmin/getAllUserType",
+                "api": "/api/superadmin/getAllAdmins",
                 "parameters": [],
                 "fields": "",
                 "root": ""
             },
-            "fieldConfig": {
-                "ignoreAccent": false,
-                "filter": true
-            },
             "required": true
-        },
-        {
-            "type": "textbox",
-            "width": "col-md-6",
-            "class": "e-outline",
-            "name": "firstname",
-            "title": "commonFields.firstname",
-            "field": "firstname"
-        },
-        {
-            "type": "textbox",
-            "width": "col-md-6",
-            "class": "e-outline",
-            "name": "lastname",
-            "title": "commonFields.lastname",
-            "field": "lastname"
-        },
-        {
-            "type": "radio",
-            "width": "col-md-12",
-            "name": "gender",
-            "title": "commonFields.gender",
-            "dataArray": [
-                {
-                    "title": "commonFields.man",
-                    "id": 0,
-                    "class": "mb-1"
-                },
-                {
-                    "title": "commonFields.woman",
-                    "id": 1,
-                    "class": "mb-1"
-                }
-            ],
-            "field": "gender"
         },
         {
             "type": "switch",

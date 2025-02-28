@@ -172,7 +172,9 @@
       "allUsers": "Benutzer",
       "allDistricts": "Bezirke",
       "allCities": "Orte",
-      "allAdmins": "Administratorinnen"
+      "allAdmins": "Administratorinnen",
+      "allAreas": "Bereiche",
+      "myUsers": "Meine Benutzer"
    },
    "navBar": {
       "profile": "Profil",

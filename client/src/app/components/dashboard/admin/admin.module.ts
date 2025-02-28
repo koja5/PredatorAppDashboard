@@ -4,25 +4,20 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule } from "@ngx-translate/core";
-import { AllFsdOrgansComponent } from "./all-fsd-organs/all-fsd-organs.component";
 import { DynamicModule } from "../@core/dynamic-component/dynamic.module";
 import { NgSelectModule } from "@ng-select/ng-select";
-import { FsdOrganDetailsComponent } from "./all-fsd-organs/fsd-organ-details/fsd-organ-details.component";
 import { CustomCommonModule } from "../@core/common/custom-common.module";
+import { MyUsersComponent } from "./my-users/my-users.component";
 
 const routes: Routes = [
   {
-    path: "all-fsd-organs",
-    component: AllFsdOrgansComponent,
-  },
-  {
-    path: "fsd-organ-details",
-    component: FsdOrganDetailsComponent,
+    path: "my-users",
+    component: MyUsersComponent,
   },
 ];
 
 @NgModule({
-  declarations: [AllFsdOrgansComponent, FsdOrganDetailsComponent],
+  declarations: [MyUsersComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -32,7 +27,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     TranslateModule,
     DynamicModule,
-    CustomCommonModule
+    CustomCommonModule,
   ],
 
   bootstrap: [],

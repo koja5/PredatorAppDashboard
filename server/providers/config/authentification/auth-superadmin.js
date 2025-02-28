@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const userType = require("../../apis/enums/user-type");
 const config = process.env;
 
 const verifyToken = (req, res, next) => {
@@ -34,7 +35,7 @@ const verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token, config.TOKEN_KEY);
     req.user = decoded;
     // check if user is superadmin
-    if (req.user.user.type != 1) {
+    if (req.user.user.type != userType.superadmin) {
       // res.clearCookie("token");
       // res.redirect('/');
       return res.status(401).send("Invalid Token");

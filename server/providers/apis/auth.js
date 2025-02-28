@@ -11,6 +11,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../config/authentification/auth");
 const sql = require("../config/sql-database");
 const makeRequest = require("./help-function/makeRequest");
+const userType = require("./enums/user-type");
 
 module.exports = router;
 
@@ -29,8 +30,8 @@ router.post("/login", function (req, res, next) {
     }
 
     conn.query(
-      "select * from users WHERE email = ? AND password = ? AND type = 1",
-      [req.body.email, sha1(req.body.password)],
+      "select * from users WHERE email = ? AND password = ? AND (type = ? or type = ?)",
+      [req.body.email, sha1(req.body.password), userType.superadmin, userType.admin],
       function (err, rows, fields) {
         conn.release();
         if (err) {
