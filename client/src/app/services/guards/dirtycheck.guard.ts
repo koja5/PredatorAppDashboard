@@ -10,7 +10,6 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
 import { DialogConfirmTemplateComponent } from "app/components/dashboard/@core/common/discard-changes-template/discard-changes-template.component";
 import { Observable, Subject, of } from "rxjs";
-import { map } from "rxjs/operators";
 
 export interface CanComponentDeactivate {
   unsavedChanges(): boolean;

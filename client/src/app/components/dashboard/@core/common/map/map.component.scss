@@ -1,0 +1,16 @@
+.map-container {
+  display: block;
+}
+
+.map {
+  height: 84vh;
+  width: 74%;
+}
+
+.my-location {
+  position: absolute;
+  width: 32px;
+  z-index: 10000;
+  right: 20px;
+  margin-top: 3px;
+}

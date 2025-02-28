@@ -8,16 +8,21 @@ import { DynamicModule } from "../@core/dynamic-component/dynamic.module";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { CustomCommonModule } from "../@core/common/custom-common.module";
 import { MyUsersComponent } from "./my-users/my-users.component";
+import { PredatorsComponent } from "./predators/predators.component";
 
 const routes: Routes = [
   {
     path: "my-users",
     component: MyUsersComponent,
   },
+  {
+    path: "predators",
+    component: PredatorsComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [MyUsersComponent],
+  declarations: [MyUsersComponent, PredatorsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

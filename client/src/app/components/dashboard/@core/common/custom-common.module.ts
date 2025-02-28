@@ -9,6 +9,7 @@ import { LoaderComponent } from "./loader/loader.component";
 import { NoDataComponent } from "./no-data/no-data.component";
 import { GoBackComponent } from "./go-back/go-back.component";
 import { NoDataContentComponent } from "./no-data-content/no-data-content.component";
+import { MapComponent } from './map/map.component';
 
 const appRoutes: Routes = [];
 
@@ -21,6 +22,7 @@ const appRoutes: Routes = [];
     NoDataComponent,
     GoBackComponent,
     NoDataContentComponent,
+    MapComponent,
   ],
   imports: [CommonModule, TranslateModule],
   providers: [],
@@ -33,6 +35,7 @@ const appRoutes: Routes = [];
     NoDataComponent,
     GoBackComponent,
     NoDataContentComponent,
+    MapComponent
   ],
 })
 export class CustomCommonModule {}

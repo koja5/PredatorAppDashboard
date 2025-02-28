@@ -140,6 +140,39 @@ router.get("/getUserType", auth, async (req, res, next) => {
 
 //#endregion
 
+//#region PREDATORS
+
+router.get("/getPredators", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        console.log(req.user.user.id);
+        conn.query(
+          "select * from predators p join users u on p.id_user = u.id",
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              console.log(rows);
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+//#endregion
+
 //#region HELP FUNCTION
 
 function isValidSHA1(s) {

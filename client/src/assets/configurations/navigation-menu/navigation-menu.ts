@@ -125,4 +125,13 @@ export const menu = [
     url: "dashboard/admin/my-users",
     users: ["admin"],
   },
+  {
+    id: "predators",
+    title: "predators",
+    translate: "navigations.predators",
+    type: "item",
+    icon: "users",
+    url: "dashboard/admin/predators",
+    users: ["admin"],
+  },
 ];
