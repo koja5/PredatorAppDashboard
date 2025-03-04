@@ -1006,6 +1006,7 @@ router.post("/deleteArea", auth, async (req, res, next) => {
 
 //#endregion
 
+
 //#region HELP FUNCTION
 
 function isValidSHA1(s) {

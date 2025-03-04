@@ -1,1 +1,85 @@
-<app-map *ngIf="predators" [predators]="predators"></app-map>
+<div class="d-flex">
+    <div [ngStyle]="{'width': data ? '70%' : '100%'}" [ngClass]="data ? 'pr-2' : ''">
+        <app-map *ngIf="predators" [predators]="predators" (submit)="submit($event)"></app-map>
+    </div>
+    <div *ngIf="loader" style="width: 30%; position: relative;">
+        <app-loader></app-loader>
+    </div>
+    <div class="data-info" *ngIf="!loader&&data" style="width: 30%;">
+        <div>
+            <label class="custom-label">{{'predator.user' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="email" [(ngModel)]="data.client_name">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.creationDate' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="creationDate" [(ngModel)]="data.client_name">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.predator' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="predator_name" [(ngModel)]="data.predator_name">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.activity' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="activity" [(ngModel)]="data.activity">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.water' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="water_name" [(ngModel)]="data.water_name">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.district' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="fish_district" [(ngModel)]="data.fish_district">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.distanceToWater' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="distance_to_water"
+                [(ngModel)]="data.distance_to_water">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.latitude' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="latitude" [(ngModel)]="data.latitude">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.longitude' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="longitude" [(ngModel)]="data.longitude">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.totalNumber' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="total_number" [(ngModel)]="data.total_number">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.youngAnimals' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="including_young_animals"
+                [(ngModel)]="data.including_young_animals">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.maleAnimals' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="including_male_animals"
+                [(ngModel)]="data.including_male_animals">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.femaleAnimals' | translate}}
+            </label>
+            <input type="textbox" class="e-outline form-control" name="including_female_animals"
+                [(ngModel)]="data.including_female_animals">
+        </div>
+        <div>
+            <label class="custom-label">{{'predator.comment' | translate}}
+            </label>
+            <textarea type="textbox" class="e-outline form-control" name="comment"
+                [(ngModel)]="data.comment"></textarea>
+        </div>
+    </div>
+</div>

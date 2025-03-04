@@ -151,7 +151,7 @@ router.get("/getPredators", auth, async (req, res, next) => {
       } else {
         console.log(req.user.user.id);
         conn.query(
-          "select * from predators p join users u on p.id_user = u.id",
+          "select p.* from predators p join users u on p.id_user = u.id",
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -160,6 +160,34 @@ router.get("/getPredators", auth, async (req, res, next) => {
             } else {
               console.log(rows);
               res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/getPredatorById/:id", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select DISTINCT p.*, CONCAT(u.firstname, ' ', u.lastname) as 'client_name', ap.name as 'predator_name', aw.name as 'water_name', afd.name as 'fish_district', aa.name 'activity' from predators p join users u on p.id_user = u.id join all_predators ap on p.id_predator = ap.id join all_waters aw on p.id_water = aw.id join all_fish_districts afd on p.id_fish_district = afd.id join all_activities aa on p.id_activity = aa.id where p.id = ? and u.id_admin = ?",
+          [req.params.id, req.user.user.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows.length ? rows[0] : {});
             }
           }
         );

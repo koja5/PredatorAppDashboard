@@ -228,55 +228,6 @@
       "passwordsNeedToBeSame": "Neues und wiederholtes Passwort müssen gleich sein!",
       "successfulyChangedPassword": "Passwort erfolgreich geändert"
    },
-   "fsdOrgan": {
-      "title": "Information",
-      "titel": "Titel",
-      "nachname": "Nachname",
-      "vorname": "Vorname",
-      "adresszusatz": "Adresszusatz",
-      "strabe": "Straße",
-      "ort": "Ort",
-      "geburtsdatum": "Geburtsdatum",
-      "telefonnummer": "Telefon 1",
-      "telefonnummer2": "Telefon 2",
-      "mobil": "Mobil",
-      "email": "Email",
-      "sperre": "Sperre",
-      "todesfall": "Todesfall",
-      "exportBirthdayAndFortbildung": "Geburtstag und Fortbildung exportieren",
-      "exportPersonalInformationAndFortbildung": "Persönliche Informationen und Fortbildung exportieren",
-      "exportPersonalInformationAndFortbildungAndBestellungen": "Persönliche Informationen, Fortbildung und Bestimmungen exportieren"
-   },
-   "fortbildungstermine": {
-      "title": "Fortbildungstermine",
-      "fortbilfdungstermin": "Fortbildungstermin",
-      "FSDFBOrt": "Ort der Fortbildung",
-      "Teilnahme": "Teilnahme",
-      "active": "Aktiv",
-      "inactive": "Inaktiv"
-   },
-   "bestellungen": {
-      "title": "Bestellungen",
-      "bescheidDatum": "Bescheid-Datum",
-      "zahl": "Zahl",
-      "bh": "BH",
-      "fbz": "FBZ",
-      "bezirk": "Bezirk",
-      "land": "Land",
-      "dienstnummer": "Dienstnummer",
-      "abzeichennummer": "Abzeichennummer",
-      "bestelltSeit": "Bestellt seit",
-      "bezirkActive": "für gesamten Bezirk",
-      "landActive": "für gesamtes Land",
-      "abbestellung": "Abbestellung"
-   },
-   "jahresfischerkarten": {
-      "title": "Jahresfischerkarten",
-      "fsd": "FSD ID",
-      "year": "Jahr",
-      "date": "Datum",
-      "uid": "UID"
-   },
    "appConfig": {
       "maxUploadWidth": "Maximale Upload Bildbreite px",
       "maxUploadHeight": "Maximale Upload Bildhöhe px",
@@ -288,5 +239,22 @@
       "code": "Code",
       "eu": "EU",
       "number": "Anz. Bundesl."
+   },
+   "predator": {
+      "user": "Ersteller",
+      "creationDate": "Erstellt am/um",
+      "predator": "Predator",
+      "activity": "Atkivität",
+      "water": "Gewässer",
+      "district": "Revier",
+      "distanceToWater": "Gewässer Abstand",
+      "gps": "GPS",
+      "latitude": "Längengrad",
+      "longitude": "Breitengrad",
+      "totalNumber": "Anzahl Gesamt",
+      "youngAnimals": "Anzahl Jungtiere",
+      "maleAnimals": "Anz. männl. Erw.",
+      "femaleAnimals": "Anz. weibl. Erw.",
+      "comment": "Kommentar"
    }
 }

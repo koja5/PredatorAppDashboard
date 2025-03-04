@@ -4,7 +4,7 @@
 
 .map {
   height: 84vh;
-  width: 74%;
+  width: 100%;
 }
 
 .my-location {
@@ -13,4 +13,8 @@
   z-index: 10000;
   right: 20px;
   margin-top: 3px;
+}
+
+.map-pointer {
+  cursor: pointer;
 }

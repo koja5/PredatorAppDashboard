@@ -35,6 +35,7 @@ export class MapComponent implements OnInit {
   @ViewChild("map") public map!: Map;
 
   public loader = true;
+  public data: any;
 
   constructor() {}
 
@@ -42,78 +43,29 @@ export class MapComponent implements OnInit {
     setTimeout(async () => {
       this.initializeMap();
 
-      if (this.manual) {
-        this.map.on("singleclick", function (this: MapComponent, evt) {
-          const coordinate = evt.coordinate;
-          coordinate[1] -= 0.00007;
-          const iconFeature = new Feature({
-            geometry: new Point([coordinate[0], coordinate[1]]),
-            population: 4000,
-            rainfall: 500,
-          });
-
-          const iconStyle = new Style({
-            image: new Icon({
-              anchor: [0.5, 46],
-              anchorXUnits: "fraction",
-              anchorYUnits: "pixels",
-              src: "assets/icon/map-marker.png",
-              width: 40,
-              height: 40,
-            }),
-          });
-
-          iconFeature.setStyle(iconStyle);
-
-          const vectorSource = new VectorSource({
-            features: [iconFeature],
-          });
-
-          const vectorLayer = new VectorLayer({
-            source: vectorSource,
-          });
-
-          evt.map.setLayers([
-            new TileLayer({
-              source: new OSM(),
-            }),
-            vectorLayer,
-          ]);
-          evt.map.setView(
-            new View({
-              center: [coordinate[0], coordinate[1]],
-              zoom: 80,
-              maxZoom: 18,
-            })
-          );
-          localStorage.setItem(
-            "coordination",
-            JSON.stringify({ log: coordinate[0], lat: coordinate[1] })
-          );
-        });
-      }
+      this.map.on("singleclick", (e) => {
+        var feature = e.map.forEachFeatureAtPixel(
+          e.pixel,
+          function (this: MapComponent, feature) {
+            return feature;
+          }
+        ) as Feature;
+        console.log(feature.getProperties());
+        const value = feature.getProperties().population;
+        this.submit.emit(value);
+      });
     }, 10);
   }
 
   async initializeMap() {
     this.setPoint();
-    // if (!this.longitude && !this.latitude) {
-    //   const geolocation = await Geolocation.getCurrentPosition();
-    //   this.setPoint(geolocation.coords.longitude, geolocation.coords.latitude);
-    // } else {
-    //   this.setPoint(this.longitude, this.latitude);
-    // }
   }
 
   setPoint() {
     this.map = new Map({});
     const long = 20.85523;
     const lat = 44.031441;
-    const iconFeature = new Feature({
-      geometry: new Point([long, lat]),
-      population: 4000,
-      rainfall: 500,
-    });
+    const iconFeature = new Feature({});
 
     const iconStyle = new Style({
       image: new Icon({
@@ -147,8 +99,9 @@ export class MapComponent implements OnInit {
           this.predators[i].longitude,
           this.predators[i].latitude,
         ]),
-        population: 4000,
+        population: this.predators[i].id,
         rainfall: 500,
+        class: "map-pointer",
       });
 
       const iconStyle = new Style({
@@ -183,7 +136,7 @@ export class MapComponent implements OnInit {
       new View({
         center: [long, lat],
         zoom: 80,
-        maxZoom: 18,
+        maxZoom: 15,
       })
     );
   }
@@ -197,6 +150,7 @@ export class MapComponent implements OnInit {
 
   clickMap(item: any) {
     console.log(item);
+    return true;
   }
 
   async getMyLocation() {

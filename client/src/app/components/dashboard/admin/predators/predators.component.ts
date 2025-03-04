@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { CallApiService } from "app/services/call-api.service";
+import { PredatorModel } from "../../models/predator.model";
 
 @Component({
   selector: "app-predators",
@@ -8,6 +9,8 @@ import { CallApiService } from "app/services/call-api.service";
 })
 export class PredatorsComponent {
   public predators: any;
+  public data: PredatorModel;
+  public loader = false;
 
   constructor(private _service: CallApiService) {}
 
@@ -15,5 +18,15 @@ export class PredatorsComponent {
     this._service.callGetMethod("/api/admin/getPredators").subscribe((data) => {
       this.predators = data;
     });
+  }
+
+  submit(event: any) {
+    this.loader = true;
+    this._service
+      .callGetMethod("/api/admin/getPredatorById", event)
+      .subscribe((data: any) => {
+        this.data = data;
+        this.loader = false;
+      });
   }
 }
