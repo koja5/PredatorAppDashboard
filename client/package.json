@@ -19,7 +19,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "15.2.10",
-    "@angular/cdk": "12.0.4",
+    "@angular/cdk": "^12.0.4",
     "@angular/common": "15.2.10",
     "@angular/compiler": "15.2.10",
     "@angular/core": "15.2.10",
@@ -39,6 +39,7 @@
     "@fullcalendar/interaction": "5.7.2",
     "@fullcalendar/list": "5.7.2",
     "@fullcalendar/timegrid": "5.7.2",
+    "@kolkov/ngx-gallery": "^2.0.1",
     "@ng-bootstrap/ng-bootstrap": "^11.0.1",
     "@ng-select/ng-select": "6.1.0",
     "@ngx-translate/core": "13.0.0",

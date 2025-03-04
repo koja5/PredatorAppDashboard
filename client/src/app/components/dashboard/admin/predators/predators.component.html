@@ -5,6 +5,13 @@
     <div *ngIf="loader" style="width: 30%; position: relative;">
         <app-loader></app-loader>
     </div>
+    <div *ngIf="noDataFound" class="no-data-found">
+        <div class="text-center">
+            <img class="no-location-icon" src="../../../../../assets/images/icons/no-data-found.png">
+            <h3>
+                {{'general.noInformation' | translate}}</h3>
+        </div>
+    </div>
     <div class="data-info" *ngIf="!loader&&data" style="width: 30%;">
         <div>
             <label class="custom-label">{{'predator.user' | translate}}
@@ -80,6 +87,10 @@
             </label>
             <textarea type="textbox" class="e-outline form-control" name="comment"
                 [(ngModel)]="data.comment"></textarea>
+        </div>
+        <div *ngIf="galleryImages" class="mt-2">
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"
+                (imagesReady)="imageGallery($event)"></ngx-gallery>
         </div>
     </div>
 </div>

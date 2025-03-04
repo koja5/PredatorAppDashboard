@@ -50,9 +50,12 @@ export class MapComponent implements OnInit {
             return feature;
           }
         ) as Feature;
-        console.log(feature.getProperties());
-        const value = feature.getProperties().population;
-        this.submit.emit(value);
+        if (feature) {
+          const value = feature.getProperties().population;
+          this.submit.emit(value);
+        } else {
+          this.submit.emit(false);
+        }
       });
     }, 10);
   }
@@ -109,7 +112,10 @@ export class MapComponent implements OnInit {
           anchor: [0.5, 46],
           anchorXUnits: "fraction",
           anchorYUnits: "pixels",
-          src: "assets/images/icons/map-marker.png",
+          src:
+            "assets/images/icons/map-marker_" +
+            this.predators[i].id_predator +
+            ".png",
           width: 40,
           height: 40,
         }),

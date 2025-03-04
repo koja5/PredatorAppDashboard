@@ -9,6 +9,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { CustomCommonModule } from "../@core/common/custom-common.module";
 import { MyUsersComponent } from "./my-users/my-users.component";
 import { PredatorsComponent } from "./predators/predators.component";
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 const routes: Routes = [
   {
@@ -33,8 +34,9 @@ const routes: Routes = [
     TranslateModule,
     DynamicModule,
     CustomCommonModule,
+    NgxGalleryModule
   ],
-
+  providers: [],
   bootstrap: [],
 })
 export class AdminModule {}
