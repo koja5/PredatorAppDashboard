@@ -17,6 +17,7 @@ export class PredatorModel {
   activity: string;
   fish_district: string;
   client_name: string;
+  creation_date: Date;
   completed_date: Date;
   distance_to_water: number;
   predator_name: string;

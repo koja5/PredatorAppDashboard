@@ -1,11 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { CallApiService } from "app/services/call-api.service";
 import { PredatorModel } from "../../models/predator.model";
-import {
-  NgxGalleryAnimation,
-  NgxGalleryImage,
-  NgxGalleryOptions,
-} from "@kolkov/ngx-gallery";
+
+import { DialogConfirmComponent } from "../../@core/common/dialog-confirm/dialog-confirm.component";
+import { ToastrComponent } from "../../@core/common/toastr/toastr.component";
+import { NgxGalleryImage } from "@kolkov/ngx-gallery";
 // import { ImageItem } from "ng-gallery";
 
 @Component({
@@ -14,58 +13,29 @@ import {
   styleUrls: ["./predators.component.scss"],
 })
 export class PredatorsComponent {
+  @ViewChild(DialogConfirmComponent) dialogConfirm;
   public predators: any;
   public data: PredatorModel;
   public noDataFound = false;
   public loader = false;
-  galleryOptions: NgxGalleryOptions[];
+  public loaderData = false;
   galleryImages: NgxGalleryImage[] = [];
 
-  constructor(private _service: CallApiService) {}
+  constructor(
+    private _service: CallApiService,
+    private _toastr: ToastrComponent
+  ) {}
 
   ngOnInit() {
+    this.getPredators();
+  }
+
+  getPredators() {
+    this.loaderData = true;
     this._service.callGetMethod("/api/admin/getPredators").subscribe((data) => {
       this.predators = data;
+      this.loaderData = false;
     });
-
-    this.initializeGalleryOptions();
-  }
-
-  initializeGalleryOptions() {
-    this.galleryOptions = [
-      {
-        width: "100%",
-        height: "300px",
-        thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide,
-      },
-      {
-        breakpoint: 800,
-        width: "100%",
-        height: "600px",
-        imagePercent: 80,
-        thumbnailsPercent: 20,
-        thumbnailsMargin: 20,
-        thumbnailMargin: 20,
-      },
-      {
-        breakpoint: 400,
-        preview: false,
-      },
-    ];
-  }
-
-  packImage() {
-    const images = this.data.gallery.split(";");
-    this.galleryImages = [];
-    for (let i = 0; i < images.length; i++) {
-      const image = "https://praedatoren.app/assets/file-storage/" + images[i];
-      this.galleryImages.push({
-        small: image,
-        medium: image,
-        big: image,
-      });
-    }
   }
 
   submit(event: any) {
@@ -76,16 +46,39 @@ export class PredatorsComponent {
         .callGetMethod("/api/admin/getPredatorById", event)
         .subscribe((data: any) => {
           this.data = data;
-          this.packImage();
           this.loader = false;
         });
     } else {
+      this.loader = false;
       this.data = null;
       this.noDataFound = true;
     }
   }
 
-  imageGallery(event) {
-    console.log(event);
+  deletePredator() {
+    this.loaderData = true;
+    this._service
+      .callPostMethod("/api/admin/deletePredator", this.data)
+      .subscribe((data) => {
+        if (data) {
+          this._toastr.showSuccess();
+          this.removePredatorFromList(this.data.id);
+          this.data = null;
+          this.loaderData = false;
+        }
+      });
+  }
+
+  removePredatorFromList(id: number) {
+    for (let i = 0; i < this.predators.length; i++) {
+      if (this.predators[i].id === id) {
+        this.predators.splice(i, 1);
+        break;
+      }
+    }
+  }
+
+  showQuestionModalEmit() {
+    this.dialogConfirm.showQuestionModal();
   }
 }

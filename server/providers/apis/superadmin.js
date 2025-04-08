@@ -34,7 +34,7 @@ router.get("/getAllUsers", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select id, firstname, lastname, gender, phone, email, type, verify, active from users",
+          "select id, id_area, firstname, lastname, gender, phone, email, type, verify, active, trusted from users",
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -84,7 +84,7 @@ router.post("/setUser", auth, function (req, res, next) {
       res.json(err);
     }
 
-    if (isValidSHA1(req.body.password) && !req.body.id) {
+    if (req.body.password && !isValidSHA1(req.body.password)) {
       req.body.password = sha1(req.body.password);
     }
 
@@ -200,7 +200,7 @@ router.post("/setAdmin", auth, function (req, res, next) {
       res.json(err);
     }
 
-    if (isValidSHA1(req.body.password) && !req.body.id) {
+    if (req.body.password && !isValidSHA1(req.body.password)) {
       req.body.password = sha1(req.body.password);
     }
 
@@ -953,6 +953,30 @@ router.get("/getAllAreas", auth, async (req, res, next) => {
   }
 });
 
+router.get("/getAllAreasForUsers", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query("select * from all_areas", function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
 router.post("/setArea", auth, function (req, res, next) {
   connection.getConnection(function (err, conn) {
     if (err) {
@@ -1005,7 +1029,6 @@ router.post("/deleteArea", auth, async (req, res, next) => {
 });
 
 //#endregion
-
 
 //#region HELP FUNCTION
 

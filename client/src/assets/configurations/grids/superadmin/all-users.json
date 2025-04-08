@@ -208,6 +208,32 @@
             "filter": {
                 "type": "CheckBox"
             }
+        },
+        {
+            "title": "commonFields.trusted",
+            "template": {
+                "choices": [
+                    {
+                        "field": "trusted",
+                        "value": 0,
+                        "operator": "==",
+                        "apart": {
+                            "title": "commonFields.untrusted",
+                            "badge": "badge badge-pill badge-light-warning"
+                        }
+                    },
+                    {
+                        "field": "trusted",
+                        "value": 1,
+                        "operator": "==",
+                        "apart": {
+                            "title": "commonFields.trusted",
+                            "badge": "badge badge-pill badge-light-success"
+                        }
+                    }
+                ]
+            },
+            "field": "trusted"
         }
     ],
     "config": [
@@ -261,6 +287,28 @@
             "required": true
         },
         {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "id_area",
+            "title": "commonFields.area",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/superadmin/getAllAreasForUsers",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            }
+        },
+        {
             "type": "textbox",
             "width": "col-md-6",
             "class": "e-outline",
@@ -302,6 +350,14 @@
             "name": "active",
             "title": "commonFields.active",
             "field": "active"
+        },
+        {
+            "type": "switch",
+            "width": "col-12",
+            "class": "e-outline",
+            "name": "trusted",
+            "title": "commonFields.trusted",
+            "field": "trusted"
         },
         {
             "type": "button",

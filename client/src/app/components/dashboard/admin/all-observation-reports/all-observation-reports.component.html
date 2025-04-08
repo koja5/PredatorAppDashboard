@@ -1,0 +1,40 @@
+<app-dynamic-grid *ngIf="data" #grid [path]="path" [file]="file" [data]="data" [templateFilter]="templateFilter"
+    [height]="'auto'" (emitValueForCustomForm)="emitValue($event)"></app-dynamic-grid>
+
+<ng-template #templateFilter>
+    <div class="ml-1 custom-filter">
+        <ng-select [items]="customFilter" [(ngModel)]="selectedFilter" name="customFilter"
+            placeholder="{{'allObservationReports.filterObservation' | translate}}"
+            (change)="changeCustomFilter($event)">
+            <ng-template ng-label-tmp let-item="item">
+                {{item.name | translate}}
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item">
+                {{item.name | translate}}
+            </ng-template>
+        </ng-select>
+    </div>
+</ng-template>
+
+<core-sidebar #sidebar class="modal modal-slide-in sidebar-todo-modal fade" (collapsedChangedEvent)="closeSidebar()"
+    name="sidebar" overlayClass="modal-backdrop">
+    <div class="slideout-content">
+        <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+            <div class="modal-dialog">
+                <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)"
+                    #newUserForm="ngForm">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="closeSidebar()">
+                        ×
+                    </button>
+
+                    <div class="modal-body flex-grow-1 mt-2" *ngIf="selectedRow">
+                        <app-form-data-report [data]="selectedRow"></app-form-data-report>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</core-sidebar>

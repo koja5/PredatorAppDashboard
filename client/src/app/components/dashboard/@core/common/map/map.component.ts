@@ -43,18 +43,13 @@ export class MapComponent implements OnInit {
     setTimeout(async () => {
       this.initializeMap();
 
-      this.map.on("singleclick", (e) => {
-        var feature = e.map.forEachFeatureAtPixel(
-          e.pixel,
-          function (this: MapComponent, feature) {
-            return feature;
-          }
-        ) as Feature;
+      this.map.on("click", (e) => {
+        var feature = e.map.forEachFeatureAtPixel(e.pixel, (feature) => {
+          return feature;
+        }) as Feature;
         if (feature) {
           const value = feature.getProperties().population;
           this.submit.emit(value);
-        } else {
-          this.submit.emit(false);
         }
       });
     }, 10);
@@ -76,8 +71,8 @@ export class MapComponent implements OnInit {
         anchorXUnits: "fraction",
         anchorYUnits: "pixels",
         src: "assets/images/icons/map-marker.png",
-        width: 40,
-        height: 40,
+        width: 32,
+        height: 32,
       }),
     });
 
@@ -88,15 +83,6 @@ export class MapComponent implements OnInit {
     });
 
     for (var i = 0; i < this.predators.length; i++) {
-      // var element = document.getElementById("marker" + i);
-      // var marker = new Overlay({
-      //   position: [this.predators[i].longitude, this.predators[i].latitude],
-      //   positioning: "center-center",
-      //   element: element!,
-      //   stopEvent: false,
-      // });
-      // this.map.addOverlay(marker);
-
       const iconFeature = new Feature({
         geometry: new Point([
           this.predators[i].longitude,
@@ -116,8 +102,8 @@ export class MapComponent implements OnInit {
             "assets/images/icons/map-marker_" +
             this.predators[i].id_predator +
             ".png",
-          width: 40,
-          height: 40,
+          width: 32,
+          height: 32,
         }),
       });
 
@@ -155,25 +141,6 @@ export class MapComponent implements OnInit {
   }
 
   clickMap(item: any) {
-    console.log(item);
     return true;
-  }
-
-  async getMyLocation() {
-    // const geolocation = await Geolocation.getCurrentPosition();
-    // this.longitude = geolocation.coords.longitude;
-    // this.latitude = geolocation.coords.latitude;
-    // localStorage.setItem(
-    //   "coordination",
-    //   JSON.stringify({
-    //     log: this.longitude,
-    //     lat: this.latitude,
-    //   })
-    // );
-    // this.loader = false;
-    // setTimeout(() => {
-    //   this.loader = true;
-    //   this.ngOnInit();
-    // }, 100);
   }
 }

@@ -3,40 +3,7 @@
     <div class="content-body">
         <!-- User List -->
         <section class="users-list-wrapper">
-            <!-- users filter start -->
-            <div class="card" *ngIf="config.searchFilter">
-                <h5 class="card-header">{{'general.searchFilter' | translate}}</h5>
-                <div class="card-body">
-                    <div class="users-list-filter">
-                        <form>
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <fieldset class="form-group">
-                                        <ng-select [items]="selectRole" [(ngModel)]="selectedRole" name="selectedRole"
-                                            bindLabel="name" placeholder="Select Role"
-                                            (change)="filterByRole($event)"></ng-select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <fieldset class="form-group">
-                                        <ng-select [items]="selectPlan" [(ngModel)]="selectedPlan" name="selectedPlan"
-                                            bindLabel="name" placeholder="Select Plan"
-                                            (change)="filterByPlan($event)"></ng-select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <fieldset class="form-group">
-                                        <ng-select [items]="selectStatus" [(ngModel)]="selectedStatus"
-                                            name="selectedStatus" bindLabel="name" placeholder="Select Status"
-                                            (change)="filterByStatus($event)"></ng-select>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- users filter end -->
+
 
             <div class="card">
                 <div class="p-1 filter-container">
@@ -61,6 +28,44 @@
                             (keyup)="filterUpdate($event)" (search)="filterUpdate($event)" placeholder="{{'general.searchFilter' |
                                 translate}}" />
                     </div>
+
+                    <ng-template #form *ngIf="templateFilter" [ngTemplateOutlet]="templateFilter"></ng-template>
+
+                    <!-- users filter start -->
+                    <!-- <div class="card" *ngIf="config.searchFilter">
+                        <h5 class="card-header">{{'general.searchFilter' | translate}}</h5>
+                        <div class="card-body">
+                            <div class="users-list-filter">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-12 col-md-4">
+                                            <fieldset class="form-group">
+                                                <ng-select [items]="selectRole" [(ngModel)]="selectedRole"
+                                                    name="selectedRole" bindLabel="name" placeholder="Select Role"
+                                                    (change)="filterByRole($event)"></ng-select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <fieldset class="form-group">
+                                                <ng-select [items]="selectPlan" [(ngModel)]="selectedPlan"
+                                                    name="selectedPlan" bindLabel="name" placeholder="Select Plan"
+                                                    (change)="filterByPlan($event)"></ng-select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <fieldset class="form-group">
+                                                <ng-select [items]="selectStatus" [(ngModel)]="selectedStatus"
+                                                    name="selectedStatus" bindLabel="name" placeholder="Select Status"
+                                                    (change)="filterByStatus($event)"></ng-select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- users filter end -->
+
                     <div class="export-option" *ngIf="!config.export || (config.export && config.export.csv)">
                         <li ngbDropdown class="nav-item dropdown-user" style="list-style-type: none;">
                             <a class="nav-link dropdown-toggle export-custom-option" id="dropdown-user"
@@ -300,12 +305,28 @@
                                             (click)="openLink(item.template.actionMode.routerLink, row)" rippleEffect>
                                             <span [data-feather]="item.template.actionMode.icon"
                                                 [class]="'cursor-pointer'"></span>
+                                            <span *ngIf="item.template.actionMode.text">{{item.template.actionMode.text
+                                                | translate}}</span>
                                         </button>
-                                        <button *ngIf="item.template.actionMode.action" type="button"
-                                            class="btn icon-btn btn-sm hide-arrow"
+                                        <button
+                                            *ngIf="item.template.actionMode.action&&checkCondition(item.template, row)"
+                                            type="button"
+                                            class="btn icon-btn btn-sm hide-arrow {{item.template.actionMode.class}}"
                                             (click)="actionColumn(item.template.actionMode.action, value, row)"><span
                                                 [data-feather]="item.template.actionMode.action.icon"
-                                                [class]="'cursor-pointer'"></span></button>
+                                                [class]="'cursor-pointer'"></span> <span class="action-button-text"
+                                                *ngIf="item.template.actionMode.action.text">{{item.template.actionMode.action.text
+                                                | translate}}</span></button>
+                                    </div>
+
+                                    <div *ngIf="item.template.actionMode.type === 'emit'">
+                                        <button type="button"
+                                            class="btn icon-btn btn-sm hide-arrow {{item.template.actionMode.class}}"
+                                            (click)="emitRow(row)"><span
+                                                [data-feather]="item.template.actionMode.action.icon"
+                                                [class]="'cursor-pointer'"></span> <span class="action-button-text"
+                                                *ngIf="item.template.actionMode.action.text">{{item.template.actionMode.action.text
+                                                | translate}}</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -457,6 +478,30 @@
         </div>
         <div class="modal-body" tabindex="0" ngbAutofocus>
             {{'generalDialog.deleteQuestion' | translate}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="allowExecuteActionFromModal()" rippleEffect>
+                {{'generalDialog.yes' | translate}}
+            </button>
+            <button type="button" class="btn btn-default" (click)="modal.close('Accept click')" rippleEffect>
+                {{'generalDialog.no' | translate}}
+            </button>
+        </div>
+    </ng-template>
+
+    <!--/ DELETE QUESTION MODULE-->
+
+    <!--DELETE QUESTION MODULE-->
+
+    <ng-template #modalExecuteAction let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="myModalLabel160">{{'generalDialog.areYouSure' | translate}}</h5>
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" tabindex="0" ngbAutofocus>
+            {{'generalDialog.executeActionQuestion' | translate}}
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" (click)="allowExecuteActionFromModal()" rippleEffect>

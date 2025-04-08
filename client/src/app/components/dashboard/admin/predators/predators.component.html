@@ -1,6 +1,7 @@
 <div class="d-flex">
     <div [ngStyle]="{'width': data ? '70%' : '100%'}" [ngClass]="data ? 'pr-2' : ''">
-        <app-map *ngIf="predators" [predators]="predators" (submit)="submit($event)"></app-map>
+        <app-loader *ngIf="loaderData"></app-loader>
+        <app-map *ngIf="predators&&!loaderData" [predators]="predators" (submit)="submit($event)"></app-map>
     </div>
     <div *ngIf="loader" style="width: 30%; position: relative;">
         <app-loader></app-loader>
@@ -13,6 +14,10 @@
         </div>
     </div>
     <div class="data-info" *ngIf="!loader&&data" style="width: 30%;">
+        <app-form-data-report [data]="data" [galleryImages]="galleryImages"
+            (showQuestionModalEmit)="showQuestionModalEmit($event)"></app-form-data-report>
+        <!-- <p class="creation-date" *ngIf="data.creation_date">{{data.creation_date | date: 'dd.MM.yyyy HH:mm:ss'}}</p>
+        <p class="no-creation-date" *ngIf="!data.creation_date">{{'general.noDateInformation' | translate}}</p>
         <div>
             <label class="custom-label">{{'predator.user' | translate}}
             </label>
@@ -89,8 +94,14 @@
                 [(ngModel)]="data.comment"></textarea>
         </div>
         <div *ngIf="galleryImages" class="mt-2">
-            <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"
-                (imagesReady)="imageGallery($event)"></ngx-gallery>
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
         </div>
+        <div class="text-center mt-2">
+            <button class="btn btn-danger" (click)="dialogConfirm.showQuestionModal()"><span class="fa fa-trash"></span>
+                {{'general.delete' | translate}}</button>
+        </div> -->
     </div>
 </div>
+
+
+<app-dialog-confirm (confirm)="deletePredator()"></app-dialog-confirm>

@@ -1,0 +1,279 @@
+{
+    "pageSize": 10,
+    "request": {
+        "type": "GET",
+        "api": "/api/admin/getPredatorRequests",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
+    "paging": {
+        "enable": true,
+        "settings": {
+            "pageSizes": true,
+            "pageSize": 20
+        }
+    },
+    "sorting": {
+        "enable": true
+    },
+    "grouping": {
+        "enable": true,
+        "group": []
+    },
+    "filtering": {
+        "enable": true,
+        "settings": {
+            "type": "Menu"
+        }
+    },
+    "formDialog": {
+        "type": "sidebar",
+        "closeAfterExecute": false,
+        "size": "lg"
+    },
+    "customGrouping": false,
+    "allowResizing": true,
+    "reorderable": true,
+    "selectable": true,
+    "scrollable": false,
+    "hideable": true,
+    "refresh": false,
+    "reset": true,
+    "editSettings": {
+        "allowEditing": true,
+        "allowAdding": true,
+        "allowDeleting": true,
+        "showDeleteConfirmDialog": true,
+        "mode": "Dialog"
+    },
+    "columns": [
+        {
+            "title": "commonFields.action",
+            "template": {
+                "type": "action",
+                "actionMode": {
+                    "type": "button",
+                    "class": "btn-success",
+                    "action": {
+                        "type": "action",
+                        "icon": "thumbs-up",
+                        "executeAction": {
+                            "request": {
+                                "type": "POST",
+                                "api": "/api/admin/setPredatorToVisible",
+                                "parameters": [],
+                                "fields": "",
+                                "root": ""
+                            },
+                            "response": "toastr",
+                            "showQuestionBeforeExecute": true,
+                            "modalConfig": {
+                                "modalTitle": "",
+                                "modalText": "",
+                                "windowClass": "modal modal-danger"
+                            }
+                        }
+                    }
+                }
+            },
+            "field": "allow_online"
+        },
+        {
+            "title": "predator.creationDate",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "date",
+            "format": "dd.MM.yyyy HH:mm",
+            "class": "text-align-right",
+            "field": "creation_date",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "predator.predator",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "predator_name",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "predator.activity",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "activity",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "predator.water",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "water_name",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "predator.district",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "fish_district",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "predator.user",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "client_name",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.email",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "email",
+            "validation": {
+                "required": true
+            }
+        }
+    ],
+    "config": [
+        {
+            "type": "textbox",
+            "width": "col-md-12 hidden",
+            "class": "e-outline",
+            "name": "id",
+            "title": "ID",
+            "field": "id"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "email",
+            "title": "commonFields.email",
+            "field": "email",
+            "required": true
+        },
+        {
+            "type": "password",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "password",
+            "title": "commonFields.password",
+            "field": "password",
+            "dependentField": "id"
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "type",
+            "title": "commonFields.type",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/admin/getUserType",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "firstname",
+            "title": "commonFields.firstname",
+            "field": "firstname"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "lastname",
+            "title": "commonFields.lastname",
+            "field": "lastname"
+        },
+        {
+            "type": "radio",
+            "width": "col-md-12",
+            "name": "gender",
+            "title": "commonFields.gender",
+            "dataArray": [
+                {
+                    "title": "commonFields.man",
+                    "id": 0,
+                    "class": "mb-1"
+                },
+                {
+                    "title": "commonFields.woman",
+                    "id": 1,
+                    "class": "mb-1"
+                }
+            ],
+            "field": "gender"
+        },
+        {
+            "type": "switch",
+            "width": "col-12",
+            "class": "e-outline",
+            "name": "active",
+            "title": "commonFields.active",
+            "field": "active"
+        },
+        {
+            "type": "switch",
+            "width": "col-12",
+            "class": "e-outline",
+            "name": "trusted",
+            "title": "commonFields.trusted",
+            "field": "trusted"
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "btn btn-primary",
+            "name": "submit",
+            "title": "general.save",
+            "field": "submit",
+            "positionClass": "text-right mt-3 col-md-12"
+        }
+    ]
+}

@@ -9,7 +9,12 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { CustomCommonModule } from "../@core/common/custom-common.module";
 import { MyUsersComponent } from "./my-users/my-users.component";
 import { PredatorsComponent } from "./predators/predators.component";
-import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { NgxGalleryModule } from "@kolkov/ngx-gallery";
+import { AllObservationReportsComponent } from "./all-observation-reports/all-observation-reports.component";
+import { CoreSidebarModule } from "@core/components";
+import { CoreDirectivesModule } from "@core/directives/directives";
+import { CorePipesModule } from "@core/pipes/pipes.module";
+import { FormDataReportComponent } from './form-data-report/form-data-report.component';
 
 const routes: Routes = [
   {
@@ -20,10 +25,19 @@ const routes: Routes = [
     path: "predators",
     component: PredatorsComponent,
   },
+  {
+    path: "all-observation-reports",
+    component: AllObservationReportsComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [MyUsersComponent, PredatorsComponent],
+  declarations: [
+    MyUsersComponent,
+    PredatorsComponent,
+    AllObservationReportsComponent,
+    FormDataReportComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -34,7 +48,10 @@ const routes: Routes = [
     TranslateModule,
     DynamicModule,
     CustomCommonModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    CorePipesModule,
+    CoreDirectivesModule,
+    CoreSidebarModule,
   ],
   providers: [],
   bootstrap: [],

@@ -26,7 +26,8 @@
       "discardChangesText": "Sie haben nicht gespeicherte Änderungen. Sind Sie sicher, dass Sie sie verwerfen möchten?",
       "discardChangesConfirm": "Änderungen verwerfen",
       "discardChangesCancel": "Abbrechen",
-      "action": "Aktion"
+      "action": "Aktion",
+      "noDateInformation": "Erstellungsdatum unbekannt!"
    },
    "action": {
       "completeReport": "Meldung absenden",
@@ -79,6 +80,8 @@
       "telephone": "Telefon",
       "address": "Straße",
       "active": "Aktiv",
+      "trusted": "Vertrauenswürdig",
+      "untrusted": "Nicht vertrauenswürdig",
       "deactive": "Deactive",
       "action": "Aktion",
       "street": "Straße",
@@ -126,7 +129,8 @@
       "plz": "PLZ",
       "admin": "Administrator",
       "adminFirstname": "Vorname des Administrators",
-      "adminLastname": "Nachname des Administrators"
+      "adminLastname": "Nachname des Administrators",
+      "area": "Bereich"
    },
    "userType": {
       "admin": "Administrator",
@@ -174,7 +178,8 @@
       "allCities": "Orte",
       "allAdmins": "Administratorinnen",
       "allAreas": "Bereiche",
-      "myUsers": "Meine Benutzer"
+      "myUsers": "Meine Benutzer",
+      "predatorRequests": "Raubtieranfragen"
    },
    "navBar": {
       "profile": "Profil",
@@ -184,7 +189,8 @@
       "areYouSure": "Sind Sie sicher?",
       "deleteQuestion": "Mit der Bestätigung gehen Daten verloren, die nicht mehr wiederhergestellt werden können!",
       "yes": "Ja, bitte durchführen",
-      "no": "Nein"
+      "no": "Nein",
+      "executeActionQuestion": "Möchten Sie die Aktion ausführen?"
    },
    "form": {
       "mustFillThisField": "Bitte dieses Feld ausfüllen!",
@@ -256,5 +262,12 @@
       "maleAnimals": "Anz. männl. Erw.",
       "femaleAnimals": "Anz. weibl. Erw.",
       "comment": "Kommentar"
+   },
+   "allObservationReports": {
+      "approvedObservations": "genehmigte Beobachtungen",
+      "unapprovedObservations": "nicht genehmigte Beobachtungen",
+      "allObservations": "alle Beobachtungen",
+      "filterObservation": "Nach Status filtern",
+      "approveObservation": "Beobachtung genehmigen"
    }
 }

@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
   Output,
+  SimpleChanges,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
@@ -49,6 +50,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   @Input() additionalData: any;
   @Input() disableCRUD: boolean = false;
   @Input() template: TemplateRef<any>;
+  @Input() templateFilter: TemplateRef<any>;
   @Input() initializeGrid = false;
   @Input() modalDialogSize: string;
   @Input() height: string;
@@ -57,6 +59,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   @Output() refreshParentComponent = new EventEmitter();
   @ViewChild("grid") grid: any;
   @ViewChild("modal") modal: TemplateRef<any>;
+  @ViewChild("modalExecuteAction") modalExecuteAction: TemplateRef<any>;
   @ViewChild("modalForm") modalForm: TemplateRef<any>;
   @ViewChild("modalOptions") modalOptions: TemplateRef<any>;
   @ViewChild("modalGoogleContacts") modalGoogleContacts: TemplateRef<any>;
@@ -318,6 +321,12 @@ export class DynamicGridComponent implements CanComponentDeactivate {
       });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.data != undefined) {
+      this.rows = this.data;
+    }
+  }
+
   @HostListener("window:resize", ["$event"])
   onWindowResize() {
     this.checkScrollbarHVisibility();
@@ -502,7 +511,14 @@ export class DynamicGridComponent implements CanComponentDeactivate {
       if (item.executeAction && item.executeAction.showQuestionBeforeExecute) {
         this.executeActionConfig = item.executeAction;
         this.executeActionConfig.body = row;
-        this.showQuestionModal(this.modal, item.executeAction.modalConfig);
+        if (item.type === "action") {
+          this.showQuestionModal(
+            this.modalExecuteAction,
+            item.executeAction.modalConfig
+          );
+        } else {
+          this.showQuestionModal(this.modal, item.executeAction.modalConfig);
+        }
       }
     }
   }
@@ -809,5 +825,36 @@ export class DynamicGridComponent implements CanComponentDeactivate {
 
     // var blob = new Blob([csvArray], { type: "text/csv" });
     // saveAs(blob, fileName ?? "myFile.csv");
+  }
+
+  checkCondition(config, row) {
+    if (config.condition) {
+      if (config.condition.type === "row") {
+        if (config.condition.operator === "==") {
+          if (row[config.condition.field] === config.condition.value) {
+            return true;
+          } else return false;
+        } else if (config.condition.operator === "!=") {
+          if (row[config.condition.field] !== config.condition.value) {
+            return true;
+          } else return false;
+        } else if (config.condition.operator === ">") {
+          if (row[config.condition.field] > config.condition.value) {
+            return true;
+          } else return false;
+        } else if (config.condition.operator === "<") {
+          if (row[config.condition.field] < config.condition.value) {
+            return true;
+          } else return false;
+        } else {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  emitRow(row: any) {
+    this.emitValueForCustomForm.emit(row);
   }
 }

@@ -1,0 +1,123 @@
+{
+    "config": [
+        {
+            "type": "textbox",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "adresszusatz",
+            "title": "fsdOrgan.adresszusatz",
+            "field": "adresszusatz",
+            "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "strabe",
+            "title": "fsdOrgan.strabe",
+            "field": "strabe",
+            "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "ort",
+            "title": "fsdOrgan.ort",
+            "field": "ort",
+            "readonly": true
+        },
+        {
+            "type": "datepicker",
+            "format": "dd.MM.yyyy",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "geburtsdatum",
+            "title": "fsdOrgan.geburtsdatum",
+            "field": "geburtsdatum",
+            "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "telefonnummer",
+            "title": "fsdOrgan.telefonnummer",
+            "field": "telefonnummer",
+            "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "telefonnummer2",
+            "title": "fsdOrgan.telefonnummer2",
+            "field": "telefonnummer2",
+            "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "mobil",
+            "title": "fsdOrgan.mobil",
+            "field": "mobil",
+            "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "email",
+            "title": "fsdOrgan.email",
+            "field": "email",
+            "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "sperre",
+            "title": "fsdOrgan.sperre",
+            "field": "sperre",
+            "replacedValue": [
+                {
+                    "field": "sperre",
+                    "value": 1,
+                    "operator": "!=",
+                    "newValue": "-"
+                },
+                {
+                    "field": "sperre",
+                    "value": 1,
+                    "operator": "==",
+                    "newValue": "Unklare Adressdaten beim LFVS aufliegend!"
+                }
+            ],
+            "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "todesfall",
+            "title": "fsdOrgan.todesfall",
+            "field": "todesfall",
+            "replacedValue": [
+                {
+                    "field": "todesfall",
+                    "value": 1,
+                    "operator": "!=",
+                    "newValue": "-"
+                },
+                {
+                    "field": "todesfall",
+                    "value": 1,
+                    "operator": "==",
+                    "newValue": "Laut Informationsstand LFVS bereits verstorben!"
+                }
+            ],
+            "readonly": true
+        }
+    ]
+}
