@@ -183,7 +183,7 @@ router.get("/getPredators", auth, async (req, res, next) => {
       } else {
         console.log(req.user.user.id);
         conn.query(
-          "select p.* from predators p join users u on p.id_user = u.id where u.id_admin = ? and p.visible = 1",
+          "select p.* from predators p join users u on p.id_user = u.id where u.id_admin = ?",
           [req.user.user.id],
           function (err, rows, fields) {
             conn.release();

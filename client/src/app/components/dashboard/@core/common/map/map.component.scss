@@ -1,5 +1,6 @@
 .map-container {
   display: block;
+  position: relative;
 }
 
 .map {
@@ -17,4 +18,27 @@
 
 .map-pointer {
   cursor: pointer;
+}
+
+.filter {
+  position: absolute;
+  right: 14px;
+  z-index: 10000;
+  top: 10px;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+.filter-flag {
+  position: absolute;
+  top: 5px;
+  font-size: 12px;
+  border-radius: 50%;
+  width: 17px;
+  text-align: center;
+  background: red;
+  color: #fff;
+  right: 5px;
+  height: 17px;
+  z-index: 10000;
 }

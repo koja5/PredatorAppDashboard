@@ -7,9 +7,14 @@
     <p *ngIf="group && group.controls[config.field].status === 'INVALID' && (group.pending || group.controls[config.field].touched)"
         class="error must-label m-0">{{'form.mustFillThisField' |
         translate}}</p>
-    <div class="{{config.oneLine ? 'd-flex justify-content-around' : ''}} mt-75">
+    <div class="{{config.oneLine ? 'd-flex justify-content-around' : 'd-grid'}} mt-75">
         <div *ngFor="let item of config.dataArray" class="form-check form-check-inline {{item.class}}">
-            
+            <input class="form-check-input {{config.readonly ? 'radio-disabled': ''}}" type="checkbox" [name]="config.name"
+                [value]="item.id" [id]="item.id" [formControlName]="config.name">
+            <label class="form-check-label  {{config.readonly ? 'radio-disabled': ''}}" [for]="item.id">{{
+                item.title | translate
+                }}
+            </label>
         </div>
     </div>
 </div>

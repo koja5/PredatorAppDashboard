@@ -1,0 +1,182 @@
+{
+    "config": [
+        {
+            "type": "textbox",
+            "width": "col-md-12 hidden",
+            "class": "e-outline",
+            "name": "id",
+            "title": "ID",
+            "field": "id"
+        },
+        {
+            "type": "datepicker",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "creation_date_from",
+            "title": "predator.creationDateFrom",
+            "field": "creation_date_from"
+        },
+        {
+            "type": "datepicker",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "creation_date_to",
+            "title": "predator.creationDateTo",
+            "field": "creation_date_to"
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "gps",
+            "title": "predator.gps",
+            "field": {
+                "text": "name",
+                "value": "value"
+            },
+            "request": {
+                "localData": {
+                    "path": "data",
+                    "file": "yes-no-question.json"
+                }
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            }
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "total_number_from",
+            "title": "predator.totalNumberFrom",
+            "field": "total_number_from"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "total_number_to",
+            "title": "predator.totalNumberTo",
+            "field": "total_number_to"
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "gallery",
+            "title": "predator.gallery",
+            "field": {
+                "text": "name",
+                "value": "value"
+            },
+            "request": {
+                "localData": {
+                    "path": "data",
+                    "file": "yes-no-question.json"
+                }
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            }
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "including_young_animals",
+            "title": "predator.youngAnimalsFilter",
+            "field": "including_young_animals"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "including_female_animals",
+            "title": "predator.femaleAnimalsFilter",
+            "field": "including_female_animals"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "including_male_animals",
+            "title": "predator.maleAnimalsFilter",
+            "field": "including_male_animals"
+        },
+        {
+            "type": "multiselect",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "id_predators",
+            "title": "predator.predator",
+            "field": {
+                "text": "name",
+                "value": "value"
+            },
+            "request": {
+                "localData": {
+                    "path": "data",
+                    "file": "predators.json"
+                }
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            }
+        },
+        {
+            "type": "multiselect",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "id_activities",
+            "title": "predator.activity",
+            "field": {
+                "text": "name",
+                "value": "value"
+            },
+            "request": {
+                "localData": {
+                    "path": "data",
+                    "file": "activities.json"
+                }
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            }
+        },
+        {
+            "type": "multiselect",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "id_waters",
+            "title": "predator.water",
+            "field": {
+                "text": "name",
+                "value": "value"
+            },
+            "request": {
+                "localData": {
+                    "path": "data",
+                    "file": "waters.json"
+                }
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            }
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "btn btn-primary",
+            "name": "submit",
+            "title": "general.save",
+            "field": "submit",
+            "positionClass": "text-right mt-3 col-md-12"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Großer Fluß",
+        "value": 1
+    },
+    {
+        "name": "Kleiner Fluß",
+        "value": 2
+    },
+    {
+        "name": "Zubringerbach",
+        "value": 3
+    },
+    {
+        "name": "See",
+        "value": 4
+    },
+    {
+        "name": "Baggersee",
+        "value": 5
+    },
+    {
+        "name": "Teich",
+        "value": 6
+    },
+    {
+        "name": "Sonstige (kommentieren)*",
+        "value": 7
+    }
+]

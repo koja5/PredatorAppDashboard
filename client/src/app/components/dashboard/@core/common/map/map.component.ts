@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
   Output,
+  TemplateRef,
   ViewChild,
 } from "@angular/core";
 import Map from "ol/Map";
@@ -17,6 +18,8 @@ import Icon from "ol/style/Icon";
 import VectorSource from "ol/source/Vector";
 import VectorLayer from "ol/layer/Vector";
 import { fromLonLat, useGeographic } from "ol/proj";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { HelpService } from "app/services/help.service";
 
 useGeographic();
 
@@ -31,17 +34,22 @@ export class MapComponent implements OnInit {
   @Input() manual: boolean = true;
   @Input() mapMarkers: any = [];
   @Input() predators: any;
+  @Input() filterFlag: number;
   @Output() submit = new EventEmitter<any>();
+  @Output() showFilterModel = new EventEmitter<any>();
   @ViewChild("map") public map!: Map;
+  @ViewChild("modal") modal: TemplateRef<any>;
+  public modalDialog: any;
 
   public loader = true;
   public data: any;
+  public allPredators: any;
 
-  constructor() {}
+  constructor(private _helpService: HelpService) {}
 
   async ngOnInit() {
     setTimeout(async () => {
-      this.initializeMap();
+      this.initializeMap(this.predators);
 
       this.map.on("click", (e) => {
         var feature = e.map.forEachFeatureAtPixel(e.pixel, (feature) => {
@@ -55,11 +63,11 @@ export class MapComponent implements OnInit {
     }, 10);
   }
 
-  async initializeMap() {
-    this.setPoint();
+  async initializeMap(data: any) {
+    this.setPoint(data);
   }
 
-  setPoint() {
+  setPoint(data: any) {
     this.map = new Map({});
     const long = 20.85523;
     const lat = 44.031441;
@@ -101,6 +109,7 @@ export class MapComponent implements OnInit {
           src:
             "assets/images/icons/map-marker_" +
             this.predators[i].id_predator +
+            (this.predators[i].visible === 0 ? "_no_visible" : "") +
             ".png",
           width: 32,
           height: 32,
@@ -142,5 +151,9 @@ export class MapComponent implements OnInit {
 
   clickMap(item: any) {
     return true;
+  }
+
+  filter() {
+    this.showFilterModel.emit();
   }
 }

@@ -325,9 +325,10 @@ export class DynamicFormsComponent implements OnInit, CanComponentDeactivate {
   }
 
   setValue(name: string, value: any, type: string) {
+    console.log(value);
     if (name) {
       if (this.form.controls[name]) {
-        if (type === "switch" || type === "checkbox") {
+        if (type === "switch") {
           this.form.controls[name].setValue(this.convertBooleanValue(value), {
             emitEvent: true,
           });

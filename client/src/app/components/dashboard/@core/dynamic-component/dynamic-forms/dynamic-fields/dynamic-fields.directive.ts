@@ -27,6 +27,7 @@ import { RadioComponent } from "./buttons/radio/radio.component";
 import { PhonePrefixComponent } from "./inputs/phone-prefix/phone-prefix.component";
 import { UploaderComponent } from "./uploader/uploader.component";
 import { DynamicRowsComponent } from "../dynamic-rows/dynamic-rows.component";
+import { CheckboxComponent } from "./buttons/checkbox/checkbox.component";
 
 const components: { [type: string]: Type<Field> } = {
   textbox: TextBoxComponent,
@@ -36,6 +37,7 @@ const components: { [type: string]: Type<Field> } = {
   button: ButtonComponent,
   switch: SwitchComponent,
   radio: RadioComponent,
+  checkbox: CheckboxComponent,
   combobox: ComboboxComponent,
   multiselect: MultiselectComponent,
   datepicker: DatepickerComponent,

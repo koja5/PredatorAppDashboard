@@ -3,7 +3,7 @@
     }} <span class="error" title="{{'form.fieldIsRequired' | translate}}">{{config.required ? '*' : ''}}</span>
     <app-explanation-mark *ngIf="config.explanation" [explanation]="config.explanation"></app-explanation-mark>
   </label>
-  <p *ngIf="group&&group.controls[config.name] && (group.pending || group.controls[config.name].touched)"
+  <p *ngIf="group.controls[config.name]&&group.controls[config.name].status === 'INVALID' && (group.pending || group.controls[config.name].touched)"
     class="error must-label m-0">{{'form.mustFillThisField'
     |
     translate}}</p>

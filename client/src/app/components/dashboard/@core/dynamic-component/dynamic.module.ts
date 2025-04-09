@@ -23,6 +23,7 @@ import { ExportAsModule } from "ngx-export-as";
 import { UploaderComponent } from "./dynamic-forms/dynamic-fields/uploader/uploader.component";
 import { ProgressComponent } from "./dynamic-forms/dynamic-fields/uploader/progress/progress.component";
 import { DatePickerAllModule, DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
+import { CheckboxComponent } from './dynamic-forms/dynamic-fields/buttons/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { DatePickerAllModule, DateTimePickerModule } from "@syncfusion/ej2-angul
     DynamicTabsComponent,
     UploaderComponent,
     ProgressComponent,
+    CheckboxComponent,
   ],
   imports: [
     CommonModule,
