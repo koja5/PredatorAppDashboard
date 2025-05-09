@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Kormoran",
+        "value": 1
+    },
+    {
+        "name": "Gänsesäger",
+        "value": 2
+    },
+    {
+        "name": "Silberreiher",
+        "value": 3
+    },
+    {
+        "name": "Fischotter",
+        "value": 4
+    },
+    {
+        "name": "Fischreiher",
+        "value": 5
+    },
+    {
+        "name": "Biber",
+        "value": 6
+    }
+]

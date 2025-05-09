@@ -22,6 +22,7 @@ export class AllObservationReportsComponent {
   public data: any;
   public allData: any;
   public customFilter = [
+    { name: "allObservationReports.allObservations", value: 3 },
     {
       name: "allObservationReports.approvedObservations",
       value: 1,
@@ -30,7 +31,6 @@ export class AllObservationReportsComponent {
       name: "allObservationReports.unapprovedObservations",
       value: 2,
     },
-    { name: "allObservationReports.allObservations", value: 3 },
   ];
   public selectedRow: any;
 

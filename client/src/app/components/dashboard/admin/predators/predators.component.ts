@@ -16,6 +16,8 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 })
 export class PredatorsComponent {
   @ViewChild(DialogConfirmComponent) dialogConfirm;
+  @ViewChild("approveObservationQuestion")
+  approveObservationQuestion: DialogConfirmComponent;
   public predators: any;
   public allPredators: any;
   public data: PredatorModel;
@@ -214,5 +216,16 @@ export class PredatorsComponent {
       this.modalDialog.close();
       this.loaderData = false;
     }, 20);
+  }
+
+  approveObservation() {
+    this._service
+      .callPostMethod("/api/admin/setPredatorToVisible", this.data)
+      .subscribe((data) => {
+        if (data) {
+          this.data.visible = 1;
+          this.getPredators();
+        }
+      });
   }
 }

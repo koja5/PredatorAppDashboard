@@ -32,9 +32,10 @@ router.get("/getMyUsers", auth, async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
+        console.log(req.user.user.id);
         conn.query(
-          "select id, id_area, firstname, lastname, gender, phone, email, type, verify, active, trusted from users where id_admin = ?",
-          [req.user.user.id],
+          "select u.id, u.id_area, u.firstname, u.lastname, u.gender, u.phone, u.email, u.type, u.verify, u.active, u.trusted from users u left join all_areas a on u.id_area = a.id where u.id_admin = ? or a.id_admin = ? and type != ?",
+          [req.user.user.id, req.user.user.id, userType.admin],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -183,8 +184,8 @@ router.get("/getPredators", auth, async (req, res, next) => {
       } else {
         console.log(req.user.user.id);
         conn.query(
-          "select p.* from predators p join users u on p.id_user = u.id where u.id_admin = ?",
-          [req.user.user.id],
+          "select p.* from predators p join users u on p.id_user = u.id left join all_areas a on u.id_area = a.id where u.id_admin = ? or a.id_admin = ?",
+          [req.user.user.id, req.user.user.id],
           function (err, rows, fields) {
             conn.release();
             if (err) {

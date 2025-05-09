@@ -287,6 +287,28 @@
             "required": true
         },
         {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "id_area",
+            "title": "commonFields.area",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/superadmin/getAllAreasForUsers",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            }
+        },
+        {
             "type": "textbox",
             "width": "col-md-6",
             "class": "e-outline",

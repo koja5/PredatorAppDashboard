@@ -104,16 +104,8 @@ export class LoginComponent {
           } else if (type === UserTypes.superadmin) {
             window.open("/dashboard/superadmin/all-fish-districts", "_self");
           } else if (type === UserTypes.admin) {
-            window.open("/dashboard/admin/my-users", "_self");
+            window.open("/dashboard/admin/predators", "_self");
           }
-          // const user = this._storageService.getDecodeToken();
-          // if (!user.firstname || !user.lastname) {
-          //   // this._router.navigate(["wizard"]);
-          //   window.open("wizard", "_self");
-          // } else {
-          //   // this._router.navigate(["dashboard/admin"]);
-          //   window.open("dashboard/admin", "_self");
-          // }
           this.loading = false;
         } else {
           this.error = data.type;

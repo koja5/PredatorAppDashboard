@@ -22,4 +22,5 @@ export class PredatorModel {
   distance_to_water: number;
   predator_name: string;
   water_name: string;
+  visible: any;
 }

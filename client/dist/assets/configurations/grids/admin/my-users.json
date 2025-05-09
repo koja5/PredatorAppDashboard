@@ -219,7 +219,7 @@
                         "operator": "==",
                         "apart": {
                             "title": "commonFields.untrusted",
-                            "badge": "badge badge-pill badge-light-danger"
+                            "badge": "badge badge-pill badge-light-warning"
                         }
                     },
                     {
@@ -285,6 +285,28 @@
                 "filter": true
             },
             "required": true
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "id_area",
+            "title": "commonFields.area",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/admin/getMyAreas",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            }
         },
         {
             "type": "textbox",

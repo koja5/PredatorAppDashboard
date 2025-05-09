@@ -27,7 +27,9 @@
       "discardChangesConfirm": "Änderungen verwerfen",
       "discardChangesCancel": "Abbrechen",
       "action": "Aktion",
-      "noDateInformation": "Erstellungsdatum unbekannt!"
+      "noDateInformation": "Erstellungsdatum unbekannt!",
+      "filter": "Filter",
+      "clearFilter": "Filter löschen"
    },
    "action": {
       "completeReport": "Meldung absenden",
@@ -129,7 +131,8 @@
       "plz": "PLZ",
       "admin": "Administrator",
       "adminFirstname": "Vorname des Administrators",
-      "adminLastname": "Nachname des Administrators"
+      "adminLastname": "Nachname des Administrators",
+      "area": "Bereich"
    },
    "userType": {
       "admin": "Administrator",
@@ -248,6 +251,8 @@
    "predator": {
       "user": "Ersteller",
       "creationDate": "Erstellt am/um",
+      "creationDateFrom": "Datum von",
+      "creationDateTo": "Datum bis",
       "predator": "Predator",
       "activity": "Atkivität",
       "water": "Gewässer",
@@ -257,9 +262,22 @@
       "latitude": "Längengrad",
       "longitude": "Breitengrad",
       "totalNumber": "Anzahl Gesamt",
+      "totalNumberFrom": "Anzahl Gesamt von",
+      "totalNumberTo": "Anzahl Gesamt bis",
+      "gallery": "Bilder",
       "youngAnimals": "Anzahl Jungtiere",
       "maleAnimals": "Anz. männl. Erw.",
       "femaleAnimals": "Anz. weibl. Erw.",
+      "youngAnimalsFilter": "davon Jungtiere",
+      "maleAnimalsFilter": "davon weibl. Erw.",
+      "femaleAnimalsFilter": "davon männl. Erw.",
       "comment": "Kommentar"
+   },
+   "allObservationReports": {
+      "approvedObservations": "genehmigte Beobachtungen",
+      "unapprovedObservations": "nicht genehmigte Beobachtungen",
+      "allObservations": "alle Beobachtungen",
+      "filterObservation": "Nach Status filtern",
+      "approveObservation": "Beobachtung genehmigen"
    }
 }

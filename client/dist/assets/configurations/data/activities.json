@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Fliegend",
+        "value": 1
+    },
+    {
+        "name": "Schwimmend",
+        "value": 2
+    },
+    {
+        "name": "Fressend",
+        "value": 3
+    },
+    {
+        "name": "Tauchend",
+        "value": 4
+    },
+    {
+        "name": "Laufend",
+        "value": 5
+    },
+    {
+        "name": "Sitzend",
+        "value": 6
+    },
+    {
+        "name": "Tot (z.B.: Verkehrsopfer)",
+        "value": 7
+    },
+    {
+        "name": "wandernd",
+        "value": 8
+    },
+    {
+        "name": "HORST",
+        "value": 9
+    }
+]

@@ -69,8 +69,9 @@ export class MapComponent implements OnInit {
 
   setPoint(data: any) {
     this.map = new Map({});
-    const long = 20.85523;
-    const lat = 44.031441;
+    const long = 13.421735;
+    const lat = 47.537312;
+
     const iconFeature = new Feature({});
 
     const iconStyle = new Style({
@@ -136,7 +137,7 @@ export class MapComponent implements OnInit {
     this.map.setView(
       new View({
         center: [long, lat],
-        zoom: 80,
+        zoom: 7,
         maxZoom: 15,
       })
     );

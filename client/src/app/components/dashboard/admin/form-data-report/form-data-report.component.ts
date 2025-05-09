@@ -13,6 +13,7 @@ import {
 export class FormDataReportComponent {
   @Input() data: any;
   @Output() showQuestionModalEmit = new EventEmitter<null>();
+  @Output() approveObservationEmit = new EventEmitter<any>();
   public galleryOptions: NgxGalleryOptions[];
   public galleryImages: NgxGalleryImage[] = [];
 
@@ -21,6 +22,8 @@ export class FormDataReportComponent {
   }
 
   ngOnChanges() {
+    console.log('promena!!!');
+    console.log(this.data);
     this.packImage();
   }
 
@@ -66,5 +69,9 @@ export class FormDataReportComponent {
 
   showQuestionModel() {
     this.showQuestionModalEmit.emit();
+  }
+
+  approveObservation() {
+    this.approveObservationEmit.emit(this.data);
   }
 }

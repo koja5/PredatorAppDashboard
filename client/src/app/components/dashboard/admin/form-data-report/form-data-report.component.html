@@ -1,3 +1,8 @@
+<div *ngIf="!data.visible" class="text-center mb-2">
+    <button class="btn btn-success" (click)="approveObservation()"><span class="fa fa-thumbs-o-up"></span>
+        Approve
+        observation</button>
+</div>
 <p class="creation-date" *ngIf="data.creation_date">{{data.creation_date | date: 'dd.MM.yyyy HH:mm:ss'}}</p>
 <p class="no-creation-date" *ngIf="!data.creation_date">{{'general.noDateInformation' | translate}}</p>
 <div>
