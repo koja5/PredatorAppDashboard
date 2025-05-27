@@ -72,6 +72,13 @@ export class AllObservationReportsComponent {
   }
 
   closeSidebar() {
+    this.selectedRow = null;
     this.sidebar.close();
+  }
+
+  openedChangedEvent(event: any) {
+    if (!event) {
+      this.closeSidebar();
+    }
   }
 }

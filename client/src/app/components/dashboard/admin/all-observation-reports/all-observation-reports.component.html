@@ -18,7 +18,7 @@
 </ng-template>
 
 <core-sidebar #sidebar class="modal modal-slide-in sidebar-todo-modal fade" (collapsedChangedEvent)="closeSidebar()"
-    name="sidebar" overlayClass="modal-backdrop">
+    (openedChangedEvent)="openedChangedEvent($event)" name="sidebar" overlayClass="modal-backdrop">
     <div class="slideout-content">
         <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
             <div class="modal-dialog">

@@ -1,5 +1,5 @@
 <div class="map-container">
     <span class="fa fa-filter filter" (click)="showFilterModel.emit()"></span>
     <span *ngIf="filterFlag" class="filter-flag">{{filterFlag}}</span>
-    <div *ngIf="loader" #map id="map" class="map"></div>
+    <div *ngIf="loader" #map id="map" class="map {{mapSmall ? 'map-small' : ''}}"></div>
 </div>

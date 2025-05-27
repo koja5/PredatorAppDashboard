@@ -73,6 +73,38 @@ router.post("/resetPasswordLink", function (req, res, next) {
 
 //#endregion
 
+//#region REQUEST TO APPROVE DELETE FISH DISTRICT
+router.post("/requestToApproveDeleteFishDistrict", function (req, res, next) {
+  var configuration = JSON.parse(
+    fs.readFileSync(
+      __dirname + "/i18n/approve_delete_fish_district.json",
+      "utf-8"
+    )
+  );
+
+  body = getMessage(configuration, req.body.lang);
+
+  req.body.email = process.env.admin_email;
+
+  body["name"] = req.body.name;
+  body["area_name"] = req.body.area_name;
+  body["admin"] = req.body.admin;
+
+  // generate reset password
+  body["approve_request_and_delete_it_link"] =
+    process.env.link_api + "superadmin/deleteFishDistrict/" + req.body.id;
+
+  sendMail(
+    req.body.email,
+    getSubject(configuration, req.body.lang),
+    body,
+    configuration.template,
+    res
+  );
+});
+
+//#endregion
+
 //#region HELPFUL SERVICE
 
 function getSubject(configuration, lang) {

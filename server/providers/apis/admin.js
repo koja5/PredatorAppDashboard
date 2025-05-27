@@ -11,6 +11,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../config/authentification/auth-admin");
 const sql = require("../config/sql-database");
 const userType = require("./enums/user-type");
+const makeRequest = require("./help-function/makeRequest");
 
 module.exports = router;
 
@@ -34,8 +35,8 @@ router.get("/getMyUsers", auth, async (req, res, next) => {
       } else {
         console.log(req.user.user.id);
         conn.query(
-          "select u.id, u.id_area, u.firstname, u.lastname, u.gender, u.phone, u.email, u.type, u.verify, u.active, u.trusted from users u left join all_areas a on u.id_area = a.id where u.id_admin = ? or a.id_admin = ? and type != ?",
-          [req.user.user.id, req.user.user.id, userType.admin],
+          "select u.id, u.id_area, u.firstname, u.lastname, u.gender, u.phone, u.email, u.type, u.verify, u.active, u.trusted from users u left join all_areas a on u.id_area = a.id where a.id_admin = ? and type != ? and type != ?",
+          [req.user.user.id, userType.admin, userType.superadmin],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -61,19 +62,45 @@ router.post("/setUser", auth, function (req, res, next) {
       res.json(err);
     }
 
-    if (isValidSHA1(req.body.password) && !req.body.id) {
+    if (
+      !isValidSHA1(req.body.password) ||
+      (!req.body.id && req.body.password)
+    ) {
       req.body.password = sha1(req.body.password);
     }
 
     req.body.id_admin = req.user.user.id;
 
     conn.query(
-      "INSERT INTO users set ? ON DUPLICATE KEY UPDATE ?",
-      [req.body, req.body],
+      "select * from users where id = ?",
+      [req.body.id],
       function (err, rows) {
-        conn.release();
         if (!err) {
-          res.json(true);
+          if (rows.length && !rows[0].trusted && req.body.trusted) {
+            conn.query(
+              "UPDATE predators set visible = 1 where id_user = ?",
+              [req.body.id],
+              function (err, rows) {
+                if (err) {
+                  logger.log("error", err.sql + ". " + err.sqlMessage);
+                  res.json(false);
+                }
+              }
+            );
+          }
+          conn.query(
+            "INSERT INTO users set ? ON DUPLICATE KEY UPDATE ?",
+            [req.body, req.body],
+            function (err, rows) {
+              conn.release();
+              if (!err) {
+                res.json(true);
+              } else {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(false);
+              }
+            }
+          );
         } else {
           logger.log("error", err.sql + ". " + err.sqlMessage);
           res.json(false);
@@ -222,7 +249,6 @@ router.get("/getPredatorRequests", auth, async (req, res, next) => {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               res.json(err);
             } else {
-              console.log(rows);
               res.json(rows);
             }
           }
@@ -321,13 +347,219 @@ router.get("/getPredatorById/:id", auth, async (req, res, next) => {
 
 //#endregion
 
+//#region ALL FISH DISTRICTS
+
+router.get("/getAllFishDistricts", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select afd.* from all_fish_districts afd join all_areas aa on afd.id_area = aa.id where aa.id_admin = ?",
+          [req.user.user.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/setFishDistrict", auth, function (req, res, next) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    conn.query(
+      "select * from all_areas where id_admin = ?",
+      [req.user.user.id],
+      function (err, rows) {
+        if (!err) {
+          if (rows.length) {
+            req.body.id_area = rows[0].id;
+          }
+          conn.query(
+            "INSERT INTO all_fish_districts set ? ON DUPLICATE KEY UPDATE ?",
+            [req.body, req.body],
+            function (err, rows) {
+              conn.release();
+              if (!err) {
+                res.json(true);
+              } else {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(false);
+              }
+            }
+          );
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
+  });
+});
+
+router.post("/deleteFishDistrict", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select afd.*, aa.name as 'area_name' from all_fish_districts afd left join all_areas aa on afd.id_area = aa.id where afd.id = ?",
+          [req.body.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              if (rows.length) {
+                rows[0]["admin"] =
+                  req.user.user.firstname + " " + req.user.user.lastname;
+                makeRequest(
+                  rows[0],
+                  "mail/requestToApproveDeleteFishDistrict",
+                  res
+                );
+              } else {
+                res.json(false);
+              }
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+//#endregion
+
+//#region AREA SETTINGS
+
+router.get("/getAreaSettings", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select a.* from area_settings a left join users u on a.id_area = u.id_area where u.id = ?",
+          [req.user.user.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/setAreaSettings", auth, function (req, res, next) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    conn.query(
+      "select * from all_areas where id_admin = ?",
+      [req.user.user.id],
+      function (err, rows) {
+        if (!err) {
+          if (rows.length) {
+            req.body.id_area = rows[0].id;
+          }
+          console.log(req.body);
+          conn.query(
+            "INSERT INTO area_settings set ? ON DUPLICATE KEY UPDATE ?",
+            [req.body, req.body],
+            function (err, rows) {
+              conn.release();
+              if (!err) {
+                res.json(true);
+              } else {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(false);
+              }
+            }
+          );
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
+  });
+});
+
+router.post("/deleteAreaSettings", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "delete from all_fish_districts where id = ?",
+          [req.body.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(true);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+//#endregion
+
 //#region HELP FUNCTION
 
 function isValidSHA1(s) {
   if (s) {
     return s.indexOf("^[a-fA-F0-9]{40}$") == 1;
   } else {
-    return false;
+    if (!s) return true;
+    else return false;
   }
 }
 

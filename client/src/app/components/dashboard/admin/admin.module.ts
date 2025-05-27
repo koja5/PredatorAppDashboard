@@ -14,7 +14,9 @@ import { AllObservationReportsComponent } from "./all-observation-reports/all-ob
 import { CoreSidebarModule } from "@core/components";
 import { CoreDirectivesModule } from "@core/directives/directives";
 import { CorePipesModule } from "@core/pipes/pipes.module";
-import { FormDataReportComponent } from './form-data-report/form-data-report.component';
+import { FormDataReportComponent } from "./form-data-report/form-data-report.component";
+import { AllFishDistrictsComponent } from "./all-fish-districts/all-fish-districts.component";
+import { AreaSettingsComponent } from "./area-settings/area-settings.component";
 
 const routes: Routes = [
   {
@@ -29,6 +31,14 @@ const routes: Routes = [
     path: "all-observation-reports",
     component: AllObservationReportsComponent,
   },
+  {
+    path: "all-fish-districts",
+    component: AllFishDistrictsComponent,
+  },
+  {
+    path: "area-settings",
+    component: AreaSettingsComponent,
+  },
 ];
 
 @NgModule({
@@ -37,6 +47,8 @@ const routes: Routes = [
     PredatorsComponent,
     AllObservationReportsComponent,
     FormDataReportComponent,
+    AllFishDistrictsComponent,
+    AreaSettingsComponent,
   ],
   imports: [
     CommonModule,

@@ -181,7 +181,8 @@
       "allAdmins": "Administratorinnen",
       "allAreas": "Bereiche",
       "myUsers": "Meine Benutzer",
-      "predatorRequests": "Raubtieranfragen"
+      "predatorRequests": "Raubtieranfragen",
+      "areaSettings": "Bereichseinstellungen"
    },
    "navBar": {
       "profile": "Profil",
@@ -279,5 +280,8 @@
       "allObservations": "alle Beobachtungen",
       "filterObservation": "Nach Status filtern",
       "approveObservation": "Beobachtung genehmigen"
+   },
+   "areaSettings": {
+      "allowAccessAutomatically": "Benutzern automatisch Zugriff gewähren"
    }
 }

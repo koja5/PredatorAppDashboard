@@ -35,6 +35,7 @@ export class MapComponent implements OnInit {
   @Input() mapMarkers: any = [];
   @Input() predators: any;
   @Input() filterFlag: number;
+  @Input() mapSmall: boolean;
   @Output() submit = new EventEmitter<any>();
   @Output() showFilterModel = new EventEmitter<any>();
   @ViewChild("map") public map!: Map;

@@ -1,0 +1,33 @@
+{
+    "request": {
+        "type": "GET",
+        "api": "/api/admin/getAreaSettings",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
+    "config": [
+        {
+            "type": "checkbox",
+            "width": "col-12",
+            "class": "e-outline",
+            "name": "allow_access_automatically",
+            "field": "allow_access_automatically",
+            "dataArray": [
+                {
+                    "title": "areaSettings.allowAccessAutomatically",
+                    "class": "mb-1"
+                }
+            ]
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "btn btn-primary",
+            "name": "submit",
+            "title": "general.save",
+            "field": "submit",
+            "positionClass": "text-right mt-3 col-md-12"
+        }
+    ]
+}

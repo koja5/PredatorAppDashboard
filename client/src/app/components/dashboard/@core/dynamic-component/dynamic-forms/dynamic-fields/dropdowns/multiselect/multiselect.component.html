@@ -23,6 +23,44 @@
       </span>
       <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
     </ng-template>
+    <ng-template *ngIf="!config.fieldTemplate" ng-label-tmp let-item="item" let-clear="clear">
+      {{item[config.field.text] | translate}}
+    </ng-template>
+    <ng-template *ngIf="!config.fieldTemplate" ng-option-tmp let-item="item" let-clear="clear">
+      {{item[config.field.text] | translate}}
+    </ng-template>
+    <ng-template *ngIf="config.fieldTemplate" ng-label-tmp let-item="item" let-clear="clear">
+      <div *ngFor="let field of config.fieldTemplate.fields">
+        <span *ngFor="let value of field.values"><span *ngIf="value === ''">&nbsp;</span><span
+            *ngIf="value != ''">{{item[value] | translate}}</span></span>
+      </div>
+    </ng-template>
+    <ng-template *ngIf="config.fieldTemplate" ng-value-tmp let-item="item">
+      <div *ngFor="let field of config.fieldTemplate.fields">
+        <span *ngFor="let value of field.values"><span *ngIf="value === ''">&nbsp;</span><span
+            *ngIf="value != ''">{{item[value] | translate}}</span></span>
+      </div>
+    </ng-template>
+    <ng-template *ngIf="config.fieldTemplate" ng-option-tmp let-item="item">
+      <div *ngFor="let field of config.fieldTemplate.fields">
+        <span *ngFor="let value of field.values"><span *ngIf="value === ''">&nbsp;</span><span
+            *ngIf="value != ''">{{item[value] | translate}}</span></span>
+      </div>
+    </ng-template>
+    <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
+      <div class="ng-option disabled">
+        {{'commonFields.noDataFoundFor' | translate}}
+        "{{searchTerm}}". {{'commonFields.doYouWantToCreateNew' |
+        translate}}
+      </div>
+    </ng-template>
+
+    <ng-template *ngIf="config.addTag" ng-footer-tmp>
+      <p class="m-0 font-weight-bold cursor-pointer" (click)="openModalNewEntrie()"><span
+          class="fa fa-plus-circle"></span> {{
+        config.addTag.title ? config.addTag.title : 'commonFields.createNew' | translate
+        }} </p>
+    </ng-template>
     <ng-template *ngIf="config.addTag" ng-footer-tmp>
       <p class="m-0 font-weight-bold cursor-pointer" (click)="createNew()">{{
         config.addTag.text | translate

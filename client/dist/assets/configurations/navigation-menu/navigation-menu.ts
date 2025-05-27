@@ -143,4 +143,22 @@ export const menu = [
     url: "dashboard/admin/all-observation-reports",
     users: ["admin"],
   },
+  {
+    id: "allFishDistricts",
+    title: "allFishDistricts",
+    translate: "navigations.allFishDistricts",
+    type: "item",
+    icon: "settings",
+    url: "dashboard/admin/all-fish-districts",
+    users: ["admin"],
+  },
+  {
+    id: "adminSettings",
+    title: "adminSettings",
+    translate: "navigations.areaSettings",
+    type: "item",
+    icon: "settings",
+    url: "dashboard/admin/area-settings",
+    users: ["admin"],
+  },
 ];

@@ -1,5 +1,12 @@
 {
     "pageSize": 10,
+    "request": {
+        "type": "GET",
+        "api": "/api/admin/getPredatorRequests",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
     "searchFilter": true,
     "paging": {
         "enable": true,

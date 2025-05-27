@@ -84,17 +84,36 @@ router.post("/setUser", auth, function (req, res, next) {
       res.json(err);
     }
 
-    if (req.body.password && !isValidSHA1(req.body.password)) {
+    if (
+      !isValidSHA1(req.body.password) ||
+      (!req.body.id && req.body.password)
+    ) {
       req.body.password = sha1(req.body.password);
     }
 
     conn.query(
-      "INSERT INTO users set ? ON DUPLICATE KEY UPDATE ?",
-      [req.body, req.body],
+      "select * from all_areas where id = ?",
+      [req.body.id_area],
       function (err, rows) {
-        conn.release();
         if (!err) {
-          res.json(true);
+          console.log(rows);
+          if (rows.length) {
+            req.body.id_admin = rows[0].id_admin;
+          }
+          console.log(req.body);
+          conn.query(
+            "INSERT INTO users set ? ON DUPLICATE KEY UPDATE ?",
+            [req.body, req.body],
+            function (err, rows) {
+              conn.release();
+              if (!err) {
+                res.json(true);
+              } else {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(false);
+              }
+            }
+          );
         } else {
           logger.log("error", err.sql + ". " + err.sqlMessage);
           res.json(false);
@@ -173,7 +192,7 @@ router.get("/getAllAdmins", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select id, firstname, lastname, gender, phone, email, type, verify, active from users where type = ?",
+          "select id, id_area, firstname, lastname, gender, phone, email, type, verify, active from users where type = ?",
           [userType.admin],
           function (err, rows, fields) {
             conn.release();
@@ -420,7 +439,7 @@ router.get("/getAllFishDistricts", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select * from all_fish_districts",
+          "select afd.*, a.name as 'area' from all_fish_districts afd left join all_areas a on afd.id_area = a.id",
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -479,6 +498,36 @@ router.post("/deleteFishDistrict", auth, async (req, res, next) => {
               res.json(err);
             } else {
               res.json(true);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/deleteFishDistrict/:id", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "delete from all_fish_districts where id = ?",
+          [req.params.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.redirect(
+                process.env.link_client + "/pages/miscellaneous/success"
+              );
             }
           }
         );
@@ -1036,7 +1085,8 @@ function isValidSHA1(s) {
   if (s) {
     return s.indexOf("^[a-fA-F0-9]{40}$") == 1;
   } else {
-    return false;
+    if (!s) return true;
+    else return false;
   }
 }
 

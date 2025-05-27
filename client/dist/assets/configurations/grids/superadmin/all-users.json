@@ -325,25 +325,6 @@
             "field": "lastname"
         },
         {
-            "type": "radio",
-            "width": "col-md-12",
-            "name": "gender",
-            "title": "commonFields.gender",
-            "dataArray": [
-                {
-                    "title": "commonFields.man",
-                    "id": 0,
-                    "class": "mb-1"
-                },
-                {
-                    "title": "commonFields.woman",
-                    "id": 1,
-                    "class": "mb-1"
-                }
-            ],
-            "field": "gender"
-        },
-        {
             "type": "switch",
             "width": "col-12",
             "class": "e-outline",

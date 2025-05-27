@@ -44,6 +44,13 @@ const appRoutes: Routes = [
       ),
   },
   {
+    path: "pages",
+    loadChildren: () =>
+      import("./main/pages/miscellaneous/miscellaneous.module").then(
+        (m) => m.MiscellaneousModule
+      ),
+  },
+  {
     path: "**",
     redirectTo: "/pages/miscellaneous/error", //Error 404 - Page not found
   },

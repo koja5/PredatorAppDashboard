@@ -18,6 +18,9 @@ export class PredatorsComponent {
   @ViewChild(DialogConfirmComponent) dialogConfirm;
   @ViewChild("approveObservationQuestion")
   approveObservationQuestion: DialogConfirmComponent;
+  @ViewChild("modal") modal: TemplateRef<any>;
+  @ViewChild("modalPreviewDataForMobile")
+  modalPreviewDataForMobile: TemplateRef<any>;
   public predators: any;
   public allPredators: any;
   public data: PredatorModel;
@@ -25,10 +28,11 @@ export class PredatorsComponent {
   public loader = false;
   public loaderData = false;
   galleryImages: NgxGalleryImage[] = [];
-  @ViewChild("modal") modal: TemplateRef<any>;
   public modalDialog: any;
+  public modalDialogPreviewData: any;
   public filter: any;
   public filterFlag = 0;
+  public mobileDevice = false;
 
   constructor(
     private _service: CallApiService,
@@ -38,6 +42,9 @@ export class PredatorsComponent {
   ) {}
 
   ngOnInit() {
+    if (window.innerWidth < 1200) {
+      this.mobileDevice = true;
+    }
     this.getPredators();
   }
 
@@ -57,6 +64,9 @@ export class PredatorsComponent {
       this._service
         .callGetMethod("/api/admin/getPredatorById", event)
         .subscribe((data: any) => {
+          if (this.mobileDevice) {
+            this.showModalPreviewDataForMobile();
+          }
           this.data = data;
           this.loader = false;
         });
@@ -105,6 +115,19 @@ export class PredatorsComponent {
         size: "lg",
         windowClass: "modal modal-danger",
       });
+    }, 20);
+  }
+
+  showModalPreviewDataForMobile() {
+    setTimeout(() => {
+      this.modalDialogPreviewData = this._modalService.open(
+        this.modalPreviewDataForMobile,
+        {
+          centered: true,
+          size: "lg",
+          windowClass: "modal modal-danger",
+        }
+      );
     }, 20);
   }
 
@@ -190,32 +213,40 @@ export class PredatorsComponent {
         this.filterFlag++;
       }
       if (event.id_predators) {
-        for (let i = 0; i < event.id_predators.length; i++) {
-          this.predators = this.predators.filter(
-            (s) => s.id_predator === event.id_predators[i]
-          );
-        }
+        this.predators = this.filterValue(event, "id_predators", "id_predator");
         this.filterFlag++;
       }
       if (event.id_activities) {
-        for (let i = 0; i < event.id_activities.length; i++) {
-          this.predators = this.predators.filter(
-            (s) => s.id_predator === event.id_activities[i]
-          );
-        }
+        this.predators = this.filterValue(
+          event,
+          "id_activities",
+          "id_activity"
+        );
         this.filterFlag++;
       }
       if (event.id_waters) {
-        for (let i = 0; i < event.id_waters.length; i++) {
-          this.predators = this.predators.filter(
-            (s) => s.id_water === event.id_waters[i]
-          );
-        }
+        this.predators = this.filterValue(event, "id_waters", "id_water");
+        this.filterFlag++;
+      }
+      if (event.id_users) {
+        this.predators = this.filterValue(event, "id_users", "id_user");
         this.filterFlag++;
       }
       this.modalDialog.close();
       this.loaderData = false;
     }, 20);
+  }
+
+  filterValue(parameters: any, parameterKey: string, field: string) {
+    let filtered = [];
+    for (let i = 0; i < this.predators.length; i++) {
+      for (let j = 0; j < parameters[parameterKey].length; j++) {
+        if (this.predators[i][field] === parameters[parameterKey][j]) {
+          filtered.push(this.predators[i]);
+        }
+      }
+    }
+    return filtered;
   }
 
   approveObservation() {

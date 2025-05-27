@@ -170,6 +170,40 @@
             }
         },
         {
+            "type": "multiselect",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "id_users",
+            "title": "predator.users",
+            "field": {
+                "text": "firstname",
+                "value": "id"
+            },
+            "fieldTemplate": {
+                "fields": [
+                    {
+                        "type": "text",
+                        "values": [
+                            "firstname",
+                            "",
+                            "lastname"
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/admin/getMyUsers",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            }
+        },
+        {
             "type": "button",
             "width": "col-md-12",
             "class": "btn btn-primary",

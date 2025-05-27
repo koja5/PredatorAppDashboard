@@ -16,7 +16,6 @@ function makeRequest(body, api, res) {
   var options = prepareOptionsForRequest(body, api);
 
   request(options, function (error, response, body) {
-    console.log('usao sam!');
     if (!error) {
       res.json(true);
     } else {

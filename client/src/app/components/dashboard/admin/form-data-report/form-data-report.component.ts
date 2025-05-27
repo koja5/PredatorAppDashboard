@@ -12,6 +12,7 @@ import {
 })
 export class FormDataReportComponent {
   @Input() data: any;
+  @Input() showMap: boolean = true;
   @Output() showQuestionModalEmit = new EventEmitter<null>();
   @Output() approveObservationEmit = new EventEmitter<any>();
   public galleryOptions: NgxGalleryOptions[];
