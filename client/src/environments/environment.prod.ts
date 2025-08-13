@@ -3,4 +3,5 @@ export const environment = {
   hmr: false,
   apiUrl: "http://localhost:4000",
   ENCRIPTY_KEY: "Predator Tracker",
+  GALLERY_STORAGE: "https://praedatoren.app/assets/file-storage/",
 };

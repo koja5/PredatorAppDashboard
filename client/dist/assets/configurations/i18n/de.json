@@ -29,7 +29,10 @@
       "action": "Aktion",
       "noDateInformation": "Erstellungsdatum unbekannt!",
       "filter": "Filter",
-      "clearFilter": "Filter löschen"
+      "clearFilter": "Filter löschen",
+      "visible": "Sichtbar",
+      "hidden": "Versteckt",
+      "add": "Hinzufügen"
    },
    "action": {
       "completeReport": "Meldung absenden",
@@ -132,7 +135,8 @@
       "admin": "Administrator",
       "adminFirstname": "Vorname des Administrators",
       "adminLastname": "Nachname des Administrators",
-      "area": "Bereich"
+      "area": "Bereich",
+      "hidden": "Versteckt"
    },
    "userType": {
       "admin": "Administrator",
@@ -255,6 +259,7 @@
       "creationDateFrom": "Datum von",
       "creationDateTo": "Datum bis",
       "predator": "Predator",
+      "users": "Meine Benutzer",
       "activity": "Atkivität",
       "water": "Gewässer",
       "district": "Revier",
@@ -272,7 +277,9 @@
       "youngAnimalsFilter": "davon Jungtiere",
       "maleAnimalsFilter": "davon weibl. Erw.",
       "femaleAnimalsFilter": "davon männl. Erw.",
-      "comment": "Kommentar"
+      "localDescription": "nähere örtliche Beschreibung",
+      "comment": "Kommentar",
+      "edited": "Bearbeitet"
    },
    "allObservationReports": {
       "approvedObservations": "genehmigte Beobachtungen",

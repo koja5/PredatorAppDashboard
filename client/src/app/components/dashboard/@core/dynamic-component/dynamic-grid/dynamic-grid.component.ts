@@ -57,6 +57,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   @Output() submit = new EventEmitter();
   @Output() emitValueForCustomForm = new EventEmitter<any>();
   @Output() refreshParentComponent = new EventEmitter();
+  @Output() openParentFormEmit = new EventEmitter();
   @ViewChild("grid") grid: any;
   @ViewChild("modal") modal: TemplateRef<any>;
   @ViewChild("modalExecuteAction") modalExecuteAction: TemplateRef<any>;
@@ -133,6 +134,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   public selectedPlan = [];
   public selectedStatus = [];
   public searchValue = "";
+  public tableHeight: any;
 
   //END SPECIAL VARIABLES
 
@@ -321,6 +323,27 @@ export class DynamicGridComponent implements CanComponentDeactivate {
       });
   }
 
+  setTableHeight() {
+    const pixel = document.getElementById("main-content")!.offsetHeight;
+    const displayHeight = window.visualViewport
+      ? window.visualViewport.height
+      : window.innerHeight;
+    const tableHeader = (119 / displayHeight) * 100;
+    const pagination = (56 / displayHeight) * 100;
+    let convertPxToVh =
+      (pixel / displayHeight) * 100 - tableHeader - pagination - 15;
+
+    if (window.innerWidth < 992) {
+      convertPxToVh -= 8;
+    }
+    this.tableHeight = convertPxToVh + "vh";
+    setTimeout(() => {
+      (
+        document.getElementsByClassName("datatable-body")[0] as HTMLElement
+      ).style.height = this.tableHeight;
+    }, 200);
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (this.data != undefined) {
       this.rows = this.data;
@@ -374,22 +397,26 @@ export class DynamicGridComponent implements CanComponentDeactivate {
                         this.rows = data;
                         this.tempData = this.rows;
                         this.loader = false;
+                        this.setTableHeight();
                       });
                   }, 450);
                 } else {
                   this.getData();
+                  this.setTableHeight();
                 }
               });
           } else if (this.data) {
             this.rows = this.data;
             this.tempData = this.rows;
             this.loader = false;
+            this.setTableHeight();
           }
         });
     } else if (this.data) {
       this.rows = this.data;
       this.tempData = this.rows;
       this.loader = false;
+      this.setTableHeight();
     }
   }
 
@@ -466,6 +493,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
         .subscribe((data) => {
           this.loader = false;
           this.setResponseData(data);
+          this.setTableHeight();
         });
     } else {
       this.refreshParentComponent.emit();
@@ -553,6 +581,10 @@ export class DynamicGridComponent implements CanComponentDeactivate {
     if (!this.config || !this.config.length) {
       this.emitValueForCustomForm.emit(null);
     }
+  }
+
+  openParentForm() {
+    this.openParentFormEmit.emit();
   }
 
   setValue(fields: any, values: any) {

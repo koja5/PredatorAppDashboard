@@ -137,7 +137,7 @@ export class MapComponent implements OnInit {
     this.map.setTarget("map");
     this.map.setView(
       new View({
-        center: [long, lat],
+        center: [this.predators[0].longitude, this.predators[0].latitude],
         zoom: 7,
         maxZoom: 15,
       })

@@ -3,6 +3,7 @@
       "save": "Speichern",
       "searchFilter": "Suche",
       "addNew": "Neu",
+      "add": "Hinzufügen",
       "show": "Anzeigen",
       "entries": "Einträge",
       "newEntrie": "Neu",
@@ -29,7 +30,10 @@
       "action": "Aktion",
       "noDateInformation": "Erstellungsdatum unbekannt!",
       "filter": "Filter",
-      "clearFilter": "Filter löschen"
+      "clearFilter": "Filter löschen",
+      "visible": "Sichtbar",
+      "hidden": "Versteckt",
+      "needToFillAllFields": "Alle mit * markierten Pflichtfelder müssen ausgefüllt werden"
    },
    "action": {
       "completeReport": "Meldung absenden",
@@ -132,7 +136,8 @@
       "admin": "Administrator",
       "adminFirstname": "Vorname des Administrators",
       "adminLastname": "Nachname des Administrators",
-      "area": "Bereich"
+      "area": "Bereich",
+      "hidden": "Versteckt"
    },
    "userType": {
       "admin": "Administrator",
@@ -250,11 +255,11 @@
       "number": "Anz. Bundesl."
    },
    "predator": {
-      "user": "Ersteller",
+      "user": "Ersteller *",
       "creationDate": "Erstellt am/um",
       "creationDateFrom": "Datum von",
       "creationDateTo": "Datum bis",
-      "predator": "Predator",
+      "predator": "Predator *",
       "users": "Meine Benutzer",
       "activity": "Atkivität",
       "water": "Gewässer",
@@ -263,7 +268,7 @@
       "gps": "GPS",
       "latitude": "Längengrad",
       "longitude": "Breitengrad",
-      "totalNumber": "Anzahl Gesamt",
+      "totalNumber": "Anzahl Gesamt *",
       "totalNumberFrom": "Anzahl Gesamt von",
       "totalNumberTo": "Anzahl Gesamt bis",
       "gallery": "Bilder",
@@ -273,7 +278,9 @@
       "youngAnimalsFilter": "davon Jungtiere",
       "maleAnimalsFilter": "davon weibl. Erw.",
       "femaleAnimalsFilter": "davon männl. Erw.",
-      "comment": "Kommentar"
+      "localDescription": "nähere örtliche Beschreibung",
+      "comment": "Kommentar",
+      "edited": "Bearbeitet"
    },
    "allObservationReports": {
       "approvedObservations": "genehmigte Beobachtungen",

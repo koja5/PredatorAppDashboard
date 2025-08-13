@@ -1,39 +1,50 @@
-<div *ngIf="!data.visible" class="text-center mb-2">
+<div *ngIf="data.id && !data.visible" class="text-center mb-2">
     <button class="btn btn-success" (click)="approveObservation()"><span class="fa fa-thumbs-o-up"></span>
-        Approve
-        observation</button>
+        {{'allObservationReports.approveObservation' | translate}}</button>
 </div>
 <p class="creation-date" *ngIf="data.creation_date">{{data.creation_date | date: 'dd.MM.yyyy HH:mm:ss'}}</p>
-<p class="no-creation-date" *ngIf="!data.creation_date">{{'general.noDateInformation' | translate}}</p>
+<p class="no-creation-date" *ngIf="data.id && !data.creation_date">{{'general.noDateInformation' | translate}}</p>
+
 <div>
-    <label class="custom-label">{{'predator.user' | translate}}
-    </label>
-    <input type="textbox" class="e-outline form-control" name="email" [(ngModel)]="data.client_name">
+    <label>{{'predator.user' | translate}}</label>
+    <ng-select [items]="allItems.users" [(ngModel)]="data.id_user" [bindValue]="'id'" [closeOnSelect]="true">
+        <ng-template ng-label-tmp let-item="item" let-clear="clear">
+            {{item.firstname}} {{item.lastname}}
+        </ng-template>
+        <ng-template ng-option-tmp let-item="item" let-clear="clear">
+            {{item.firstname}} {{item.lastname}}
+        </ng-template>
+        <ng-template ng-value-tmp let-item="item">
+            {{item.firstname}} {{item.lastname}}
+        </ng-template>
+    </ng-select>
 </div>
 <div>
-    <label class="custom-label">{{'predator.creationDate' | translate}}
-    </label>
-    <input type="textbox" class="e-outline form-control" name="creationDate" [(ngModel)]="data.client_name">
+    <label>{{'predator.predator' | translate}}</label>
+    <ng-select [items]="allItems.predators" [(ngModel)]="data.id_predator" [bindLabel]="'name'" [bindValue]="'id'"
+        [closeOnSelect]="true">
+    </ng-select>
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.predator' | translate}}
-    </label>
-    <input type="textbox" class="e-outline form-control" name="predator_name" [(ngModel)]="data.predator_name">
+    <label>{{'predator.activity' | translate}}</label>
+    <ng-select [items]="allItems.activities" [(ngModel)]="data.id_activity" [bindLabel]="'name'" [bindValue]="'id'"
+        [closeOnSelect]="true">
+    </ng-select>
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.activity' | translate}}
-    </label>
-    <input type="textbox" class="e-outline form-control" name="activity" [(ngModel)]="data.activity">
+    <label>{{'predator.water' | translate}}</label>
+    <ng-select [items]="allItems.waters" [(ngModel)]="data.id_water" [bindLabel]="'name'" [bindValue]="'id'"
+        [closeOnSelect]="true">
+    </ng-select>
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.water' | translate}}
-    </label>
-    <input type="textbox" class="e-outline form-control" name="water_name" [(ngModel)]="data.water_name">
-</div>
-<div>
-    <label class="custom-label">{{'predator.district' | translate}}
-    </label>
-    <input type="textbox" class="e-outline form-control" name="fish_district" [(ngModel)]="data.fish_district">
+    <label>{{'predator.district' | translate}}</label>
+    <ng-select [items]="allItems.fishDistrict" [(ngModel)]="data.id_fish_district" [bindLabel]="'name'"
+        [bindValue]="'id'" [closeOnSelect]="true">
+    </ng-select>
 </div>
 <div>
     <label class="custom-label">{{'predator.distanceToWater' | translate}}
@@ -74,17 +85,28 @@
         [(ngModel)]="data.including_female_animals">
 </div>
 <div>
+    <label class="custom-label">{{'predator.localDescription' | translate}}
+    </label>
+    <textarea type="textbox" class="e-outline form-control" name="comment"
+        [(ngModel)]="data.local_description"></textarea>
+</div>
+<div>
     <label class="custom-label">{{'predator.comment' | translate}}
     </label>
     <textarea type="textbox" class="e-outline form-control" name="comment" [(ngModel)]="data.comment"></textarea>
 </div>
-<div class="mt-2" *ngIf="galleryImages && galleryImages.length">
+<!-- <div class="mt-2" *ngIf="galleryImages && galleryImages.length">
     <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+</div> -->
+<div class="mt-2">
+    <app-gallery [value]="data.gallery" (changeEmit)="changeGalleryImage($event)"></app-gallery>
 </div>
 <div class="mt-2" *ngIf="showMap">
     <app-map *ngIf="data" [predators]="[data]" [mapSmall]="true"></app-map>
 </div>
-<div class="text-center mt-2">
+<div class="text-center mt-2 button-options">
     <button class="btn btn-danger" (click)="showQuestionModel()"><span class="fa fa-trash"></span>
         {{'general.delete' | translate}}</button>
+    <button class="btn btn-success" (click)="save()"><span class="fa fa-save"></span>
+        {{'general.save' | translate}}</button>
 </div>

@@ -1,0 +1,16 @@
+<div class="gallery row" *ngIf="gallery">
+    <div class="photo col-3 mb-1" (click)="openImage(i)" *ngFor="let item of gallery; let i = index">
+        <img src="{{item}}" alt="{{item}}" />
+        <img src="./assets/images/icons/remove.svg" class="remove-photo" (click)="removePhoto(i)">
+    </div>
+
+    <div class="add-more {{gallery ? '' : 'full-width'}}">
+        <div class="wrapper">
+            <div class="file-upload">
+                <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target)" />
+                <img src="./assets/images/icons/add-more-photo.svg">
+                <p>{{'general.add' | translate}}</p>
+            </div>
+        </div>
+    </div>
+</div>

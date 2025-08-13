@@ -273,7 +273,7 @@ router.post("/deleteAdmin", auth, async (req, res, next) => {
 
 //#region PREDATORS
 
-router.get("/getAllPredators", auth, async (req, res, next) => {
+router.get("/getAllPredators", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {
@@ -352,7 +352,7 @@ router.post("/deletePredator", auth, async (req, res, next) => {
 
 //#region WATERS
 
-router.get("/getAllWaters", auth, async (req, res, next) => {
+router.get("/getAllWaters", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {
@@ -431,7 +431,7 @@ router.post("/deleteWater", auth, async (req, res, next) => {
 
 //#region FISH DISTRICTS
 
-router.get("/getAllFishDistricts", auth, async (req, res, next) => {
+router.get("/getAllFishDistricts", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {
@@ -543,7 +543,7 @@ router.get("/deleteFishDistrict/:id", async (req, res, next) => {
 
 //#region ACTIVITIES
 
-router.get("/getAllActivities", auth, async (req, res, next) => {
+router.get("/getAllActivities", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {

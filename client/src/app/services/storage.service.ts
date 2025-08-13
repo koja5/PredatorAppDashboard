@@ -123,7 +123,7 @@ export class StorageService {
 
   getAdminIdSha1() {
     if (this.getToken()) {
-      return this.helper.decodeToken(this.getToken()).user.admin_id;
+      return this.helper.decodeToken(this.getToken()).user.id_admin;
     }
     return false;
   }

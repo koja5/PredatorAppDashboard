@@ -102,6 +102,32 @@
             "validation": {
                 "required": true
             }
+        },
+        {
+            "title": "commonFields.active",
+            "template": {
+                "choices": [
+                    {
+                        "field": "hidden",
+                        "value": 1,
+                        "operator": "==",
+                        "apart": {
+                            "title": "general.hidden",
+                            "badge": "badge badge-pill badge-light-danger"
+                        }
+                    },
+                    {
+                        "field": "hidden",
+                        "value": 0,
+                        "operator": "==",
+                        "apart": {
+                            "title": "general.visible",
+                            "badge": "badge badge-pill badge-light-success"
+                        }
+                    }
+                ]
+            },
+            "field": "hidden"
         }
     ],
     "config": [
@@ -122,6 +148,14 @@
             "title": "commonFields.name",
             "field": "name",
             "required": true
+        },
+        {
+            "type": "switch",
+            "width": "col-12",
+            "class": "e-outline",
+            "name": "hidden",
+            "title": "commonFields.hidden",
+            "field": "hidden"
         },
         {
             "type": "button",

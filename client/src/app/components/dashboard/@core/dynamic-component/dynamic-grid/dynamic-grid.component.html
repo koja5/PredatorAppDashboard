@@ -7,16 +7,24 @@
 
             <div class="card">
                 <div class="p-1 filter-container">
-                    <div class="flex-grow-0 pr-1"
+                    <div class="flex-grow-0"
                         *ngIf="(config.editSettingsRequest && config.editSettingsRequest.add) && (!config.actionButtons || config.actionButtons.addButton) && !hideCreateNew && !config.disableCreateNewRow">
                         <button
-                            class="btn btn-primary pr-1 {{disableCRUD || disabledCreateNew ? 'cursor-not-allowed' : ''}}"
+                            class="btn btn-primary create-new {{disableCRUD || disabledCreateNew ? 'cursor-not-allowed' : ''}}"
                             title="{{disableCRUD || disabledCreateNew ? ('actionMessage.actionNotAllowed' | translate) : ''}}"
                             rippleEffect
                             (click)="config.formDialog && config.formDialog.type === 'sidebar' ? toggleSidebar('sidebar') : showModalFormDialog(); createNewRecords = true; resetFormValue()"
                             [disabled]="disabledCreateNew || disableCRUD">
-                            <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i><span
-                                class="d-none d-sm-inline-block">{{'general.addNew' | translate}}</span>
+                            <i data-feather="plus" class="d-inline-block mr-0 "></i><span>{{'general.addNew' |
+                                translate}}</span>
+                        </button>
+                    </div>
+
+                    <div class="flex-grow-0"
+                        *ngIf="(config.editSettingsRequest && config.editSettingsRequest.openParentForm)">
+                        <button class="btn btn-primary create-new" rippleEffect (click)="openParentForm()">
+                            <i data-feather="plus" class="d-inline-block mr-0"></i><span>{{'general.addNew' |
+                                translate}}</span>
                         </button>
                     </div>
 

@@ -1,5 +1,12 @@
 {
     "pageSize": 10,
+    "request": {
+        "type": "GET",
+        "api": "/api/admin/getPredatorRequests",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
     "searchFilter": true,
     "paging": {
         "enable": true,
@@ -34,12 +41,8 @@
     "hideable": true,
     "refresh": false,
     "reset": true,
-    "editSettings": {
-        "allowEditing": true,
-        "allowAdding": true,
-        "allowDeleting": true,
-        "showDeleteConfirmDialog": true,
-        "mode": "Dialog"
+    "editSettingsRequest": {
+        "openParentForm": true
     },
     "columns": [
         {
@@ -145,7 +148,7 @@
             "filter": "date",
             "type": "string",
             "class": "text-align-right",
-            "field": "water_name",
+            "field": "water",
             "validation": {
                 "required": true
             }
@@ -182,6 +185,18 @@
             "type": "string",
             "class": "text-align-right",
             "field": "email",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "predator.edited",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "edited",
             "validation": {
                 "required": true
             }

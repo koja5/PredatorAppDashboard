@@ -1,0 +1,86 @@
+<div class="mt-3">
+    <div>
+        <label>{{'predator.user' | translate}}</label>
+        <ng-select [items]="allItems.users" [bindValue]="'id'" [closeOnSelect]="true" (change)="onChangeUser($event)">
+            <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                {{item.firstname}} {{item.lastname}}
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-clear="clear">
+                {{item.firstname}} {{item.lastname}}
+            </ng-template>
+            <ng-template ng-value-tmp let-item="item">
+                {{item.firstname}} {{item.lastname}}
+            </ng-template>
+        </ng-select>
+    </div>
+    <div>
+        <label>{{'predator.predator' | translate}}</label>
+        <ng-select [items]="allItems.predators" [bindLabel]="'name'" [bindValue]="'id'" [closeOnSelect]="true"
+            (change)="onChangePredator($event)">
+        </ng-select>
+    </div>
+    <div>
+        <label>{{'predator.totalNumber' | translate}}</label>
+        <input type="number" class="form-control" name="total_number" [(ngModel)]="data.total_number" />
+    </div>
+    <div>
+        <label>{{'predator.youngAnimals' | translate}}</label>
+        <input type="number" class="form-control" name="including_young_animals"
+            [(ngModel)]="data.including_young_animals" />
+    </div>
+    <div>
+        <label>{{'predator.femaleAnimals' | translate}}</label>
+        <input type="number" class="form-control" name="including_female_animals"
+            [(ngModel)]="data.including_female_animals" />
+    </div>
+    <div>
+        <label>{{'predator.maleAnimals' | translate}}</label>
+        <input type="number" class="form-control" name="including_male_animals"
+            [(ngModel)]="data.including_male_animals" />
+    </div>
+    <div>
+        <label>{{'predator.water' | translate}}</label>
+        <ng-select [items]="allItems.waters" [bindLabel]="'name'" [bindValue]="'id'" [closeOnSelect]="true"
+            (change)="onChangeWater($event)">
+        </ng-select>
+    </div>
+    <div>
+        <label>{{'predator.distanceToWater' | translate}}</label>
+        <input type="number" class="form-control" name="distance_to_water" [(ngModel)]="data.distance_to_water" />
+    </div>
+    <div>
+        <label class="custom-label">{{'predator.latitude' | translate}}
+        </label>
+        <input type="textbox" class="e-outline form-control" name="latitude" [(ngModel)]="data.latitude">
+    </div>
+    <div>
+        <label class="custom-label">{{'predator.longitude' | translate}}
+        </label>
+        <input type="textbox" class="e-outline form-control" name="longitude" [(ngModel)]="data.longitude">
+    </div>
+    <div>
+        <label>{{'predator.district' | translate}}</label>
+        <ng-select [items]="allItems.fishDistrict" [bindLabel]="'name'" [bindValue]="'id'" [closeOnSelect]="true"
+            (change)="onChangeFishDistrict($event)">
+        </ng-select>
+    </div>
+    <div>
+        <label>{{'predator.activity' | translate}}</label>
+        <ng-select [items]="allItems.activities" [bindLabel]="'name'" [bindValue]="'id'" [closeOnSelect]="true"
+            (change)="onChangeActivity($event)">
+        </ng-select>
+    </div>
+    <div>
+        <label>{{'predator.localDescription' | translate}}</label>
+        <textarea class="form-control" name="local_description" [(ngModel)]="data.local_description"></textarea>
+    </div>
+    <div>
+        <label>{{'predator.comment' | translate}}</label>
+        <textarea class="form-control" name="comment" [(ngModel)]="data.comment"></textarea>
+    </div>
+
+    <app-gallery [value]="data.gallery" (changeEmit)="changeGalleryImage($event)"></app-gallery>
+    <div class="text-right mt-2">
+        <button class="btn btn-success" (click)="save()">{{'general.save' | translate}}</button>
+    </div>
+</div>

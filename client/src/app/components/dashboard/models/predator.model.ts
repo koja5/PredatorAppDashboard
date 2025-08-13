@@ -23,4 +23,5 @@ export class PredatorModel {
   predator_name: string;
   water_name: string;
   visible: any;
+  local_description: string;
 }

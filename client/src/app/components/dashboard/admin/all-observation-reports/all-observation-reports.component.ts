@@ -3,6 +3,8 @@ import { DynamicGridComponent } from "../../@core/dynamic-component/dynamic-grid
 import { CallApiService } from "app/services/call-api.service";
 import { HelpService } from "app/services/help.service";
 import { CoreSidebarComponent } from "@core/components/core-sidebar/core-sidebar.component";
+import { ToastrComponent } from "../../@core/common/toastr/toastr.component";
+import { DialogConfirmComponent } from "../../@core/common/dialog-confirm/dialog-confirm.component";
 
 @Component({
   selector: "app-all-observation-reports",
@@ -12,6 +14,9 @@ import { CoreSidebarComponent } from "@core/components/core-sidebar/core-sidebar
 export class AllObservationReportsComponent {
   @ViewChild("grid") grid: DynamicGridComponent;
   @ViewChild("sidebar") sidebar: CoreSidebarComponent;
+  @ViewChild("sidebarNew") sidebarNew: CoreSidebarComponent;
+  @ViewChild("dialogConfirm")
+  dialogConfirm: DialogConfirmComponent;
 
   public path = "grids/admin";
   public file = "all-observation-reports.json";
@@ -36,10 +41,15 @@ export class AllObservationReportsComponent {
 
   constructor(
     private _service: CallApiService,
-    private _helpService: HelpService
+    private _helpService: HelpService,
+    private _toastr: ToastrComponent
   ) {}
 
   ngOnInit() {
+    this.getPredatorRequests();
+  }
+
+  getPredatorRequests() {
     this._service
       .callGetMethod("/api/admin/getPredatorRequests")
       .subscribe((data) => {
@@ -76,9 +86,53 @@ export class AllObservationReportsComponent {
     this.sidebar.close();
   }
 
+  closeSidebarNew() {
+    this.selectedRow = null;
+    this.sidebarNew.close();
+  }
+
   openedChangedEvent(event: any) {
     if (!event) {
       this.closeSidebar();
     }
+  }
+
+  showQuestionModal() {
+    this.dialogConfirm.showQuestionModal();
+  }
+
+  approveObservation(event: any) {
+    this._service
+      .callPostMethod("/api/admin/setPredatorToVisible", event)
+      .subscribe((data) => {
+        if (data) {
+          this.closeSidebar();
+          this._toastr.showSuccess();
+          this.getPredatorRequests();
+        }
+      });
+  }
+
+  deleteObservationReport() {
+    this._service
+      .callPostMethod("/api/admin/deletePredator", this.selectedRow)
+      .subscribe((data) => {
+        if (data) {
+          this.closeSidebar();
+          this._toastr.showSuccess();
+          this.getPredatorRequests();
+        }
+      });
+  }
+
+  openParentForm() {
+    this.selectedRow = {};
+    this.sidebarNew.open();
+  }
+
+  refreshGrid() {
+    this.closeSidebar();
+    this.closeSidebarNew();
+    this.getPredatorRequests();
   }
 }

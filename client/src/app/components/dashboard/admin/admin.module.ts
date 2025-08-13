@@ -17,6 +17,7 @@ import { CorePipesModule } from "@core/pipes/pipes.module";
 import { FormDataReportComponent } from "./form-data-report/form-data-report.component";
 import { AllFishDistrictsComponent } from "./all-fish-districts/all-fish-districts.component";
 import { AreaSettingsComponent } from "./area-settings/area-settings.component";
+import { NewFormDataReportComponent } from './form-data-report/new-form-data-report/new-form-data-report.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,7 @@ const routes: Routes = [
     FormDataReportComponent,
     AllFishDistrictsComponent,
     AreaSettingsComponent,
+    NewFormDataReportComponent,
   ],
   imports: [
     CommonModule,

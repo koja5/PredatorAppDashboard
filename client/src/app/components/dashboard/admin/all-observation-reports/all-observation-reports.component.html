@@ -1,8 +1,9 @@
 <app-dynamic-grid *ngIf="data" #grid [path]="path" [file]="file" [data]="data" [templateFilter]="templateFilter"
-    [height]="'auto'" (emitValueForCustomForm)="emitValue($event)"></app-dynamic-grid>
+    [height]="'auto'" (emitValueForCustomForm)="emitValue($event)"
+    (openParentFormEmit)="openParentForm()"></app-dynamic-grid>
 
 <ng-template #templateFilter>
-    <div class="ml-1 custom-filter">
+    <div class="custom-filter">
         <ng-select [items]="customFilter" [(ngModel)]="selectedFilter" name="customFilter"
             placeholder="{{'allObservationReports.filterObservation' | translate}}"
             (change)="changeCustomFilter($event)">
@@ -17,6 +18,10 @@
     </div>
 </ng-template>
 
+<app-dialog-confirm #dialogConfirm [content]="('generalDialog.executeActionQuestion' | translate)"
+    (confirm)="deleteObservationReport()"></app-dialog-confirm>
+
+<!-- EDIT CURRENT -->
 <core-sidebar #sidebar class="modal modal-slide-in sidebar-todo-modal fade" (collapsedChangedEvent)="closeSidebar()"
     (openedChangedEvent)="openedChangedEvent($event)" name="sidebar" overlayClass="modal-backdrop">
     <div class="slideout-content">
@@ -30,7 +35,35 @@
                     </button>
 
                     <div class="modal-body flex-grow-1 mt-2" *ngIf="selectedRow">
-                        <app-form-data-report [data]="selectedRow"></app-form-data-report>
+                        <app-form-data-report [data]="selectedRow" (refreshGridEmit)="refreshGrid()"
+                            (approveObservationEmit)="approveObservation($event)"
+                            (showQuestionModalEmit)="showQuestionModal()"></app-form-data-report>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</core-sidebar>
+
+<!-- NEW -->
+<core-sidebar #sidebarNew class="modal modal-slide-in sidebar-todo-modal fade"
+    (collapsedChangedEvent)="closeSidebarNew()" (openedChangedEvent)="openedChangedEvent($event)" name="sidebar"
+    overlayClass="modal-backdrop">
+    <div class="slideout-content">
+        <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+            <div class="modal-dialog">
+                <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)"
+                    #newUserForm="ngForm">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="closeSidebarNew()">
+                        ×
+                    </button>
+
+                    <div class="modal-body flex-grow-1 mt-2" *ngIf="selectedRow">
+                        <app-new-form-data-report [data]="selectedRow" (refreshGridEmit)="refreshGrid()"
+                            (approveObservationEmit)="approveObservation($event)"
+                            (showQuestionModalEmit)="showQuestionModal()"></app-new-form-data-report>
                     </div>
                 </form>
 

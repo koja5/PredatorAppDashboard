@@ -8,17 +8,20 @@
     },
     "config": [
         {
-            "type": "checkbox",
+            "type": "textbox",
+            "width": "col-md-12 hidden",
+            "class": "e-outline",
+            "name": "id",
+            "title": "ID",
+            "field": "id"
+        },
+        {
+            "type": "switch",
             "width": "col-12",
             "class": "e-outline",
             "name": "allow_access_automatically",
-            "field": "allow_access_automatically",
-            "dataArray": [
-                {
-                    "title": "areaSettings.allowAccessAutomatically",
-                    "class": "mb-1"
-                }
-            ]
+            "title": "areaSettings.allowAccessAutomatically",
+            "field": "allow_access_automatically"
         },
         {
             "type": "button",

@@ -241,7 +241,7 @@ router.get("/getPredatorRequests", auth, async (req, res, next) => {
       } else {
         console.log(req.user.user.id);
         conn.query(
-          "select p.*, ap.name as 'predator_name', aw.name as 'water', afd.name as 'fish_district', aa.name as 'activity', CONCAT(u.firstname, ' ', u.lastname) as 'client_name', u.email, u.phone from predators p left join all_predators ap on p.id_predator = ap.id left join all_waters aw on p.id_water = aw.id left join all_fish_districts afd on p.id_fish_district = afd.id left join all_activities aa on p.id_activity = aa.id join users u on p.id_user = u.id where u.id_admin = ? and p.completed = 1 order by p.creation_date desc",
+          "select p.*, ap.name as 'predator_name', aw.name as 'water', afd.name as 'fish_district', aa.name as 'activity', CONCAT(u.firstname, ' ', u.lastname) as 'client_name', u.email, u.phone, CONCAT(u1.firstname, ' ', u1.lastname) as 'edited' from predators p left join all_predators ap on p.id_predator = ap.id left join all_waters aw on p.id_water = aw.id left join all_fish_districts afd on p.id_fish_district = afd.id left join all_activities aa on p.id_activity = aa.id join users u on p.id_user = u.id left join users u1 on p.id_edited = u1.id where u.id_admin = ? and p.completed = 1 order by p.creation_date desc",
           [req.user.user.id],
           function (err, rows, fields) {
             conn.release();
