@@ -2,7 +2,7 @@
     "pageSize": 10,
     "request": {
         "type": "GET",
-        "api": "/api/superadmin/getAllAdmins",
+        "api": "/api/admin/getMyAdmins",
         "parameters": [],
         "fields": "",
         "root": ""
@@ -50,7 +50,7 @@
     "editSettingsRequest": {
         "add": {
             "type": "POST",
-            "api": "/api/superadmin/setSuperadminArea",
+            "api": "/api/admin/setAdmin",
             "parameters": [],
             "fields": "",
             "root": ""
@@ -81,7 +81,7 @@
                             "executeAction": {
                                 "request": {
                                     "type": "POST",
-                                    "api": "/api/superadmin/deleteAdmin",
+                                    "api": "/api/admin/deleteAdmin",
                                     "parameters": [],
                                     "fields": "",
                                     "root": ""
@@ -194,57 +194,13 @@
             "dependentField": "id"
         },
         {
-            "type": "combobox",
-            "width": "col-md-12",
-            "class": "e-outline",
-            "name": "type",
-            "title": "commonFields.type",
-            "field": {
-                "text": "name",
-                "value": "id"
-            },
-            "request": {
-                "type": "GET",
-                "api": "/api/superadmin/getAllUserType",
-                "parameters": [],
-                "fields": "",
-                "root": ""
-            },
-            "fieldConfig": {
-                "ignoreAccent": false,
-                "filter": true
-            },
-            "required": true
-        },
-        {
-            "type": "combobox",
-            "width": "col-md-12",
-            "class": "e-outline",
-            "name": "id_area",
-            "title": "commonFields.area",
-            "field": {
-                "text": "name",
-                "value": "id"
-            },
-            "request": {
-                "type": "GET",
-                "api": "/api/superadmin/getAllAreasForUsers",
-                "parameters": [],
-                "fields": "",
-                "root": ""
-            },
-            "fieldConfig": {
-                "ignoreAccent": false,
-                "filter": true
-            }
-        },
-        {
             "type": "textbox",
             "width": "col-md-6",
             "class": "e-outline",
             "name": "firstname",
             "title": "commonFields.firstname",
-            "field": "firstname"
+            "field": "firstname",
+            "required": true
         },
         {
             "type": "textbox",
@@ -252,7 +208,8 @@
             "class": "e-outline",
             "name": "lastname",
             "title": "commonFields.lastname",
-            "field": "lastname"
+            "field": "lastname",
+            "required": true
         },
         {
             "type": "switch",
@@ -261,6 +218,14 @@
             "name": "active",
             "title": "commonFields.active",
             "field": "active"
+        },
+        {
+            "type": "switch",
+            "width": "col-12",
+            "class": "e-outline",
+            "name": "can_accept_new_user",
+            "title": "commonFields.canAcceptNewUser",
+            "field": "can_accept_new_user"
         },
         {
             "type": "button",

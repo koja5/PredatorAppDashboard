@@ -215,6 +215,15 @@ export class StorageService {
     this.setLocalStorage(key, gridConfig);
   }
 
+  getOffsetForGrid(key: string) {
+    const config = this.getLocalStorage(key);
+    if (config.offset) {
+      return config.offset;
+    } else {
+      return false;
+    }
+  }
+
   setTrainingValidForGrid(key: string, value: any) {
     let gridConfig = this.getLocalStorage(key);
     if (gridConfig) {

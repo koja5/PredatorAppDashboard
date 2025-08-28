@@ -17,12 +17,18 @@ import { CorePipesModule } from "@core/pipes/pipes.module";
 import { FormDataReportComponent } from "./form-data-report/form-data-report.component";
 import { AllFishDistrictsComponent } from "./all-fish-districts/all-fish-districts.component";
 import { AreaSettingsComponent } from "./area-settings/area-settings.component";
-import { NewFormDataReportComponent } from './form-data-report/new-form-data-report/new-form-data-report.component';
+import { NewFormDataReportComponent } from "./form-data-report/new-form-data-report/new-form-data-report.component";
+import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
+import { MyAdminsComponent } from "./my-admins/my-admins.component";
 
 const routes: Routes = [
   {
     path: "my-users",
     component: MyUsersComponent,
+  },
+  {
+    path: "my-admins",
+    component: MyAdminsComponent,
   },
   {
     path: "predators",
@@ -51,6 +57,7 @@ const routes: Routes = [
     AllFishDistrictsComponent,
     AreaSettingsComponent,
     NewFormDataReportComponent,
+    MyAdminsComponent,
   ],
   imports: [
     CommonModule,
@@ -66,6 +73,7 @@ const routes: Routes = [
     CorePipesModule,
     CoreDirectivesModule,
     CoreSidebarModule,
+    DateTimePickerModule,
   ],
   providers: [],
   bootstrap: [],

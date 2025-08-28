@@ -86,7 +86,7 @@
       "telephone": "Telefon",
       "address": "Straße",
       "active": "Aktiv",
-      "trusted": "Vertrauenswürdig",
+      "trusted": "Akzeptieren und Vertrauen",
       "untrusted": "Nicht vertrauenswürdig",
       "deactive": "Deactive",
       "action": "Aktion",
@@ -137,7 +137,8 @@
       "adminFirstname": "Vorname des Administrators",
       "adminLastname": "Nachname des Administrators",
       "area": "Bereich",
-      "hidden": "Versteckt"
+      "hidden": "Versteckt",
+      "canAcceptNewUser": "Kann neue Benutzer akzeptieren."
    },
    "userType": {
       "admin": "Administrator",
@@ -186,6 +187,7 @@
       "allAdmins": "Administratorinnen",
       "allAreas": "Bereiche",
       "myUsers": "Meine Benutzer",
+      "myAdmins": "Administratorinnen",
       "predatorRequests": "Raubtieranfragen",
       "areaSettings": "Bereichseinstellungen"
    },
@@ -256,7 +258,7 @@
    },
    "predator": {
       "user": "Ersteller *",
-      "creationDate": "Erstellt am/um",
+      "creationDate": "Erstellt am/um *",
       "creationDateFrom": "Datum von",
       "creationDateTo": "Datum bis",
       "predator": "Predator *",

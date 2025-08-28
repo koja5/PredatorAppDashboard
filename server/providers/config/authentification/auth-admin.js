@@ -35,7 +35,7 @@ const verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token, config.TOKEN_KEY);
     req.user = decoded;
     // check if user is admin
-    if (req.user.user.type != userType.admin) {
+    if (req.user.user.type != userType.admin && req.user.user.type != userType.superadminArea) {
       return res.status(401).send("Invalid Token");
     }
   } catch (err) {

@@ -35,8 +35,13 @@ router.get("/getMyUsers", auth, async (req, res, next) => {
       } else {
         console.log(req.user.user.id);
         conn.query(
-          "select u.id, u.id_area, u.firstname, u.lastname, u.gender, u.phone, u.email, u.type, u.verify, u.active, u.trusted from users u left join all_areas a on u.id_area = a.id where a.id_admin = ? and type != ? and type != ?",
-          [req.user.user.id, userType.admin, userType.superadmin],
+          "select u.id, u.id_area, u.firstname, u.lastname, u.gender, u.phone, u.email, u.type, u.verify, u.active, u.trusted from users u left join all_areas a on u.id_area = a.id where a.id = ? and type != ? and type != ? and type != ?",
+          [
+            req.user.user.id_area,
+            userType.admin,
+            userType.superadminArea,
+            userType.superadmin,
+          ],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -88,6 +93,9 @@ router.post("/setUser", auth, function (req, res, next) {
               }
             );
           }
+          if (rows[0].trusted != req.body.trusted) {
+            req.body.active = req.body.trusted;
+          }
           conn.query(
             "INSERT INTO users set ? ON DUPLICATE KEY UPDATE ?",
             [req.body, req.body],
@@ -137,6 +145,99 @@ router.post("/deleteUser", auth, async (req, res, next) => {
     res.json(ex);
   }
 });
+
+router.get("/getMyAdmins", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        console.log(req.user.user.id);
+        conn.query(
+          "select u.id, u.id_area, u.firstname, u.lastname, u.gender, u.phone, u.email, u.type, u.verify, u.active, u.trusted, u.can_accept_new_user from users u left join all_areas a on u.id_area = a.id where a.id = ? and type = ?",
+          [req.user.user.id_area, userType.admin],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/setAdmin", auth, function (req, res, next) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    if (
+      !isValidSHA1(req.body.password) ||
+      (!req.body.id && req.body.password)
+    ) {
+      req.body.password = sha1(req.body.password);
+    }
+
+    req.body.id_admin = req.user.user.id;
+    req.body.type = userType.admin;
+    req.body.id_area = req.user.user.id_area;
+    req.body.trusted = 1;
+
+    conn.query(
+      "INSERT INTO users set ? ON DUPLICATE KEY UPDATE ?",
+      [req.body, req.body],
+      function (err, rows) {
+        conn.release();
+        if (!err) {
+          res.json(true);
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
+  });
+});
+
+router.post("/deleteAdmin", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "delete from users where id = ? and id_admin = ?",
+          [req.body.id, req.user.user.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(true);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
 
 router.get("/getUserType", auth, async (req, res, next) => {
   try {
@@ -211,8 +312,8 @@ router.get("/getPredators", auth, async (req, res, next) => {
       } else {
         console.log(req.user.user.id);
         conn.query(
-          "select p.* from predators p join users u on p.id_user = u.id left join all_areas a on u.id_area = a.id where u.id_admin = ? or a.id_admin = ?",
-          [req.user.user.id, req.user.user.id],
+          "select p.* from predators p join users u on p.id_user = u.id left join all_areas a on u.id_area = a.id where u.id_admin = ? or a.id_admin = ? or a.id = ?",
+          [req.user.user.id, req.user.user.id, req.user.user.id_area],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -241,8 +342,8 @@ router.get("/getPredatorRequests", auth, async (req, res, next) => {
       } else {
         console.log(req.user.user.id);
         conn.query(
-          "select p.*, ap.name as 'predator_name', aw.name as 'water', afd.name as 'fish_district', aa.name as 'activity', CONCAT(u.firstname, ' ', u.lastname) as 'client_name', u.email, u.phone, CONCAT(u1.firstname, ' ', u1.lastname) as 'edited' from predators p left join all_predators ap on p.id_predator = ap.id left join all_waters aw on p.id_water = aw.id left join all_fish_districts afd on p.id_fish_district = afd.id left join all_activities aa on p.id_activity = aa.id join users u on p.id_user = u.id left join users u1 on p.id_edited = u1.id where u.id_admin = ? and p.completed = 1 order by p.creation_date desc",
-          [req.user.user.id],
+          "select p.*, ap.name as 'predator_name', aw.name as 'water', afd.name as 'fish_district', aa.name as 'activity', CONCAT(u.firstname, ' ', u.lastname) as 'client_name', u.email, u.phone, CONCAT(u1.firstname, ' ', u1.lastname) as 'edited' from predators p left join all_predators ap on p.id_predator = ap.id left join all_waters aw on p.id_water = aw.id left join all_fish_districts afd on p.id_fish_district = afd.id left join all_activities aa on p.id_activity = aa.id join users u on p.id_user = u.id left join all_areas a on u.id_area = a.id left join users u1 on p.id_edited = u1.id where a.id = ? and p.completed = 1 order by p.creation_date desc",
+          [req.user.user.id_area],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -325,8 +426,8 @@ router.get("/getPredatorById/:id", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select DISTINCT p.*, CONCAT(u.firstname, ' ', u.lastname) as 'client_name', ap.name as 'predator_name', aw.name as 'water_name', afd.name as 'fish_district', aa.name 'activity' from predators p join users u on p.id_user = u.id left join all_predators ap on p.id_predator = ap.id left join all_waters aw on p.id_water = aw.id left join all_fish_districts afd on p.id_fish_district = afd.id left join all_activities aa on p.id_activity = aa.id where p.id = ? and u.id_admin = ?",
-          [req.params.id, req.user.user.id],
+          "select DISTINCT p.*, CONCAT(u.firstname, ' ', u.lastname) as 'client_name', ap.name as 'predator_name', aw.name as 'water_name', afd.name as 'fish_district', aa.name 'activity' from predators p join users u on p.id_user = u.id left join all_areas a on u.id_area = a.id left join all_predators ap on p.id_predator = ap.id left join all_waters aw on p.id_water = aw.id left join all_fish_districts afd on p.id_fish_district = afd.id left join all_activities aa on p.id_activity = aa.id where p.id = ? and a.id = ?",
+          [req.params.id, req.user.user.id_area],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -357,8 +458,8 @@ router.get("/getAllFishDistricts", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select afd.* from all_fish_districts afd join all_areas aa on afd.id_area = aa.id where aa.id_admin = ?",
-          [req.user.user.id],
+          "select afd.* from all_fish_districts afd join all_areas aa on afd.id_area = aa.id where aa.id = ?",
+          [req.user.user.id_area],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -499,7 +600,6 @@ router.post("/setAreaSettings", auth, function (req, res, next) {
           if (rows.length) {
             req.body.id_area = rows[0].id;
           }
-          console.log(req.body);
           conn.query(
             "INSERT INTO area_settings set ? ON DUPLICATE KEY UPDATE ?",
             [req.body, req.body],

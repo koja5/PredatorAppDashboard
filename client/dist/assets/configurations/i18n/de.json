@@ -3,6 +3,7 @@
       "save": "Speichern",
       "searchFilter": "Suche",
       "addNew": "Neu",
+      "add": "Hinzufügen",
       "show": "Anzeigen",
       "entries": "Einträge",
       "newEntrie": "Neu",
@@ -32,7 +33,7 @@
       "clearFilter": "Filter löschen",
       "visible": "Sichtbar",
       "hidden": "Versteckt",
-      "add": "Hinzufügen"
+      "needToFillAllFields": "Alle mit * markierten Pflichtfelder müssen ausgefüllt werden"
    },
    "action": {
       "completeReport": "Meldung absenden",
@@ -85,7 +86,7 @@
       "telephone": "Telefon",
       "address": "Straße",
       "active": "Aktiv",
-      "trusted": "Vertrauenswürdig",
+      "trusted": "Akzeptieren und Vertrauen",
       "untrusted": "Nicht vertrauenswürdig",
       "deactive": "Deactive",
       "action": "Aktion",
@@ -136,7 +137,8 @@
       "adminFirstname": "Vorname des Administrators",
       "adminLastname": "Nachname des Administrators",
       "area": "Bereich",
-      "hidden": "Versteckt"
+      "hidden": "Versteckt",
+      "canAcceptNewUser": "Kann neue Benutzer akzeptieren."
    },
    "userType": {
       "admin": "Administrator",
@@ -185,6 +187,7 @@
       "allAdmins": "Administratorinnen",
       "allAreas": "Bereiche",
       "myUsers": "Meine Benutzer",
+      "myAdmins": "Administratorinnen",
       "predatorRequests": "Raubtieranfragen",
       "areaSettings": "Bereichseinstellungen"
    },
@@ -254,11 +257,11 @@
       "number": "Anz. Bundesl."
    },
    "predator": {
-      "user": "Ersteller",
-      "creationDate": "Erstellt am/um",
+      "user": "Ersteller *",
+      "creationDate": "Erstellt am/um *",
       "creationDateFrom": "Datum von",
       "creationDateTo": "Datum bis",
-      "predator": "Predator",
+      "predator": "Predator *",
       "users": "Meine Benutzer",
       "activity": "Atkivität",
       "water": "Gewässer",
@@ -267,7 +270,7 @@
       "gps": "GPS",
       "latitude": "Längengrad",
       "longitude": "Breitengrad",
-      "totalNumber": "Anzahl Gesamt",
+      "totalNumber": "Anzahl Gesamt *",
       "totalNumberFrom": "Anzahl Gesamt von",
       "totalNumberTo": "Anzahl Gesamt bis",
       "gallery": "Bilder",

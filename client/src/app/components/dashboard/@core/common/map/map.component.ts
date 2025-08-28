@@ -20,6 +20,7 @@ import VectorLayer from "ol/layer/Vector";
 import { fromLonLat, useGeographic } from "ol/proj";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { HelpService } from "app/services/help.service";
+import { StorageService } from "app/services/storage.service";
 
 useGeographic();
 
@@ -31,7 +32,7 @@ useGeographic();
 export class MapComponent implements OnInit {
   @Input() longitude: number;
   @Input() latitude: number;
-  @Input() manual: boolean = true;
+  @Input() manual: boolean = false;
   @Input() mapMarkers: any = [];
   @Input() predators: any;
   @Input() filterFlag: number;
@@ -46,19 +47,47 @@ export class MapComponent implements OnInit {
   public data: any;
   public allPredators: any;
 
-  constructor(private _helpService: HelpService) {}
+  constructor(
+    private _helpService: HelpService,
+    private _storageService: StorageService
+  ) {}
 
   async ngOnInit() {
     setTimeout(async () => {
       this.initializeMap(this.predators);
 
       this.map.on("click", (e) => {
-        var feature = e.map.forEachFeatureAtPixel(e.pixel, (feature) => {
-          return feature;
-        }) as Feature;
-        if (feature) {
-          const value = feature.getProperties().population;
-          this.submit.emit(value);
+        if (this.manual) {
+          this.map.on("singleclick", (evt) => {
+            const coordinate = evt.coordinate;
+            // coordinate[1] += 0.00011;
+            const view = this.map.getView();
+            if (view["values_"] && view["values_"].zoom) {
+              if (view["values_"].zoom / 10000 > 0.0017) {
+                coordinate[1] += view["values_"].zoom / 10000 - 0.0017;
+              } else {
+                const difference = view["values_"].zoom / 10000 - 0.00025;
+                coordinate[1] += view["values_"].zoom / 10000 - difference;
+              }
+            } else {
+              coordinate[1] += 0.00011;
+            }
+            this.predators[0].longitude = coordinate[0];
+            this.predators[0].latitude = coordinate[1];
+            this.setPoint(this.predators, evt.map);
+            this._storageService.setLocalStorage("coordination", {
+              log: coordinate[0],
+              lat: coordinate[1],
+            });
+          });
+        } else {
+          var feature = e.map.forEachFeatureAtPixel(e.pixel, (feature) => {
+            return feature;
+          }) as Feature;
+          if (feature) {
+            const value = feature.getProperties().population;
+            this.submit.emit(value);
+          }
         }
       });
     }, 10);
@@ -68,8 +97,15 @@ export class MapComponent implements OnInit {
     this.setPoint(data);
   }
 
-  setPoint(data: any) {
-    this.map = new Map({});
+  setPoint(data: any, map?: any) {
+    if (map) {
+      this.map = map;
+    } else {
+      this.map = new Map({});
+    }
+    if (!data) {
+      data = this.predators;
+    }
     const long = 13.421735;
     const lat = 47.537312;
 
@@ -92,13 +128,10 @@ export class MapComponent implements OnInit {
       features: [iconFeature],
     });
 
-    for (var i = 0; i < this.predators.length; i++) {
+    for (var i = 0; i < data.length; i++) {
       const iconFeature = new Feature({
-        geometry: new Point([
-          this.predators[i].longitude,
-          this.predators[i].latitude,
-        ]),
-        population: this.predators[i].id,
+        geometry: new Point([data[i].longitude, data[i].latitude]),
+        population: data[i].id,
         rainfall: 500,
         class: "map-pointer",
       });
@@ -110,8 +143,8 @@ export class MapComponent implements OnInit {
           anchorYUnits: "pixels",
           src:
             "assets/images/icons/map-marker_" +
-            this.predators[i].id_predator +
-            (this.predators[i].visible === 0 ? "_no_visible" : "") +
+            data[i].id_predator +
+            (data[i].visible === 0 ? "_no_visible" : "") +
             ".png",
           width: 32,
           height: 32,
@@ -135,11 +168,15 @@ export class MapComponent implements OnInit {
     ]);
 
     this.map.setTarget("map");
+    const view = this.map.getView();
     this.map.setView(
       new View({
-        center: [this.predators[0].longitude, this.predators[0].latitude],
-        zoom: 7,
-        maxZoom: 15,
+        center: [
+          data.length ? data[0].longitude : long,
+          data.length ? data[0].latitude : lat,
+        ],
+        zoom: view && view["values_"].zoom ? view["values_"].zoom : 7,
+        maxZoom: 18,
       })
     );
   }

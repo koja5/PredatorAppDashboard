@@ -193,7 +193,7 @@ router.get("/getAllAdmins", auth, async (req, res, next) => {
       } else {
         conn.query(
           "select id, id_area, firstname, lastname, gender, phone, email, type, verify, active from users where type = ?",
-          [userType.admin],
+          [userType.superadminArea],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -212,7 +212,7 @@ router.get("/getAllAdmins", auth, async (req, res, next) => {
   }
 });
 
-router.post("/setAdmin", auth, function (req, res, next) {
+router.post("/setSuperadminArea", auth, function (req, res, next) {
   connection.getConnection(function (err, conn) {
     if (err) {
       logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -223,7 +223,7 @@ router.post("/setAdmin", auth, function (req, res, next) {
       req.body.password = sha1(req.body.password);
     }
 
-    req.body["type"] = userType.admin;
+    req.body["type"] = userType.superadminArea;
 
     conn.query(
       "INSERT INTO users set ? ON DUPLICATE KEY UPDATE ?",

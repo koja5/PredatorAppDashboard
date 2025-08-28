@@ -103,7 +103,7 @@ export class LoginComponent {
             this._storageService.removeLocalStorage("previousLink");
           } else if (type === UserTypes.superadmin) {
             window.open("/dashboard/superadmin/all-fish-districts", "_self");
-          } else if (type === UserTypes.admin) {
+          } else if (type === UserTypes.admin || type === UserTypes.superadminArea) {
             window.open("/dashboard/admin/predators", "_self");
           }
           this.loading = false;

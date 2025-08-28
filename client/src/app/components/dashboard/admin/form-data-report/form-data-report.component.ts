@@ -31,8 +31,10 @@ export class FormDataReportComponent {
   @Output() refreshGridEmit = new EventEmitter<any>();
   public galleryOptions: NgxGalleryOptions[];
   public galleryImages: NgxGalleryImage[] = [];
+  public mapData: any;
   public uploaded: any = [];
   public allItems = new DataPredatorsModel();
+  public isEditMode = false;
 
   constructor(
     private _service: CallApiService,
@@ -43,8 +45,8 @@ export class FormDataReportComponent {
   ) {}
 
   ngOnInit() {
+    this.data.creation_date = new Date(this.data.creation_date);
     this.initializeGalleryOptions();
-
     this.getMyUsers();
     this.getAllPredators();
     this.getAllTypeOfWaters();
@@ -78,7 +80,7 @@ export class FormDataReportComponent {
 
   getAllFishDistricts() {
     this._service
-      .callGetMethod("/api/superadmin/getAllFishDistricts")
+      .callGetMethod("/api/admin/getAllFishDistricts")
       .subscribe((data: FishDistrictModel) => {
         this.allItems.fishDistrict = data;
       });
@@ -93,8 +95,8 @@ export class FormDataReportComponent {
   }
 
   ngOnChanges() {
-    console.log(this.data);
     this.packImage();
+    this.packMap();
   }
 
   initializeGalleryOptions() {
@@ -137,6 +139,13 @@ export class FormDataReportComponent {
     }
   }
 
+  packMap() {
+    this.mapData = null;
+    setTimeout(() => {
+      this.mapData = this.data;
+    }, 10);
+  }
+
   changeGalleryImage(event: any) {
     this.data.gallery = event.gallery;
     this.uploaded = event.uploaded;
@@ -171,7 +180,7 @@ export class FormDataReportComponent {
   }
 
   checkRequiredValues() {
-    if (!this.data.id_predator || !this.data.total_number) return false;
+    if (!this.data.creation_date || !this.data.id_predator || !this.data.total_number) return false;
 
     return true;
   }
@@ -190,6 +199,7 @@ export class FormDataReportComponent {
       .post("https://praedatoren.app/api/upload/setPredatorFromAdmin", data)
       .subscribe((data) => {
         if (data) {
+          this._toastr.showSuccess();
           this.refreshGridEmit.emit();
         }
       });

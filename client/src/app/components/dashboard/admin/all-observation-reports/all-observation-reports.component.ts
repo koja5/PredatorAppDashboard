@@ -38,6 +38,7 @@ export class AllObservationReportsComponent {
     },
   ];
   public selectedRow: any;
+  public loader = false;
 
   constructor(
     private _service: CallApiService,
@@ -50,11 +51,13 @@ export class AllObservationReportsComponent {
   }
 
   getPredatorRequests() {
+    this.loader = true;
     this._service
       .callGetMethod("/api/admin/getPredatorRequests")
       .subscribe((data) => {
         this.allData = this._helpService.copyObject(data);
         this.data = data;
+        this.loader = false;
       });
   }
 

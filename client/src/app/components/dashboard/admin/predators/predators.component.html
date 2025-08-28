@@ -1,11 +1,23 @@
-<div class="d-flex">
+<div class="d-flex flex-row-reverse">
+    <div class="data-info" *ngIf="!mobileDevice&&data" style="width: 30%;">
+        <div class="text-right">
+            <span class="fa fa-times close-form" (click)="closeForm()"></span>
+        </div>
+        <app-form-data-report [data]="data" [galleryImages]="galleryImages"
+            (showQuestionModalEmit)="showQuestionModalEmit($event)"
+            (approveObservationEmit)="approveObservationQuestion.showQuestionModal()" (refreshGridEmit)="refreshGrid()"></app-form-data-report>
+
+        <div *ngIf="!mobileDevice&&loader" style="width: 30%; position: relative;">
+            <app-loader></app-loader>
+        </div>
+    </div>
+
+
+
     <div [ngStyle]="{'width': data && !mobileDevice ? '70%' : '100%'}" [ngClass]="data && !mobileDevice ? 'pr-2' : ''">
         <app-loader *ngIf="loaderData"></app-loader>
-        <app-map *ngIf="predators&&!loaderData" [predators]="predators" [filterFlag]="filterFlag"
+        <app-map #main *ngIf="predators&&!loaderData" [predators]="predators" [filterFlag]="filterFlag"
             (submit)="submit($event)" (showFilterModel)="showFilterModel($event)"></app-map>
-    </div>
-    <div *ngIf="!mobileDevice&&loader" style="width: 30%; position: relative;">
-        <app-loader></app-loader>
     </div>
     <div *ngIf="noDataFound" class="no-data-found">
         <div class="text-center">
@@ -14,14 +26,7 @@
                 {{'general.noInformation' | translate}}</h3>
         </div>
     </div>
-    <div class="data-info" *ngIf="!mobileDevice&&!loader&&data" style="width: 30%;">
-        <div class="text-right">
-            <span class="fa fa-times close-form" (click)="closeForm()"></span>
-        </div>
-        <app-form-data-report [data]="data" [galleryImages]="galleryImages" [showMap]="false"
-            (showQuestionModalEmit)="showQuestionModalEmit($event)"
-            (approveObservationEmit)="approveObservationQuestion.showQuestionModal()"></app-form-data-report>
-    </div>
+
 </div>
 
 
@@ -58,7 +63,7 @@
         </button>
     </div>
     <div class="modal-body" tabindex="0" ngbAutofocus>
-        <app-form-data-report [data]="data" [galleryImages]="galleryImages" [showMap]="false"
+        <app-form-data-report [data]="data" [galleryImages]="galleryImages" [showMap]=false
             (showQuestionModalEmit)="showQuestionModalEmit($event)"
             (approveObservationEmit)="approveObservationQuestion.showQuestionModal()"></app-form-data-report>
     </div>

@@ -30,8 +30,8 @@ router.post("/login", function (req, res, next) {
     }
 
     conn.query(
-      "select * from users WHERE email = ? AND password = ? AND (type = ? or type = ?)",
-      [req.body.email, sha1(req.body.password), userType.superadmin, userType.admin],
+      "select * from users WHERE email = ? AND password = ? AND (type = ? or type = ? or type = ?)",
+      [req.body.email, sha1(req.body.password), userType.superadmin, userType.superadminArea, userType.admin],
       function (err, rows, fields) {
         conn.release();
         if (err) {
@@ -155,6 +155,8 @@ function generateToken(data) {
     {
       user: {
         id: data.id,
+        id_admin: data.id_admin,
+        id_area: data.id_area,
         firstname: data.firstname,
         lastname: data.lastname,
         type: data.type,

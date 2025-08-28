@@ -1,13 +1,40 @@
 <div *ngIf="data.id && !data.visible" class="text-center mb-2">
-    <button class="btn btn-success" (click)="approveObservation()"><span class="fa fa-thumbs-o-up"></span>
-        {{'allObservationReports.approveObservation' | translate}}</button>
+    <button class="btn btn-success" (click)="approveObservation()">
+        <span class="fa fa-thumbs-o-up"></span>
+        {{'allObservationReports.approveObservation' | translate}}
+    </button>
+    <hr>
 </div>
-<p class="creation-date" *ngIf="data.creation_date">{{data.creation_date | date: 'dd.MM.yyyy HH:mm:ss'}}</p>
-<p class="no-creation-date" *ngIf="data.id && !data.creation_date">{{'general.noDateInformation' | translate}}</p>
+
+<!-- Edit / Cancel / Save -->
+<div class="text-right mb-2 mt-2">
+    <button *ngIf="!isEditMode" class="btn btn-primary" (click)="isEditMode = true">
+        <span class="fa fa-edit"></span> {{ 'general.edit' | translate }}
+    </button>
+    <button *ngIf="isEditMode" class="btn btn-secondary mr-2" (click)="isEditMode = false">
+        <span class="fa fa-times"></span> {{ 'general.cancel' | translate }}
+    </button>
+    <button *ngIf="isEditMode" class="btn btn-success" (click)="save()">
+        <span class="fa fa-save"></span> {{ 'general.save' | translate }}
+    </button>
+</div>
+
+
+<div>
+    <div *ngIf="data.creation_date">
+        <label>{{'predator.creationDate' | translate}}</label>
+        <ejs-datetimepicker cssClass="e-outline" [(ngModel)]="data.creation_date" name="creation-date"
+            [readonly]="!isEditMode" [format]="'dd.MM.yyyy HH:mm:ss'" [timeFormat]="'HH:mm'"></ejs-datetimepicker>
+        <p class="no-creation-date" *ngIf="data.id && !data.creation_date">
+            {{'general.noDateInformation' | translate}}
+        </p>
+    </div>
+</div>
 
 <div>
     <label>{{'predator.user' | translate}}</label>
-    <ng-select [items]="allItems.users" [(ngModel)]="data.id_user" [bindValue]="'id'" [closeOnSelect]="true">
+    <ng-select [items]="allItems.users" [(ngModel)]="data.id_user" [bindLabel]="'firstname'" [bindValue]="'id'" [closeOnSelect]="true"
+        [disabled]="!isEditMode">
         <ng-template ng-label-tmp let-item="item" let-clear="clear">
             {{item.firstname}} {{item.lastname}}
         </ng-template>
@@ -19,94 +46,100 @@
         </ng-template>
     </ng-select>
 </div>
+
 <div>
     <label>{{'predator.predator' | translate}}</label>
     <ng-select [items]="allItems.predators" [(ngModel)]="data.id_predator" [bindLabel]="'name'" [bindValue]="'id'"
-        [closeOnSelect]="true">
+        [closeOnSelect]="true" [disabled]="!isEditMode">
     </ng-select>
 </div>
 
 <div>
     <label>{{'predator.activity' | translate}}</label>
     <ng-select [items]="allItems.activities" [(ngModel)]="data.id_activity" [bindLabel]="'name'" [bindValue]="'id'"
-        [closeOnSelect]="true">
+        [closeOnSelect]="true" [disabled]="!isEditMode">
     </ng-select>
 </div>
 
 <div>
     <label>{{'predator.water' | translate}}</label>
     <ng-select [items]="allItems.waters" [(ngModel)]="data.id_water" [bindLabel]="'name'" [bindValue]="'id'"
-        [closeOnSelect]="true">
+        [closeOnSelect]="true" [disabled]="!isEditMode">
     </ng-select>
 </div>
 
 <div>
     <label>{{'predator.district' | translate}}</label>
     <ng-select [items]="allItems.fishDistrict" [(ngModel)]="data.id_fish_district" [bindLabel]="'name'"
-        [bindValue]="'id'" [closeOnSelect]="true">
+        [bindValue]="'id'" [closeOnSelect]="true" [disabled]="!isEditMode">
     </ng-select>
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.distanceToWater' | translate}}
-    </label>
-    <input type="textbox" class="e-outline form-control" name="distance_to_water" [(ngModel)]="data.distance_to_water">
+    <label class="custom-label">{{'predator.distanceToWater' | translate}}</label>
+    <input type="textbox" class="e-outline form-control" name="distance_to_water" [(ngModel)]="data.distance_to_water"
+        [readonly]="!isEditMode">
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.latitude' | translate}}
-    </label>
-    <input type="textbox" class="e-outline form-control" name="latitude" [(ngModel)]="data.latitude">
+    <label class="custom-label">{{'predator.latitude' | translate}}</label>
+    <input type="textbox" class="e-outline form-control" name="latitude" [(ngModel)]="data.latitude"
+        [readonly]="!isEditMode">
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.longitude' | translate}}
-    </label>
-    <input type="textbox" class="e-outline form-control" name="longitude" [(ngModel)]="data.longitude">
+    <label class="custom-label">{{'predator.longitude' | translate}}</label>
+    <input type="textbox" class="e-outline form-control" name="longitude" [(ngModel)]="data.longitude"
+        [readonly]="!isEditMode">
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.totalNumber' | translate}}
-    </label>
-    <input type="textbox" class="e-outline form-control" name="total_number" [(ngModel)]="data.total_number">
+    <label class="custom-label">{{'predator.totalNumber' | translate}}</label>
+    <input type="textbox" class="e-outline form-control" name="total_number" [(ngModel)]="data.total_number"
+        [readonly]="!isEditMode">
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.youngAnimals' | translate}}
-    </label>
+    <label class="custom-label">{{'predator.youngAnimals' | translate}}</label>
     <input type="textbox" class="e-outline form-control" name="including_young_animals"
-        [(ngModel)]="data.including_young_animals">
+        [(ngModel)]="data.including_young_animals" [readonly]="!isEditMode">
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.maleAnimals' | translate}}
-    </label>
+    <label class="custom-label">{{'predator.maleAnimals' | translate}}</label>
     <input type="textbox" class="e-outline form-control" name="including_male_animals"
-        [(ngModel)]="data.including_male_animals">
+        [(ngModel)]="data.including_male_animals" [readonly]="!isEditMode">
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.femaleAnimals' | translate}}
-    </label>
+    <label class="custom-label">{{'predator.femaleAnimals' | translate}}</label>
     <input type="textbox" class="e-outline form-control" name="including_female_animals"
-        [(ngModel)]="data.including_female_animals">
+        [(ngModel)]="data.including_female_animals" [readonly]="!isEditMode">
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.localDescription' | translate}}
-    </label>
-    <textarea type="textbox" class="e-outline form-control" name="comment"
-        [(ngModel)]="data.local_description"></textarea>
+    <label class="custom-label">{{'predator.localDescription' | translate}}</label>
+    <textarea type="textbox" class="e-outline form-control" name="local_description"
+        [(ngModel)]="data.local_description" [readonly]="!isEditMode"></textarea>
 </div>
+
 <div>
-    <label class="custom-label">{{'predator.comment' | translate}}
-    </label>
-    <textarea type="textbox" class="e-outline form-control" name="comment" [(ngModel)]="data.comment"></textarea>
+    <label class="custom-label">{{'predator.comment' | translate}}</label>
+    <textarea type="textbox" class="e-outline form-control" name="comment" [(ngModel)]="data.comment"
+        [readonly]="!isEditMode"></textarea>
 </div>
-<!-- <div class="mt-2" *ngIf="galleryImages && galleryImages.length">
-    <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
-</div> -->
+
 <div class="mt-2">
-    <app-gallery [value]="data.gallery" (changeEmit)="changeGalleryImage($event)"></app-gallery>
+    <app-gallery [value]="data.gallery" [editMode]="isEditMode" (changeEmit)="changeGalleryImage($event)">
+    </app-gallery>
 </div>
-<div class="mt-2" *ngIf="showMap">
-    <app-map *ngIf="data" [predators]="[data]" [mapSmall]="true"></app-map>
+
+<div class="mt-2" *ngIf="showMap && mapData">
+    <app-map #map [predators]="[mapData]" [mapSmall]="true" [manual]="isEditMode ? true : false"></app-map>
 </div>
-<div class="text-center mt-2 button-options">
-    <button class="btn btn-danger" (click)="showQuestionModel()"><span class="fa fa-trash"></span>
-        {{'general.delete' | translate}}</button>
-    <button class="btn btn-success" (click)="save()"><span class="fa fa-save"></span>
-        {{'general.save' | translate}}</button>
+
+<div class="text-center mt-2">
+    <button class="btn btn-danger" (click)="showQuestionModel()">
+        <span class="fa fa-trash"></span> {{'general.delete' | translate}}
+    </button>
 </div>

@@ -19,6 +19,7 @@ export class GalleryComponent implements OnInit {
   @Input() value: any;
   @Input() images: any;
   @Input() gallery: any[] = [];
+  @Input() editMode = true;
   @Output() changeEmit = new EventEmitter();
 
   public isGalleryOpen = false;

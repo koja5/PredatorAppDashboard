@@ -43,7 +43,12 @@ export class NewFormDataReportComponent {
     this.getAllTypeOfWaters();
     this.getAllFishDistricts();
     this.getAllActivities();
+    console.log(this.data);
+    this.data.longitude = new Float32Array([0]);
+    this.data.latitude = new Float32Array([0]);
   }
+
+  ngOnChanges() {}
 
   getMyUsers() {
     this._service
@@ -125,7 +130,12 @@ export class NewFormDataReportComponent {
   }
 
   checkRequiredValues() {
-    if (!this.data.id_predator || !this.data.total_number) return false;
+    if (
+      !this.data.creation_date ||
+      !this.data.id_predator ||
+      !this.data.total_number
+    )
+      return false;
 
     return true;
   }

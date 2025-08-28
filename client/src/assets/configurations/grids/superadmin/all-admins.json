@@ -50,7 +50,7 @@
     "editSettingsRequest": {
         "add": {
             "type": "POST",
-            "api": "/api/superadmin/setAdmin",
+            "api": "/api/superadmin/setSuperadminArea",
             "parameters": [],
             "fields": "",
             "root": ""

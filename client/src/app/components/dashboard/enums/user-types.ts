@@ -3,4 +3,5 @@ export enum UserTypes {
   admin = 1,
   natureProtectionUser = 2,
   superadmin = 3,
+  superadminArea = 4
 }

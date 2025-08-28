@@ -418,6 +418,12 @@ export class DynamicGridComponent implements CanComponentDeactivate {
       this.loader = false;
       this.setTableHeight();
     }
+
+    if (this._storageService.getOffsetForGrid(window.location.pathname)) {
+      this.gridConfig.offset = this._storageService.getOffsetForGrid(
+        window.location.pathname
+      );
+    }
   }
 
   getData() {

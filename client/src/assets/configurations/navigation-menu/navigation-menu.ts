@@ -123,7 +123,7 @@ export const menu = [
     type: "item",
     icon: "users",
     url: "dashboard/admin/my-users",
-    users: ["admin"],
+    users: ["admin", "superadminArea"],
   },
   {
     id: "predators",
@@ -132,7 +132,7 @@ export const menu = [
     type: "item",
     icon: "users",
     url: "dashboard/admin/predators",
-    users: ["admin"],
+    users: ["admin", "superadminArea"],
   },
   {
     id: "predators",
@@ -141,7 +141,7 @@ export const menu = [
     type: "item",
     icon: "users",
     url: "dashboard/admin/all-observation-reports",
-    users: ["admin"],
+    users: ["admin", "superadminArea"],
   },
   {
     id: "allFishDistricts",
@@ -150,7 +150,7 @@ export const menu = [
     type: "item",
     icon: "settings",
     url: "dashboard/admin/all-fish-districts",
-    users: ["admin"],
+    users: ["admin", "superadminArea"],
   },
   {
     id: "adminSettings",
@@ -159,6 +159,15 @@ export const menu = [
     type: "item",
     icon: "settings",
     url: "dashboard/admin/area-settings",
-    users: ["admin"],
+    users: ["superadminArea"],
+  },
+  {
+    id: "myAdmins",
+    title: "myAdmins",
+    translate: "navigations.myAdmins",
+    type: "item",
+    icon: "circle",
+    url: "dashboard/admin/my-admins",
+    users: ["superadminArea"],
   },
 ];

@@ -259,4 +259,9 @@ export class PredatorsComponent {
         }
       });
   }
+
+  refreshGrid() {
+    this.data = null;
+    this.modalDialog.close();
+  }
 }
