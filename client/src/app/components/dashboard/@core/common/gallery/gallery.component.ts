@@ -6,6 +6,11 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
+import {
+  NgxGalleryAnimation,
+  NgxGalleryImage,
+  NgxGalleryOptions,
+} from "@kolkov/ngx-gallery";
 import { TranslateService } from "@ngx-translate/core";
 import { environment } from "environments/environment";
 
@@ -21,15 +26,37 @@ export class GalleryComponent implements OnInit {
   @Input() gallery: any[] = [];
   @Input() editMode = true;
   @Output() changeEmit = new EventEmitter();
+  galleryOptions: NgxGalleryOptions[] = [
+    {
+      width: "600px",
+      height: "400px",
+      thumbnailsColumns: 4,
+      imageAnimation: NgxGalleryAnimation.Slide,
+    },
+    {
+      breakpoint: 800,
+      width: "100%",
+      height: "600px",
+      imagePercent: 80,
+      thumbnailsPercent: 20,
+      thumbnailsMargin: 20,
+      thumbnailMargin: 20,
+    },
+    {
+      breakpoint: 400,
+      preview: false,
+    },
+  ];
+  galleryImages: NgxGalleryImage[] = [];
 
   public isGalleryOpen = false;
   files: any[] = [];
   public imageFromCamera: any;
 
-  constructor(private _translate: TranslateService) {}
+  constructor() {}
 
   ngOnInit() {
-    if (this.value) {
+    if (this.value && this.value != "null") {
       if (typeof this.value == "string") {
         if (this.value.startsWith("data:image")) {
           this.imageFromCamera = this.b64toBlob(
@@ -41,6 +68,11 @@ export class GalleryComponent implements OnInit {
           const gallery = this.convertGalleryStringToGalleryArray();
           for (let i = 0; i < gallery.length; i++) {
             this.gallery.push(environment.GALLERY_STORAGE + gallery[i]);
+            this.galleryImages.push({
+              small: environment.GALLERY_STORAGE + gallery[i],
+              medium: environment.GALLERY_STORAGE + gallery[i],
+              big: environment.GALLERY_STORAGE + gallery[i],
+            });
           }
         } else if (this.value.startsWith("blob:")) {
           this.gallery.push(this.value);
@@ -48,34 +80,14 @@ export class GalleryComponent implements OnInit {
           this.gallery.push(this.value);
         } else {
           this.gallery.push(environment.GALLERY_STORAGE + this.value);
+          this.galleryImages.push({
+            small: environment.GALLERY_STORAGE + this.value,
+            medium: environment.GALLERY_STORAGE + this.value,
+            big: environment.GALLERY_STORAGE + this.value,
+          });
         }
       }
     }
-  }
-
-  ngOnChanges() {
-    // this.gallery = [];
-    // if (this.value) {
-    //   if (this.value.indexOf(';') != -1) {
-    //     const gallery = this.convertGalleryStringToGalleryArray();
-    //     for (let i = 0; i < gallery.length; i++) {
-    //       this.gallery.push(environment.GALLERY_STORAGE + gallery[i]);
-    //     }
-    //   } else {
-    //     if (typeof this.value == 'string') {
-    //       if (this.value.startsWith('data:image')) {
-    //         this.gallery.push(this.value);
-    //         this.changeEmit.emit({
-    //           gallery: this.convertGalleryArrayToGalleryString(),
-    //           uploaded: this.files,
-    //         });
-    //       } else {
-    //         this.gallery.push(environment.GALLERY_STORAGE + this.value);
-    //       }
-    //     }
-    //   }
-    //   this.packImageForPreview();
-    // }
   }
 
   fileBrowseHandler(events: any) {
@@ -124,6 +136,11 @@ export class GalleryComponent implements OnInit {
 
   packImagesToGallery(image: any) {
     this.gallery.push(URL.createObjectURL(image));
+    this.galleryImages.push({
+      small: URL.createObjectURL(image),
+      medium: URL.createObjectURL(image),
+      big: URL.createObjectURL(image),
+    });
   }
 
   checkIsImageInGallery(image: any) {

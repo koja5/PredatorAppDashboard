@@ -11,6 +11,7 @@ import { GoBackComponent } from "./go-back/go-back.component";
 import { NoDataContentComponent } from "./no-data-content/no-data-content.component";
 import { MapComponent } from "./map/map.component";
 import { GalleryComponent } from "./gallery/gallery.component";
+import { NgxGalleryModule } from "@kolkov/ngx-gallery";
 
 const appRoutes: Routes = [];
 
@@ -26,7 +27,7 @@ const appRoutes: Routes = [];
     MapComponent,
     GalleryComponent,
   ],
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, NgxGalleryModule],
   providers: [],
   bootstrap: [],
   exports: [

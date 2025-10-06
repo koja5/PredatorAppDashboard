@@ -129,8 +129,8 @@
         [readonly]="!isEditMode"></textarea>
 </div>
 
-<div class="mt-2">
-    <app-gallery [value]="data.gallery" [editMode]="isEditMode" (changeEmit)="changeGalleryImage($event)">
+<div class="mt-2" *ngIf="gallery">
+    <app-gallery [value]="gallery" [editMode]="isEditMode" (changeEmit)="changeGalleryImage($event)">
     </app-gallery>
 </div>
 

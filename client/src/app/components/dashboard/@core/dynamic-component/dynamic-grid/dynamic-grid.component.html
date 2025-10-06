@@ -82,18 +82,9 @@
                             </a>
                             <div ngbDropdownMenu aria-labelledby="navbarUserDropdown"
                                 class="dropdown-menu dropdown-menu-right">
-                                <a ngbDropdownItem (click)="exportBirthdayAndFortbildung()"> <span
+                                <a ngbDropdownItem (click)="exportData()"> <span
                                         class="fa fa-file-excel-o excel-icon"></span>
-                                    {{'fsdOrgan.exportBirthdayAndFortbildung' | translate}}</a>
-                                <a ngbDropdownItem (click)="exportAllPersonalInformationAndFortbildungen()"> <span
-                                        class="fa fa-file-excel-o excel-icon"></span>
-                                    {{'fsdOrgan.exportPersonalInformationAndFortbildung' | translate}}</a>
-                                <a ngbDropdownItem
-                                    (click)="exportAllPersonalInformationAndFortbildungenAndBestellungen()"> <span
-                                        class="fa fa-file-excel-o excel-icon"></span>
-                                    {{'fsdOrgan.exportPersonalInformationAndFortbildungAndBestellungen' |
-                                    translate}}</a>
-
+                                    {{'general.exportData' | translate}}</a>
                             </div>
                         </li>
                     </div>

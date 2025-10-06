@@ -800,54 +800,18 @@ export class DynamicGridComponent implements CanComponentDeactivate {
     return sortedData;
   }
 
-  exportBirthdayAndFortbildung() {
+  exportData() {
     this.loaderContent = true;
-    this._service
-      .callPostMethod("/api/admin/exportBirthdayAndFortbildung", this.rows)
-      .subscribe((data) => {
-        this.loaderContent = false;
-        this.downloadFile(data, "Geburtstag und Fortbildung");
-      });
-  }
-
-  exportAllPersonalInformationAndFortbildungen() {
-    this.loaderContent = true;
-    this._service
-      .callPostMethod(
-        "/api/admin/exportAllPersonalInformationAndFortbildungen",
-        this.rows
-      )
-      .subscribe((data) => {
-        this.loaderContent = false;
-        this.downloadFile(
-          data,
-          "Alle persönlichen Informationen und Fortbildungen"
-        );
-      });
-  }
-
-  exportAllPersonalInformationAndFortbildungenAndBestellungen() {
-    this.loaderContent = true;
-    this._service
-      .callPostMethod(
-        "/api/admin/exportAllPersonalInformationAndFortbildungenAndBestellungen",
-        this.rows
-      )
-      .subscribe((data) => {
-        this.loaderContent = false;
-        this.downloadFile(
-          data,
-          "Alle persönlichen Informationen, Fortbildungen und Bestellungen"
-        );
-      });
+    this.downloadFile(this.rows, "Geburtstag und Fortbildung");
   }
 
   downloadFile(data: any, fileName?: string) {
     const replacer = (key, value) => (value === null ? "" : value); // specify how you want to handle null values here
     const header = Object.keys(data[0]);
+    console.log(header);
     let csv = data.map((row) =>
       header
-        .map((fieldName) => JSON.stringify(row[fieldName], replacer))
+        .map((fieldName) => JSON.stringify(this.getColumnName(fieldName), replacer))
         .join(",")
     );
     csv.unshift(header.join(","));
@@ -863,6 +827,14 @@ export class DynamicGridComponent implements CanComponentDeactivate {
 
     // var blob = new Blob([csvArray], { type: "text/csv" });
     // saveAs(blob, fileName ?? "myFile.csv");
+  }
+
+  getColumnName(field: string) {
+    for(let i = 0; i < this.config.columns.length; i++) {
+      if(this.config.columns[i].field === field) {
+        return this._translate.instant(this.config.columns[i].title);
+      }
+    }
   }
 
   checkCondition(config, row) {

@@ -35,6 +35,7 @@ export class FormDataReportComponent {
   public uploaded: any = [];
   public allItems = new DataPredatorsModel();
   public isEditMode = false;
+  public gallery: any;
 
   constructor(
     private _service: CallApiService,
@@ -124,19 +125,23 @@ export class FormDataReportComponent {
   }
 
   packImage() {
-    this.galleryImages = [];
-    if (this.data.gallery) {
-      const images = this.data.gallery.split(";");
-      for (let i = 0; i < images.length; i++) {
-        const image =
-          "https://praedatoren.app/assets/file-storage/" + images[i];
-        this.galleryImages.push({
-          small: image,
-          medium: image,
-          big: image,
-        });
-      }
-    }
+    // this.galleryImages = [];
+    // if (this.data.gallery) {
+    //   const images = this.data.gallery.split(";");
+    //   for (let i = 0; i < images.length; i++) {
+    //     const image =
+    //       "https://praedatoren.app/assets/file-storage/" + images[i];
+    //     this.galleryImages.push({
+    //       small: image,
+    //       medium: image,
+    //       big: image,
+    //     });
+    //   }
+    // }
+    this.gallery = null;
+    setTimeout(() => {
+      this.gallery = this.data.gallery;
+    });
   }
 
   packMap() {
@@ -180,7 +185,12 @@ export class FormDataReportComponent {
   }
 
   checkRequiredValues() {
-    if (!this.data.creation_date || !this.data.id_predator || !this.data.total_number) return false;
+    if (
+      !this.data.creation_date ||
+      !this.data.id_predator ||
+      !this.data.total_number
+    )
+      return false;
 
     return true;
   }

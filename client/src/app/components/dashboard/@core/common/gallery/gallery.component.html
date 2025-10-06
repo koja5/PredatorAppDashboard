@@ -1,8 +1,6 @@
-<div class="gallery row" *ngIf="gallery">
-    <div class="photo col-3 mb-1" (click)="openImage(i)" *ngFor="let item of gallery; let i = index">
-        <img src="{{item}}" alt="{{item}}" />
-        <img *ngIf="editMode" src="./assets/images/icons/remove.svg" class="remove-photo" (click)="removePhoto(i)">
-    </div>
+<div class="gallery row">
+    <ngx-gallery *ngIf="galleryImages && galleryImages.length" [options]="galleryOptions" [images]="galleryImages"
+        class="ngx-gallery"></ngx-gallery>
 
     <div *ngIf="editMode" class="add-more {{gallery ? '' : 'full-width'}}">
         <div class="wrapper">
