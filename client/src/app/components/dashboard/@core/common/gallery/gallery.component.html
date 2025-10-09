@@ -1,4 +1,4 @@
-<div class="gallery row">
+<!-- <div class="gallery row">
     <ngx-gallery *ngIf="galleryImages && galleryImages.length" [options]="galleryOptions" [images]="galleryImages"
         class="ngx-gallery"></ngx-gallery>
 
@@ -9,6 +9,76 @@
                 <img src="./assets/images/icons/add-more-photo.svg">
                 <p>{{'general.add' | translate}}</p>
             </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="gallery-container">
+    <div class="container mt-2 mb-2 p-0" *ngIf="gallery && gallery.length">
+        <div class="row g-3">
+            <div class="col-6 col-md-4 col-lg-3 item-gallery" *ngFor="let item of gallery; let i = index">
+
+                <div *ngIf="item.type === 'image'">
+                    <img [src]="item.src" class="img-fluid rounded shadow-sm gallery-item"
+                        (click)="openLightbox(item)" />
+                    <img *ngIf="editable" src="./assets/images/icons/remove.svg" class="remove-photo"
+                        (click)="removePhoto(i)">
+                </div>
+
+                <div *ngIf="item.type === 'video'" class="video-wrapper" (click)="openLightbox(item)">
+                    <video class="img-fluid rounded shadow-sm" poster="assets/video-thumb.png">
+                        <source [src]="item.src" type="video/mp4">
+                    </video>
+                    <div class="play-icon">&#9658;</div>
+                    <img *ngIf="editable" src="./assets/images/icons/remove.svg" class="remove-photo"
+                        (click)="removePhoto(i)">
+                </div>
+            </div>
+            <div *ngIf="editable" class="col-6 col-md-4 col-lg-3 add-new-item">
+                <div class="add-more {{gallery ? '' : 'full-width'}}" (change)="fileBrowseHandler($event.target)">
+                    <div class="wrapper">
+                        <div class="file-upload">
+                            <input type="file" #fileDropRef id="fileDropRef" multiple />
+                            <img src="./assets/images/icons/add-more-photo.svg">
+                            <p>{{'general.add' | translate}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2 mb-2 p-0" *ngIf="!gallery || !gallery.length">
+        <div class="add-more {{gallery ? '' : 'full-width'}}" (change)="fileBrowseHandler($event.target)">
+            <div class="wrapper">
+                <div class="file-upload">
+                    <input type="file" #fileDropRef id="fileDropRef" multiple />
+                    <img src="./assets/images/icons/add-more-photo.svg">
+                    <p>{{'general.add' | translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox overlay -->
+    <div *ngIf="selectedItem" class="lightbox-overlay d-flex align-items-center justify-content-center">
+        <div class="position-relative">
+            <button class="btn-close position-absolute top-0 end-0" (click)="closeLightbox()">
+                <span class="fa fa-times"></span>
+            </button>
+
+            <!-- Slika -->
+            <img *ngIf="selectedItem.type === 'image'" [src]="selectedItem.src" class="img-fluid max-vh-90 max-vw-90" />
+
+            <!-- Video -->
+            <video *ngIf="selectedItem.type === 'video'" controls autoplay class="img-fluid max-vh-90 max-vw-90">
+                <source [src]="selectedItem.src" type="video/mp4">
+            </video>
+
+            <!-- Navigacija -->
+            <button class="nav-btn prev-btn" (click)="prevItem()">&#10094;</button>
+            <button class="nav-btn next-btn" (click)="nextItem()">&#10095;</button>
         </div>
     </div>
 </div>

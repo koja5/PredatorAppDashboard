@@ -802,19 +802,19 @@ export class DynamicGridComponent implements CanComponentDeactivate {
 
   exportData() {
     this.loaderContent = true;
-    this.downloadFile(this.rows, "Geburtstag und Fortbildung");
+    this.downloadFile(this.rows, "Export");
   }
 
   downloadFile(data: any, fileName?: string) {
     const replacer = (key, value) => (value === null ? "" : value); // specify how you want to handle null values here
     const header = Object.keys(data[0]);
-    console.log(header);
+    const headerTranslate = this.translateColumnsName(Object.keys(data[0]));
     let csv = data.map((row) =>
       header
-        .map((fieldName) => JSON.stringify(this.getColumnName(fieldName), replacer))
+        .map((fieldName) => JSON.stringify(row[fieldName], replacer))
         .join(",")
     );
-    csv.unshift(header.join(","));
+    csv.unshift(headerTranslate.join(","));
     let csvArray = csv.join("\r\n");
 
     var link = window.document.createElement("a");
@@ -829,12 +829,11 @@ export class DynamicGridComponent implements CanComponentDeactivate {
     // saveAs(blob, fileName ?? "myFile.csv");
   }
 
-  getColumnName(field: string) {
-    for(let i = 0; i < this.config.columns.length; i++) {
-      if(this.config.columns[i].field === field) {
-        return this._translate.instant(this.config.columns[i].title);
-      }
+  translateColumnsName(columns: any) {
+    for (let i = 0; i < columns.length; i++) {
+      columns[i] = this._translate.instant('predator.' + columns[i]);
     }
+    return columns;
   }
 
   checkCondition(config, row) {
