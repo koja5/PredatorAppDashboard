@@ -148,7 +148,7 @@ export class FormDataReportComponent {
     this.mapData = null;
     setTimeout(() => {
       this.mapData = this.data;
-    }, 10);
+    }, 20);
   }
 
   changeGalleryImage(event: any) {

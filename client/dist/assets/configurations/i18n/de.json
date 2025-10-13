@@ -33,7 +33,8 @@
       "clearFilter": "Filter löschen",
       "visible": "Sichtbar",
       "hidden": "Versteckt",
-      "needToFillAllFields": "Alle mit * markierten Pflichtfelder müssen ausgefüllt werden"
+      "needToFillAllFields": "Alle mit * markierten Pflichtfelder müssen ausgefüllt werden",
+      "export": "Export"
    },
    "action": {
       "completeReport": "Meldung absenden",
@@ -188,7 +189,7 @@
       "allAreas": "Bereiche",
       "myUsers": "Meine Benutzer",
       "myAdmins": "Administratorinnen",
-      "predatorRequests": "Raubtieranfragen",
+      "predatorRequests": "Predatorenmeldung",
       "areaSettings": "Bereichseinstellungen"
    },
    "navBar": {
@@ -257,6 +258,7 @@
       "number": "Anz. Bundesl."
    },
    "predator": {
+      "id": "ID",
       "user": "Ersteller *",
       "creationDate": "Erstellt am/um *",
       "creationDateFrom": "Datum von",
@@ -268,12 +270,12 @@
       "district": "Revier",
       "distanceToWater": "Gewässer Abstand",
       "gps": "GPS",
-      "latitude": "Längengrad",
-      "longitude": "Breitengrad",
+      "latitude": "Breitengrad",
+      "longitude": "Längengrad",
       "totalNumber": "Anzahl Gesamt *",
       "totalNumberFrom": "Anzahl Gesamt von",
       "totalNumberTo": "Anzahl Gesamt bis",
-      "gallery": "Bilder",
+      "gallery": "Dateianhänge",
       "youngAnimals": "Anzahl Jungtiere",
       "maleAnimals": "Anz. männl. Erw.",
       "femaleAnimals": "Anz. weibl. Erw.",
@@ -282,7 +284,29 @@
       "femaleAnimalsFilter": "davon männl. Erw.",
       "localDescription": "nähere örtliche Beschreibung",
       "comment": "Kommentar",
-      "edited": "Bearbeitet"
+      "edited": "Bearbeitet",
+      "id_user": "Benutzer",
+      "id_predator": "Prädator",
+      "id_edited": "Bearbeiter",
+      "total_number": "Gesamtanzahl",
+      "Bearbeiter": "Gesamtanzahl",
+      "including_young_animals": "Davon Jungtiere",
+      "including_female_animals": "Davon Weibliche Tiere",
+      "including_male_animals": "Davon Männliche Tiere",
+      "id_water": "Gewässertyp",
+      "distance_to_water": "Abstand zum Wasser",
+      "id_fish_district": "Revier",
+      "id_activity": "Aktivität",
+      "completed": "Übermittelt",
+      "creation_date": "Erstelldatum",
+      "completed_date": "Übermittlungsdatum",
+      "visible": "Sichtbar",
+      "local_description": "Ortsbeschreibung",
+      "predator_name": "Prädator",
+      "fish_district": "Fischviertel",
+      "client_name": "Kundenname",
+      "email": "Email",
+      "phone": "Telefon"
    },
    "allObservationReports": {
       "approvedObservations": "genehmigte Beobachtungen",

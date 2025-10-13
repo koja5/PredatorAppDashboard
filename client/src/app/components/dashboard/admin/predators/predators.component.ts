@@ -58,6 +58,7 @@ export class PredatorsComponent {
   }
 
   submit(event: any) {
+    this.data = null;
     if (event) {
       this.loader = true;
       this.noDataFound = false;
