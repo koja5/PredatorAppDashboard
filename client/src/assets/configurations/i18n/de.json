@@ -33,7 +33,8 @@
       "clearFilter": "Filter löschen",
       "visible": "Sichtbar",
       "hidden": "Versteckt",
-      "needToFillAllFields": "Alle mit * markierten Pflichtfelder müssen ausgefüllt werden"
+      "needToFillAllFields": "Alle mit * markierten Pflichtfelder müssen ausgefüllt werden",
+      "export": "Export"
    },
    "action": {
       "completeReport": "Meldung absenden",
