@@ -34,7 +34,7 @@ export class FormDataReportComponent {
   public mapData: any;
   public uploaded: any = [];
   public allItems = new DataPredatorsModel();
-  public isEditMode = false;
+  public editable = false;
   public gallery: any;
 
   constructor(
@@ -148,7 +148,7 @@ export class FormDataReportComponent {
     this.mapData = null;
     setTimeout(() => {
       this.mapData = this.data;
-    }, 10);
+    }, 20);
   }
 
   changeGalleryImage(event: any) {

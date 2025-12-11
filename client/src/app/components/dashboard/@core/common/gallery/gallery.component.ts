@@ -24,7 +24,7 @@ export class GalleryComponent implements OnInit {
   @Input() value: any;
   @Input() images: any;
   @Input() gallery: any[] = [];
-  @Input() editMode = true;
+  @Input() editable = true;
   @Output() changeEmit = new EventEmitter();
   galleryOptions: NgxGalleryOptions[] = [
     {
@@ -52,6 +52,7 @@ export class GalleryComponent implements OnInit {
   public isGalleryOpen = false;
   files: any[] = [];
   public imageFromCamera: any;
+  selectedItem: any = null;
 
   constructor() {}
 
@@ -65,29 +66,62 @@ export class GalleryComponent implements OnInit {
           this.packImagesToGallery(this.imageFromCamera);
           this.appendFormData();
         } else if (this.value.indexOf(";") != -1) {
-          const gallery = this.convertGalleryStringToGalleryArray();
-          for (let i = 0; i < gallery.length; i++) {
-            this.gallery.push(environment.GALLERY_STORAGE + gallery[i]);
-            this.galleryImages.push({
-              small: environment.GALLERY_STORAGE + gallery[i],
-              medium: environment.GALLERY_STORAGE + gallery[i],
-              big: environment.GALLERY_STORAGE + gallery[i],
-            });
-          }
+          this.packGallery();
         } else if (this.value.startsWith("blob:")) {
           this.gallery.push(this.value);
         } else if (this.value.startsWith("https://localhost")) {
           this.gallery.push(this.value);
         } else {
-          this.gallery.push(environment.GALLERY_STORAGE + this.value);
-          this.galleryImages.push({
-            small: environment.GALLERY_STORAGE + this.value,
-            medium: environment.GALLERY_STORAGE + this.value,
-            big: environment.GALLERY_STORAGE + this.value,
-          });
+          const file = environment.GALLERY_STORAGE + this.value;
+          this.pushToGallery(file);
         }
       }
     }
+  }
+
+  packGallery() {
+    this.gallery = [];
+    if (this.value) {
+      const items = this.value.split(";").filter(Boolean);
+      for (const fileName of items) {
+        const fileUrl = environment.GALLERY_STORAGE + fileName;
+        this.pushToGallery(fileUrl);
+      }
+    }
+  }
+
+  pushToGallery(file: any, extension?: string) {
+    const ext = extension ? extension : file.split(".").pop()?.toLowerCase();
+    if (
+      ["jpg", "jpeg", "png", "gif", "webp"].some((type) => ext.includes(type))
+    ) {
+      this.gallery.push({ type: "image", src: file });
+    } else if (
+      ["mp4", "mov", "avi", "mkv", "webm"].some((type) => ext.includes(type))
+    ) {
+      this.gallery.push({ type: "video", src: file });
+    }
+  }
+
+  openLightbox(item: any) {
+    this.selectedItem = item;
+  }
+
+  closeLightbox() {
+    this.selectedItem = null;
+  }
+
+  prevItem() {
+    if (!this.selectedItem) return;
+    const index = this.gallery.indexOf(this.selectedItem);
+    this.selectedItem =
+      this.gallery[(index - 1 + this.gallery.length) % this.gallery.length];
+  }
+
+  nextItem() {
+    if (!this.selectedItem) return;
+    const index = this.gallery.indexOf(this.selectedItem);
+    this.selectedItem = this.gallery[(index + 1) % this.gallery.length];
   }
 
   fileBrowseHandler(events: any) {
@@ -135,12 +169,14 @@ export class GalleryComponent implements OnInit {
   }
 
   packImagesToGallery(image: any) {
-    this.gallery.push(URL.createObjectURL(image));
-    this.galleryImages.push({
-      small: URL.createObjectURL(image),
-      medium: URL.createObjectURL(image),
-      big: URL.createObjectURL(image),
-    });
+    // this.gallery.push(URL.createObjectURL(image));
+    // this.galleryImages.push({
+    //   small: URL.createObjectURL(image),
+    //   medium: URL.createObjectURL(image),
+    //   big: URL.createObjectURL(image),
+    // });
+
+    this.pushToGallery(URL.createObjectURL(image), image.type);
   }
 
   checkIsImageInGallery(image: any) {

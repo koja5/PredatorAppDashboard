@@ -8,6 +8,7 @@ $green: #39d69c;
 .gallery {
   margin: 16px;
   display: flex;
+  // justify-content: center;
   border: 1px dotted lightgray;
   padding: 16px;
   border-radius: 10px;
@@ -18,6 +19,7 @@ $green: #39d69c;
   align-items: center;
   width: 70px;
   height: 70px;
+  // margin-right: 5px;
   border-radius: 10px;
   overflow: hidden;
 
@@ -42,24 +44,29 @@ $green: #39d69c;
   }
 }
 
+.add-new-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .add-more {
   border: 1px dotted lightgray;
   border-radius: 10px;
   text-align: center;
-  width: 70px;
-  margin-left: 10px;
-  margin-top: 10px;
+  width: 100px;
+  height: 100px;
 }
 
 .add-more img {
-  width: 30px;
+  width: 40px;
   padding-top: 10px;
   padding-bottom: 2px;
 }
 
 .add-more p {
   margin: 0px;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .wrapper {
@@ -70,10 +77,20 @@ $green: #39d69c;
   justify-content: center;
 
   .file-upload {
+    /* height: 200px; 
+    /* width: 200px; */
+    /* border-radius: 100px; */
     position: relative;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
+    /* border: 4px solid #ffffff; */
     overflow: hidden;
+    /* background-image: linear-gradient(to bottom, #2590eb 50%, #ffffff 50%); */
+    /* background-size: 100% 200%; */
+    /* transition: all 1s; */
+    /* color: #ffffff; */
+    /* font-size: 100px;*/
 
     input[type="file"] {
       height: 200px;
@@ -94,11 +111,90 @@ $green: #39d69c;
 }
 
 .remove-photo {
-  width: 22px !important;
+  width: 22px;
   position: absolute;
   text-align: end;
-  margin-left: 35px;
-  margin-bottom: 63px;
-  right: 15px;
-  top: 2px;
+  margin-left: -25px;
+  margin-top: 5px;
+}
+
+.gallery-item {
+  cursor: pointer;
+  transition: transform 0.2s;
+  max-height: 150px;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.item-gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-wrapper video {
+  border: 1px solid lightgray;
+}
+
+.video-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.video-wrapper .play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: white;
+  pointer-events: none;
+  text-shadow: 0 0 8px black;
+}
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 1050;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prev-btn {
+  left: 0;
+}
+
+.next-btn {
+  right: 0px;
+}
+
+.btn-close {
+  font-size: 2rem;
+  z-index: 10000;
+  background: none;
+  border: none;
+  right: 0;
+  color: #000;
+}
+
+.max-vh-90 {
+  max-height: 90vh;
 }
